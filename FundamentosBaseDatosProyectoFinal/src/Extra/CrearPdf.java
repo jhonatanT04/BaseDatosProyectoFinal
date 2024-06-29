@@ -56,7 +56,7 @@ public class CrearPdf {
             //g.setColor(Color.black);
             //g.drawString("PDF desde Java", 290, 150);
             
-            ImageIcon img1 = new ImageIcon(getClass().getResource("Extra/imagenes/logoSup.jpg"));
+            ImageIcon img1 = new ImageIcon(getClass().getResource("C:\\Users\\venot\\OneDrive\\Escritorio\\Todo\\Uni\\Ciclo4\\BaseDedatosModelos\\ProyectoFinal\\BaseDatosProyectoFinal\\FundamentosBaseDatosProyectoFinal\\src\\Extra\\imagenes/logoSup.jpg"));
             g.drawImage(img1.getImage(), 10, 0, 50, 50, null);
             
             Font font2 = new Font("Tahoma", Font.PLAIN, 15);
