@@ -37,7 +37,7 @@ import javax.swing.ImageIcon;
 public class CorreoFinal {
     
     private String username = "supermercadobasedatos@gmail.com";;
-    private String password = "ubor uasy tfzi okbf";
+    private String password = "";
     private String ruta = "src/Extra/imagen/Factura.pdf";
     
     
