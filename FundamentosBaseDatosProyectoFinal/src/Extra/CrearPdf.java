@@ -74,8 +74,8 @@ public class CrearPdf {
         }
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         CrearPdf pdfCreator = new CrearPdf();
         pdfCreator.factura();
-    }
+    }*/
 }
