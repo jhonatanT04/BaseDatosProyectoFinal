@@ -257,9 +257,15 @@ public class CorreoFinal {
         detalles.add(new DetalleFactura(101, 10, 4.01, 40.1, 4, 42.1, cab, pr));
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         
-        //pdfCreator.factura(cab, detalles, productos,"ania@gmail.com",new Timestamp(System.currentTimeMillis()),cli);
+        
         CorreoFinal c = new CorreoFinal();
+        //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         c.factura(cab, detalles, productos, cli);
+        
+        
+        
+        
+        
         /*
         String dateString = "12/31/2000";
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -282,12 +288,12 @@ public class CorreoFinal {
             // En una aplicación real, puedes almacenar este timestamp en una base de datos o un archivo
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
         String to = "venotacu@gmail.com";
         String subject = "Ania";
         String body = "Ania JIJJAJA Este es el cuerpo del mensaje.";
 
-        /* Archivo PDF adjunto
+         Archivo PDF adjunto
         String pdfFilePath = "src/Extra/imagen/Factura.pdf";
 
         CorreoFinal emailSender = new CorreoFinal();
