@@ -19,7 +19,7 @@ public class EnviarCorreo {
     public EnviarCorreo() {
         //this.username = "supermercadobasedatos@gmail.com";
         this.username = "supermercadobasedatos@gmail.com";
-        this.password = "ubor uasy tfzi okbf";
+        this.password = "";
         //this.password = "BaseDatos1";
     }
 
