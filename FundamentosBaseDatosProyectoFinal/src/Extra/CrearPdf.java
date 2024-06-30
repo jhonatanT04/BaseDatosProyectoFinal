@@ -43,11 +43,11 @@ public class CrearPdf {
             String imagePath = "C:/Users/venot/OneDrive/Escritorio/Todo/Uni/Ciclo4/BaseDedatosModelos/ProyectoFinal/BaseDatosProyectoFinal/FundamentosBaseDatosProyectoFinal/src/Extra/imagen/logoSup.jpg";
             ImageIcon img1 = new ImageIcon(imagePath);
             if (img1.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
+                
                 System.err.println("No se pudo cargar la imagen desde la ruta: " + imagePath);
             } else {
                 g.drawImage(img1.getImage(), 10, 0, 50, 50, null);
             }
-
             Font font2 = new Font("Tahoma", Font.PLAIN, 15);
             g.setFont(font2);
             g.setColor(Color.BLACK);
@@ -55,14 +55,14 @@ public class CrearPdf {
             g.drawString("del curso de GUI en Java", 210, 480);
             
             // Nueva página
-            document.newPage();
+            //document.newPage();
             
             // Dibujar formas en la segunda página
-            g.setColor(Color.GREEN);
-            g.drawLine(1, 1, 200, 200);
+            //g.setColor(Color.GREEN);
+            //g.drawLine(1, 1, 200, 200);
 
-            g.setColor(Color.BLUE);
-            g.drawRect(200, 200, 300, 300);
+            //g.setColor(Color.BLUE);
+            //g.drawRect(200, 200, 300, 300);
             
         } catch (DocumentException de) {
             System.err.println(de.getMessage());
