@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class CrearPdf {
-    public void factura(CabeceraFactura cabecera, List<DetalleFactura> detalles,List<Producto> productos ) {
+    
+    public void factura(CabeceraFactura cabecera, List<DetalleFactura> detalles,List<Producto> productos, String correoEmpresa,String clienteCorreo,Timestamp fecha ) {
         // step 1: creation of a document-object        
         Document document = new Document(PageSize.LETTER);
         
@@ -52,11 +53,28 @@ public class CrearPdf {
             } else {
                 g.drawImage(img1.getImage(), 10, 0, 50, 50, null);
             }
-            Font font2 = new Font("Arial", Font.BOLD, 14);
+            
+            //************************************************************************************************************
+            Font font2 = new Font("Arial", Font.ROMAN_BASELINE, 10);
             g.setFont(font2);
             
             g.setColor(Color.BLACK);
-            g.drawString("Numero de factura "+cabecera.getCodigo(),    70, 30);
+            g.drawString("Numero de factura ",    450, 30);
+            if (cabecera.getCodigo()<10000) {
+                g.drawString("N.º",    450, 45);
+                String num = String.valueOf(cabecera.getCodigo());
+                int var = 5-num.length();
+                for (int i = 0; i < var+1; i++) {
+                    if (i==var) {
+                        g.drawString(num,    465+(i*6), 45);
+                        break;
+                    }else{
+                        g.drawString("0",    465+(i*6), 45);
+                    }
+                }
+            }else{
+                g.drawString("N.º : "+cabecera.getCodigo(),    465, 45);
+            }
             
             font2 = new Font("Tahoma", Font.PLAIN, 15);
             g.setFont(font2);
@@ -91,7 +109,7 @@ public class CrearPdf {
         CrearPdf pdfCreator = new CrearPdf();
         Cliente cli = new Cliente(12, 's', 23, "0102", "Juan", "Perez", "La casa", "0999999999", "ania@gmail.com");
         Empleado emp = new Empleado(23, 'a', "Ania1234", 'a', 12, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
-        CabeceraFactura cab = new CabeceraFactura(12, new Timestamp(System.currentTimeMillis()), 12.2, 12.2, 12.2, 's', cli, emp);
+        CabeceraFactura cab = new CabeceraFactura(9, new Timestamp(System.currentTimeMillis()), 12.2, 12.2, 12.2, 's', cli, emp);
         List<DetalleFactura> detalles =  new ArrayList<>();
         List<Producto> productos = new ArrayList<>();
         Categoria cat = new Categoria(12,"ania");
@@ -102,7 +120,7 @@ public class CrearPdf {
         productos.add(pr);
         detalles.add(new DetalleFactura(99, 5, 12, 8, 0.03, 2, cab, pr));
         
-        pdfCreator.factura(cab, detalles, productos);
+        pdfCreator.factura(cab, detalles, productos,"ania@gmail.com","ania2@gmail.com",new Timestamp(System.currentTimeMillis()));
         
         /*
         String dateString = "12/31/2000";
