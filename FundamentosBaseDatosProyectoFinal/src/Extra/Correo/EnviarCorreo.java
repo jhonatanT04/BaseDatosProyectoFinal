@@ -19,7 +19,7 @@ public class EnviarCorreo {
     public EnviarCorreo() {
         //this.username = "supermercadobasedatos@gmail.com";
         this.username = "supermercadobasedatos@gmail.com";
-        this.password = "";
+        this.password = "ubor uasy tfzi okbf";
         //this.password = "BaseDatos1";
     }
 
@@ -81,9 +81,7 @@ public class EnviarCorreo {
     }
 
     public static void main(String[] args) {
-        // Ejemplo de uso
         
-        // Información del mensaje
         String to = "venotacu@gmail.com";
         String subject = "Ania";
         String body = "Ania JIJJAJA Este es el cuerpo del mensaje.";

@@ -18,7 +18,7 @@ import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
-import java.text.AttributedCharacterIterator;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class CrearPdf {
                         
             Font font1 = new Font("Tahoma", Font.BOLD | Font.ITALIC, 10);
             g.setFont(font1);
-
+            
             g.setColor(new Color(2, 175, 195));
             g.drawString("Supermercado",    70, 30);
             
@@ -95,7 +95,7 @@ public class CrearPdf {
             
             g.setColor(Color.BLACK); 
             g.drawLine(20, 170, 500, 170);
-            
+             g.drawString("Datos Cliente",    20, 167);
             g.drawString(cliente.getApellido()+", "+cliente.getNombre(),    20, 180);
             g.drawString("CEDULA "+cliente.getCedula(),    20, 190);
             g.drawString(cliente.getCorreo(),    20, 200);
@@ -164,15 +164,21 @@ public class CrearPdf {
         Cliente cli = new Cliente(12, 's', 23, "0102", "Juan", "Perez", "La casa", "0999999999", "ania2@gmail.com");
         Empleado emp = new Empleado(23, 'a', "Ania1234", 'a', 12, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
         CabeceraFactura cab = new CabeceraFactura(9, new Timestamp(System.currentTimeMillis()), 12.2, 2.2, 14.4, 's', cli, emp);
+        
+        Categoria cat = new Categoria(12,"ania");
         List<DetalleFactura> detalles =  new ArrayList<>();
         List<Producto> productos = new ArrayList<>();
-        Categoria cat = new Categoria(12,"ania");
-        Producto pr = new Producto(2,"Arroz", 12.3, 23, 0.12, 'a', cat);
+        
+        
+        Producto pr = new Producto(19,"Arroz", 5.66, 3, 0.68, 'a', cat);
         productos.add(pr);
-        detalles.add(new DetalleFactura(12, 2, 3, 9, 0.12, 99, cab, pr));
-        pr = new Producto(3,"Pollo", 99.3, 23, 32, 'b', cat);
+        detalles.add(new DetalleFactura(41, 2, 5.66, 11.22, 1.16, 12.38, cab, pr));
+        pr = new Producto(3,"Pollo", 3, 4, 0.3, 'b', cat);
         productos.add(pr);
-        detalles.add(new DetalleFactura(99, 5, 12, 8, 0.03, 2, cab, pr));
+        detalles.add(new DetalleFactura(99, 1, 3, 3, 0.3, 3.03, cab, pr));
+        pr = new Producto(82,"Carne", 4.01, 23, 0.4, 'b', cat);
+        productos.add(pr);
+        detalles.add(new DetalleFactura(101, 10, 4.01, 40.1, 4, 42.1, cab, pr));
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         pdfCreator.factura(cab, detalles, productos,"ania@gmail.com",new Timestamp(System.currentTimeMillis()),cli);
         
