@@ -38,7 +38,7 @@ public class CorreoFinal {
     
     private String username = "supermercadobasedatos@gmail.com";;
     private String password = "";
-    private String ruta = "src/Extra/imagen/Factura.pdf";
+    private String ruta = "src/Extra/CorreoFinal/Factura.pdf";
     
     
     public void sendEmail(String to, String subject, String body) {
@@ -106,7 +106,7 @@ public class CorreoFinal {
         
         try {
             
-            PdfWriter writer = PdfWriter.getInstance(document,new FileOutputStream("src/Extra/imagen/Factura.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document,new FileOutputStream(ruta));
             
             document.open();
             
