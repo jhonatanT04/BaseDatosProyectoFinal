@@ -17,10 +17,10 @@ public class EnviarCorreo {
     private String password;
 
     public EnviarCorreo() {
-        //this.username = "supermercadobasedatos@gmail.com";
+        
         this.username = "supermercadobasedatos@gmail.com";
         this.password = "ubor uasy tfzi okbf";
-        //this.password = "BaseDatos1";
+        
     }
 
     public void sendEmail(String to, String subject, String body, String pdfFilePath) {
@@ -36,7 +36,7 @@ public class EnviarCorreo {
         //2525
         props.put("mail.smtp.port", "587");*/
 
-        // Crear la sesión con autenticación
+        
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
@@ -44,21 +44,21 @@ public class EnviarCorreo {
         });
 
         try {
-            // Crear el mensaje de correo
+            
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
 
-            // Crear el cuerpo del mensaje
+            
             MimeBodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(body);
 
-            // Crear el multipart y añadir el cuerpo del mensaje
+            
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
 
-            // Añadir el archivo PDF adjunto
+            
             MimeBodyPart attachPart = new MimeBodyPart();
             try {
                 attachPart.attachFile(pdfFilePath);
@@ -67,10 +67,10 @@ public class EnviarCorreo {
             }
             multipart.addBodyPart(attachPart);
 
-            // Establecer el contenido del mensaje
+            
             message.setContent(multipart);
 
-            // Enviar el correo
+            
             Transport.send(message);
 
             System.out.println("Correo enviado con éxito.");
