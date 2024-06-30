@@ -1,5 +1,11 @@
 package Extra.imagen;
 
+import Modelo.Factura.CabeceraFactura;
+import Modelo.Factura.DetalleFactura;
+import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Empleado;
+import Modelo.Producto.Categoria;
+import Modelo.Producto.Producto;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
@@ -8,6 +14,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.ParseException;
@@ -16,13 +23,15 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 public class CrearPdf {
-    public void factura() {
+    public void factura(CabeceraFactura cabecera, List<DetalleFactura> detalles,List<Producto> productos ) {
         // step 1: creation of a document-object        
         Document document = new Document(PageSize.LETTER);
-
+        
         try {
             
             PdfWriter writer = PdfWriter.getInstance(document,new FileOutputStream("src/Extra/imagen/Factura.pdf"));
@@ -44,12 +53,17 @@ public class CrearPdf {
             String imagePath = "src/Extra/imagen/logoSup.jpg";
             ImageIcon img1 = new ImageIcon(imagePath);
             if (img1.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
-                
                 System.err.println("No se pudo cargar la imagen desde la ruta: " + imagePath);
             } else {
                 g.drawImage(img1.getImage(), 10, 0, 50, 50, null);
             }
-            Font font2 = new Font("Tahoma", Font.PLAIN, 15);
+            Font font2 = new Font("Arial", Font.BOLD, 14);
+            g.setFont(font2);
+            
+            g.setColor(Color.BLACK);
+            g.drawString("Numero de factura "+cabecera.getCodigo(),    70, 30);
+            
+            font2 = new Font("Tahoma", Font.PLAIN, 15);
             g.setFont(font2);
             g.setColor(Color.BLACK);
             g.drawString("Escanea el código QR para visitar la lista de reproducción de YouTube", 60, 460);
@@ -78,8 +92,23 @@ public class CrearPdf {
     }
 
     public static void main(String[] args) {
+        
         CrearPdf pdfCreator = new CrearPdf();
-        pdfCreator.factura();
+        Cliente cli = new Cliente(12, 's', 23, "0102", "Juan", "Perez", "La casa", "0999999999", "ania@gmail.com");
+        Empleado emp = new Empleado(23, 'a', "Ania1234", 'a', 12, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
+        CabeceraFactura cab = new CabeceraFactura(12, new Timestamp(System.currentTimeMillis()), 12.2, 12.2, 12.2, 's', cli, emp);
+        List<DetalleFactura> detalles =  new ArrayList<>();
+        List<Producto> productos = new ArrayList<>();
+        Categoria cat = new Categoria(12,"ania");
+        Producto pr = new Producto(2,"Arroz", 12.3, 23, 0.12, 'a', cat);
+        productos.add(pr);
+        detalles.add(new DetalleFactura(12, 2, 3, 9, 0.12, 99, cab, pr));
+        pr = new Producto(3,"Pollo", 99.3, 23, 32, 'b', cat);
+        productos.add(pr);
+        detalles.add(new DetalleFactura(99, 5, 12, 8, 0.03, 2, cab, pr));
+        
+        pdfCreator.factura(cab, detalles, productos);
+        
         /*
         String dateString = "12/31/2000";
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
