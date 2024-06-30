@@ -17,11 +17,6 @@ import java.awt.Graphics;
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
