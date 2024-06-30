@@ -1,4 +1,4 @@
-package Ext;
+package Extra;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -10,6 +10,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import javax.swing.ImageIcon;
 
 public class CrearPdf {
@@ -40,7 +46,7 @@ public class CrearPdf {
             g.drawString("Supermercado", 70, 30);
             
             // Carga la imagen usando la ruta absoluta
-            String imagePath = "C:/Users/venot/OneDrive/Escritorio/Todo/Uni/Ciclo4/BaseDedatosModelos/ProyectoFinal/BaseDatosProyectoFinal/FundamentosBaseDatosProyectoFinal/src/Ext/imagen/logoSup.jpg";
+            String imagePath = "src/Extra/imagen/logoSup.jpg";
             ImageIcon img1 = new ImageIcon(imagePath);
             if (img1.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
                 
@@ -74,8 +80,31 @@ public class CrearPdf {
         }
     }
 
-    /*public static void main(String[] args) {
-        CrearPdf pdfCreator = new CrearPdf();
+    public static void main(String[] args) {
+        /*CrearPdf pdfCreator = new CrearPdf();
         pdfCreator.factura();
-    }*/
+        
+        String dateString = "12/31/2000";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        try {
+            // Convertir la cadena a un objeto Date
+            java.util.Date parsedDate = dateFormat.parse(dateString);
+
+            // Convertir el objeto Date a un Timestamp
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+
+            // Mostrar el Timestamp
+            System.out.println("Timestamp: " + timestamp);
+
+            // Formatear el Timestamp de vuelta a una cadena si es necesario
+            String formattedDate = dateFormat.format(timestamp);
+            System.out.println("Fecha formateada: " + formattedDate);
+
+            // Guardar el Timestamp en el formato deseado (en este caso, sólo se muestra en consola)
+            // En una aplicación real, puedes almacenar este timestamp en una base de datos o un archivo
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+    }
 }
