@@ -1,4 +1,4 @@
-package Extra;
+package Ext;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -40,7 +40,7 @@ public class CrearPdf {
             g.drawString("Supermercado", 70, 30);
             
             // Carga la imagen usando la ruta absoluta
-            String imagePath = "C:/Users/venot/OneDrive/Escritorio/Todo/Uni/Ciclo4/BaseDedatosModelos/ProyectoFinal/BaseDatosProyectoFinal/FundamentosBaseDatosProyectoFinal/src/Extra/imagen/logoSup.jpg";
+            String imagePath = "C:/Users/venot/OneDrive/Escritorio/Todo/Uni/Ciclo4/BaseDedatosModelos/ProyectoFinal/BaseDatosProyectoFinal/FundamentosBaseDatosProyectoFinal/src/Ext/imagen/logoSup.jpg";
             ImageIcon img1 = new ImageIcon(imagePath);
             if (img1.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
                 
