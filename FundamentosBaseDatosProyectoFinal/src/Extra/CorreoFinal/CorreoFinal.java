@@ -4,7 +4,6 @@
  */
 package Extra.CorreoFinal;
 
-import Extra.imagen.CrearPdf;
 import Modelo.Factura.CabeceraFactura;
 import Modelo.Factura.DetalleFactura;
 import Modelo.Personas.Persona.Cliente;
