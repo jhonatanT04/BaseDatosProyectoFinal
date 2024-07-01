@@ -21,6 +21,7 @@ public class EnviarCorreo {
         this.username = "supermercadobasedatos@gmail.com";
         this.password = "ubor uasy tfzi okbf";
         
+        
     }
 
     public void sendEmail(String to, String subject, String body, String pdfFilePath) {
