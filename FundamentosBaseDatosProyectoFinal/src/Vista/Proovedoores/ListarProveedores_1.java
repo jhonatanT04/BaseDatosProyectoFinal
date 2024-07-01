@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package ec.edu.ups.Vista.Proovedoores;
+package Vista.Proovedoores;
 
 /**
  *
  * @author Usuario
  */
-public class ListarProveedores extends javax.swing.JInternalFrame {
+public class ListarProveedores_1 extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ListarProveedores
      */
-    public ListarProveedores() {
+    public ListarProveedores_1() {
         initComponents();
     }
 
