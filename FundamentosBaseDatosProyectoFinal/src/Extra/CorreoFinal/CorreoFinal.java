@@ -107,6 +107,7 @@ public class CorreoFinal {
             
             PdfWriter writer = PdfWriter.getInstance(document,new FileOutputStream(ruta));
             
+            
             document.open();
             
             PdfContentByte cb = writer.getDirectContent();
