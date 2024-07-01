@@ -99,7 +99,6 @@ public class CorreoFinal {
     }
     
     
-    
     public void factura(CabeceraFactura cabecera, List<DetalleFactura> detalles,List<Producto> productos, Cliente cliente) {
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MISMO ORDEN
         Document document = new Document(PageSize.LETTER);
