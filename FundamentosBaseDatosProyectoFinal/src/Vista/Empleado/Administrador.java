@@ -38,11 +38,24 @@ public class Administrador extends javax.swing.JFrame {
         copyMenuItem = new javax.swing.JMenuItem();
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,20 +63,24 @@ public class Administrador extends javax.swing.JFrame {
         fileMenu.setText("Productos");
 
         openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Open");
+        openMenuItem.setText("Ingresar");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Save");
+        saveMenuItem.setText("Buscar");
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Save As ...");
-        saveAsMenuItem.setDisplayedMnemonicIndex(5);
+        saveAsMenuItem.setText("Eliminar");
         fileMenu.add(saveAsMenuItem);
 
         exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Exit");
+        exitMenuItem.setText("Listar");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitMenuItemActionPerformed(evt);
@@ -77,20 +94,26 @@ public class Administrador extends javax.swing.JFrame {
         editMenu.setText("Proveedores");
 
         cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
+        cutMenuItem.setText("Crear Proveedor");
         editMenu.add(cutMenuItem);
 
         copyMenuItem.setMnemonic('y');
-        copyMenuItem.setText("Copy");
+        copyMenuItem.setText("Buscar Proveedor");
         editMenu.add(copyMenuItem);
 
         pasteMenuItem.setMnemonic('p');
-        pasteMenuItem.setText("Paste");
+        pasteMenuItem.setText("Eliminar Proveedor");
         editMenu.add(pasteMenuItem);
 
         deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Delete");
+        deleteMenuItem.setText("Listar Proveedor");
         editMenu.add(deleteMenuItem);
+
+        jMenuItem1.setText("Compra Proveedor");
+        editMenu.add(jMenuItem1);
+
+        jMenuItem2.setText("Buscar Compra Proveedor");
+        editMenu.add(jMenuItem2);
 
         menuBar.add(editMenu);
 
@@ -98,19 +121,54 @@ public class Administrador extends javax.swing.JFrame {
         helpMenu.setText("Clientes");
 
         contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
+        contentMenuItem.setText("Nuevo Cliente");
         helpMenu.add(contentMenuItem);
 
         aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
+        aboutMenuItem.setText("Buscar Cliente");
         helpMenu.add(aboutMenuItem);
+
+        jMenuItem3.setText("Actualziar Cliente");
+        helpMenu.add(jMenuItem3);
+
+        jMenuItem4.setText("Eliminar Cliente");
+        helpMenu.add(jMenuItem4);
+
+        jMenuItem5.setText("Listar Cliente");
+        helpMenu.add(jMenuItem5);
 
         menuBar.add(helpMenu);
 
         jMenu1.setText("Empleados");
+
+        jMenuItem6.setText("Crear Empleado");
+        jMenu1.add(jMenuItem6);
+
+        jMenuItem7.setText("Buscar Empleado");
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem8.setText("Actualizar Empleado");
+        jMenu1.add(jMenuItem8);
+
+        jMenuItem9.setText("Eliminar Empleado");
+        jMenu1.add(jMenuItem9);
+
+        jMenuItem10.setText("Listar Empleado");
+        jMenu1.add(jMenuItem10);
+
         menuBar.add(jMenu1);
 
         jMenu2.setText("Facturas");
+
+        jMenuItem11.setText("Crear Factura");
+        jMenu2.add(jMenuItem11);
+
+        jMenuItem12.setText("Buscar Factura");
+        jMenu2.add(jMenuItem12);
+
+        jMenuItem13.setText("Anular Factura");
+        jMenu2.add(jMenuItem13);
+
         menuBar.add(jMenu2);
 
         setJMenuBar(menuBar);
@@ -132,6 +190,10 @@ public class Administrador extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +243,19 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
