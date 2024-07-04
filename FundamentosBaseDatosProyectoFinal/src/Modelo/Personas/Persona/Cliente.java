@@ -17,6 +17,22 @@ public class Cliente extends Persona{
         this.ClienteCodigo = ClienteCodigo;
         this.visualizacion = visualizacion;
     }
+
+    public int getClienteCodigo() {
+        return ClienteCodigo;
+    }
+
+    public void setClienteCodigo(int ClienteCodigo) {
+        this.ClienteCodigo = ClienteCodigo;
+    }
+
+    public char getVisualizacion() {
+        return visualizacion;
+    }
+
+    public void setVisualizacion(char visualizacion) {
+        this.visualizacion = visualizacion;
+    }
     
     
     

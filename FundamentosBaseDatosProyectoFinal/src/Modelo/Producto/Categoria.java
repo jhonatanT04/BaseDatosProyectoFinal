@@ -17,8 +17,6 @@ public class Categoria {
         this.nombre = nombre;
     }
     
-    
-    
     public int getCodigo() {
         return codigo;
     }

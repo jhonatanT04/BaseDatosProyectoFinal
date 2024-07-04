@@ -15,11 +15,12 @@ import java.util.Date;
 public class CompraProveedor {
     private Proveedor proveedor;
     private Producto producto;
+    
     private int codigo;
     private Timestamp fecha;
     private double valorTotal;
     private int cantidad;
-
+    
     public CompraProveedor(Proveedor proveedor, Producto producto, int codigo, Timestamp fecha, double valorTotal, int cantidad) {
         this.proveedor = proveedor;
         this.producto = producto;

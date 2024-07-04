@@ -7,7 +7,6 @@ package Modelo.Factura;
 import Modelo.Personas.Persona.Cliente;
 import Modelo.Personas.Persona.Empleado;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  *

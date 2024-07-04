@@ -19,7 +19,7 @@ public class DetalleFactura {
     private double total;
     private CabeceraFactura cabeceraFactura;
     private Producto producto;
-
+    
     public DetalleFactura(int codigo, int cantidad, double precioUnitario, double subTotal, double iva, double total, CabeceraFactura cabeceraFactura, Producto producto) {
         this.codigo = codigo;
         this.cantidad = cantidad;

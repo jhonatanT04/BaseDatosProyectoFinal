@@ -15,7 +15,6 @@ public class Producto {
     private int stock;
     private double iva;
     private char visualizacion;
-    
     private Categoria categoria;
 
     public Producto(int codigo, String nombre, double precio, int stock, double iva, char visualizacion, Categoria categoria) {
