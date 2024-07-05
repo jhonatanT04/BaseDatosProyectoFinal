@@ -4,6 +4,7 @@
  */
 package Extra.CorreoFinal;
 
+import DAO.Conexion;
 import Modelo.Factura.CabeceraFactura;
 import Modelo.Factura.DetalleFactura;
 import Modelo.Personas.Persona.Cliente;
@@ -238,6 +239,8 @@ public class CorreoFinal {
     public static void main(String[] args) {
         
         //CrearPdf pdfCreator = new CrearPdf();
+        
+        /*
         Cliente cli = new Cliente(12, 's', 23, "0102", "Juan", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
         Empleado emp = new Empleado(23, 'a', "Ania1234", 'a', 12, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
         CabeceraFactura cab = new CabeceraFactura(9, new Timestamp(System.currentTimeMillis()), 12.2, 2.2, 14.4, 's', cli, emp);
@@ -261,7 +264,10 @@ public class CorreoFinal {
         
         CorreoFinal c = new CorreoFinal();
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
-        c.factura(cab, detalles, productos, cli);
+        c.factura(cab, detalles, productos, cli);*/
+        Conexion as = new Conexion();
+        as.conectar();
+        
         
         
         
