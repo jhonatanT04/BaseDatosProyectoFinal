@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author RICHARD
+ * @author venot
  */
 public class Conexion {
     
