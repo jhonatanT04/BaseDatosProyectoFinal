@@ -22,37 +22,40 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
     
-    private static String user = "Supermercado"; 
-    private static String password = "super_123"; 
-    private static String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static String driver = "oracle.jdbc.driver.OracleDriver";
-    
-    private Connection conn;
-    
-    public Conexion (){
-        this.conn = null;
+
+
+    private final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private final String URL = "jdbc:oracle:thin:@//localhost:1521/XE";
+    private final String USER = "SUPERMERCADO";
+    private final String PASWORD = "super_123";
+
+    public Connection cadena;
+
+    public Conexion() {
+         this.cadena = null;
     }
-    
+
     public Connection conectar() {
         try {
-            Class.forName(driver);
-            this.conn = DriverManager.getConnection(url, user, password);
+            Class.forName(DRIVER);
+            this.cadena = DriverManager.getConnection(URL, USER, PASWORD);
 
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-           //System.out.println("No Conectado");
             System.exit(0);
         }
-        return this.conn;
+        return this.cadena;
 
     }
 
     public void desconectar() {
         try {
-            this.conn.close();
+            this.cadena.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
+
     
 }

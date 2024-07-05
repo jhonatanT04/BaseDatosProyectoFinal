@@ -267,6 +267,7 @@ public class CorreoFinal {
         c.factura(cab, detalles, productos, cli);*/
         Conexion as = new Conexion();
         as.conectar();
+        as.desconectar();
         
         
         
