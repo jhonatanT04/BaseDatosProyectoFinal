@@ -59,6 +59,7 @@ public class DAOCliente {
                 pstmt.setString(1, cedula);
                 ResultSet rs = pstmt.executeQuery();
             
+                
                     if (rs.next()) {
                         System.out.println("Cliente encontrado:");
                         System.out.println("Código: " + rs.getInt("cli_codigo"));
