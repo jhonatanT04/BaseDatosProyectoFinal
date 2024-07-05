@@ -5,6 +5,7 @@
 package Extra.CorreoFinal;
 
 import DAO.Conexion;
+import DAO.DAOCliente;
 import Modelo.Factura.CabeceraFactura;
 import Modelo.Factura.DetalleFactura;
 import Modelo.Personas.Persona.Cliente;
@@ -265,8 +266,13 @@ public class CorreoFinal {
         CorreoFinal c = new CorreoFinal();
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         c.factura(cab, detalles, productos, cli);*/
+        Cliente cli = new Cliente(12, 's', 23, "0102", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
         Conexion as = new Conexion();
         as.conectar();
+        DAOCliente daoCliente = new DAOCliente();
+        daoCliente.buscaCliente("0102");
+        
+        
         //as.desconectar();
         
         

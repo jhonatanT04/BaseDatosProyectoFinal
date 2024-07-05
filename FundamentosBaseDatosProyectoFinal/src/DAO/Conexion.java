@@ -45,6 +45,7 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, "ERROR "+e.getMessage());
             System.exit(0);
         }
+        
         return this.cadena;
 
     }
