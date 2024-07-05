@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -26,7 +27,7 @@ public class Conexion {
 
     private final String DRIVER = "oracle.jdbc.driver.OracleDriver";
     private final String URL = "jdbc:oracle:thin:@//localhost:1521/XE";
-    private final String USER = "SUPERMERCADO";
+    private final String USER = "supermercado";
     private final String PASWORD = "super_123";
 
     public Connection cadena;
@@ -39,9 +40,9 @@ public class Conexion {
         try {
             Class.forName(DRIVER);
             this.cadena = DriverManager.getConnection(URL, USER, PASWORD);
-
+            
         } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR "+e.getMessage());
             System.exit(0);
         }
         return this.cadena;
