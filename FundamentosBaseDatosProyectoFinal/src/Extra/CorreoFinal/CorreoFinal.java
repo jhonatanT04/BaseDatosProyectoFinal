@@ -6,6 +6,7 @@ package Extra.CorreoFinal;
 
 import DAO.Conexion;
 import DAO.DAOCliente;
+import DAO.DAOEmpleado;
 import Modelo.Factura.CabeceraFactura;
 import Modelo.Factura.DetalleFactura;
 import Modelo.Personas.Persona.Cliente;
@@ -269,12 +270,15 @@ public class CorreoFinal {
         c.factura(cab, detalles, productos, cli);*/
         //Cliente cli = new Cliente(0, 's', 23, "0103", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
         
-        DAOCliente daoCliente = new DAOCliente();
+        //DAOCliente daoCliente = new DAOCliente();
         //daoCliente.insertarCliente(cli);
-        Cliente cli=daoCliente.buscarClientePorCedula("0103");
+        //Cliente cli=daoCliente.buscarClientePorCedula("0103");
         
         
-        //as.desconectar();
+        DAOEmpleado daoEmpleado = new DAOEmpleado();
+        //Empleado emp = new Empleado(0, 'a', "Ania1234", 'a', 0, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
+        //daoEmpleado.insertarEmpleado(emp);
+        daoEmpleado.buscarClientePorCedula("0101");
         
         
         /*

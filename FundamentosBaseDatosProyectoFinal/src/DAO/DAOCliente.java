@@ -58,13 +58,13 @@ public class DAOCliente {
                 String telefono = rsPersona.getString("per_telefono");
                 String correo = rsPersona.getString("per_correo_electronico");
 
-                System.out.println("Persona encontrada:");
+                /*System.out.println("Persona encontrada:");
                 System.out.println("Cédula: " + cedula);
                 System.out.println("Nombre: " + nombre);
                 System.out.println("Apellido: " + apellido);
                 System.out.println("Dirección: " + direccion);
                 System.out.println("Teléfono: " + telefono);
-                System.out.println("Correo electrónico: " + correo);
+                System.out.println("Correo electrónico: " + correo);*/
 
                 try (PreparedStatement psCliente = conn.prepareStatement(clienteSQL)) {
                     psCliente.setInt(1, perCodigo);
