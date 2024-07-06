@@ -183,7 +183,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                 Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
                 if (cli==null) {
                     controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
-                    
+                    if (this.validarCampos()==true) {
+                        
+                    }else{
+                        JOptionPane.showConfirmDialog(rootPane, "Se deben llenar Todos los campos");
+                    }
                 }else{
                     JOptionPane.showConfirmDialog(rootPane, "El cliente con cedula "+cli.getCedula()+" ya existe y se llama "+cli.getNombre() +cli.getApellido());
                 }
@@ -197,8 +201,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
     
     private boolean validarCampos(){
         if (txtApellido.getText().trim().isEmpty()||txtNombre.getText().trim().isEmpty()||txtDireccion.getText().trim().isEmpty()||txtTelefono.getText().trim().isEmpty()||txtCorreo.getText().trim().isEmpty()) {
-                        
+            return false;
+        }else{
+            return true;
         }
+        
     }
     
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
