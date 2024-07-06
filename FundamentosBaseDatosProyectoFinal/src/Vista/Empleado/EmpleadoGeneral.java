@@ -5,7 +5,7 @@
 package ec.edu.ups.Vista.Empleado;
 
 import ec.edu.ups.Vista.Cliente.ActualizarDatos;
-import ec.edu.ups.Vista.Cliente.NuevoCliente;
+import Vista.Cliente.NuevoCliente;
 
 
 /**

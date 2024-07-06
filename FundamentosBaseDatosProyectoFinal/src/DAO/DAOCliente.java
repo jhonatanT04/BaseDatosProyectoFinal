@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  */
 public class DAOCliente {
     
-    public void insertarCliente(Cliente cliente) throws SQLException {
+    public boolean insertarCliente(Cliente cliente) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
         String insertPersonaSQL = "INSERT INTO super_personas (per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico) VALUES (seq_super_personas.NEXTVAL, ?, ?, ?, ?, ?, ?)";
@@ -38,6 +38,7 @@ public class DAOCliente {
 
             psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
             psCliente.executeUpdate();
+            return true;
         }
     }
     

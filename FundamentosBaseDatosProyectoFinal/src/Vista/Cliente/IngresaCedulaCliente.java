@@ -1,8 +1,10 @@
+package Vista.Cliente;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package ec.edu.ups.Vista.Cliente;
+//package ec.edu.ups.Vista.Cliente;
 
 /**
  *
@@ -33,6 +35,12 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
 
         jLabel1.setText("Cedula del Empleado:");
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Buscar");
 
@@ -88,6 +96,10 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -46,6 +46,12 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Correo Electronico:");
 
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
+
         txtNombre.setEditable(false);
 
         txtApellido.setEditable(false);
@@ -182,6 +188,10 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

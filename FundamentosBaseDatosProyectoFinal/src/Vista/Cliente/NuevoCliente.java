@@ -2,19 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package ec.edu.ups.Vista.Cliente;
+package Vista.Cliente;
+
+import Controlador.ControladorCliente;
+import Modelo.Personas.Persona.Cliente;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
 public class NuevoCliente extends javax.swing.JInternalFrame {
-
+    private ControladorCliente controladorCliente;
     /**
      * Creates new form NuevoCliente
      */
     public NuevoCliente() {
         initComponents();
+        controladorCliente = new ControladorCliente();
     }
 
     /**
@@ -37,23 +45,29 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        btnIngresar = new javax.swing.JButton();
+        btnIngresarCliente = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bntCancelar = new javax.swing.JButton();
 
         jLabel7.setText("Telefono:");
 
         jLabel8.setText("Correo Electronico:");
 
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
+
         jLabel9.setText("Cedula:");
 
         jLabel10.setText("Nombres:");
 
-        btnIngresar.setText("Crear CLiente");
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresarCliente.setText("Crear CLiente");
+        btnIngresarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
+                btnIngresarClienteActionPerformed(evt);
             }
         });
 
@@ -61,7 +75,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Direccion:");
 
-        jButton1.setText("Cancelar");
+        bntCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,9 +83,9 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnIngresar)
+                .addComponent(btnIngresarCliente)
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(bntCancelar)
                 .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(151, 151, 151)
@@ -134,8 +148,8 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnIngresar)
-                    .addComponent(jButton1))
+                    .addComponent(btnIngresarCliente)
+                    .addComponent(bntCancelar))
                 .addGap(22, 22, 22))
         );
 
@@ -159,14 +173,36 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+    private void btnIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarClienteActionPerformed
+        try {
+            // TODO add your handling code here:
+            //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
+            if (txtCedula.getText().length()<10||txtCedula.getText().length()>10) {
+                JOptionPane.showConfirmDialog(rootPane, "El numero de cedula debe de ser de 10 digitos");
+            }else{
+                Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
+                if (cli==null) {
+                    controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
+                }else{
+                    JOptionPane.showConfirmDialog(rootPane, "El cliente con cedula "+cli.getCedula()+" ya existe y se llama "+cli.getNombre() +cli.getApellido());
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnIngresarClienteActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnIngresarActionPerformed
+        //ania
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bntCancelar;
+    private javax.swing.JButton btnIngresarCliente;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
