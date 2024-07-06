@@ -160,7 +160,7 @@ public class CrearPdf {
 
     public static void main(String[] args) {
         
-        CrearPdf pdfCreator = new CrearPdf();
+        /*CrearPdf pdfCreator = new CrearPdf();
         Cliente cli = new Cliente(12, 's', 23, "0102", "Juan", "Perez", "La casa", "0999999999", "ania2@gmail.com");
         Empleado emp = new Empleado(23, 'a', "Ania1234", 'a', 12, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
         CabeceraFactura cab = new CabeceraFactura(9, new Timestamp(System.currentTimeMillis()), 12.2, 2.2, 14.4, 's', cli, emp);
@@ -181,6 +181,11 @@ public class CrearPdf {
         detalles.add(new DetalleFactura(101, 10, 4.01, 40.1, 4, 42.1, cab, pr));
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         pdfCreator.factura(cab, detalles, productos,"ania@gmail.com",new Timestamp(System.currentTimeMillis()),cli);
+        */
+        
+        
+        
+        
         
         /*
         String dateString = "12/31/2000";
