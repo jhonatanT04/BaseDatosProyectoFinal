@@ -21,7 +21,7 @@ public class CabeceraFactura {
     private char estado;
     private int codigoCliente;
     private int codigoEmpleado;
-
+    
     public CabeceraFactura(int codigo, Timestamp fecha, double subTotal, double totalIVA, double valorTotal, char estado, int codigoCliente, int codigoEmpleado) {
         this.codigo = codigo;
         this.fecha = fecha;
