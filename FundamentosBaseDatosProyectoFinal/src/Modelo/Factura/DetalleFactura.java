@@ -17,18 +17,18 @@ public class DetalleFactura {
     private double subTotal;
     private double iva;
     private double total;
-    private CabeceraFactura cabeceraFactura;
-    private Producto producto;
-    
-    public DetalleFactura(int codigo, int cantidad, double precioUnitario, double subTotal, double iva, double total, CabeceraFactura cabeceraFactura, Producto producto) {
+    private int codigoCabeceraFactura;
+    private int codigoProducto;
+
+    public DetalleFactura(int codigo, int cantidad, double precioUnitario, double subTotal, double iva, double total, int codigoCabeceraFactura, int codigoProducto) {
         this.codigo = codigo;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subTotal = subTotal;
         this.iva = iva;
         this.total = total;
-        this.cabeceraFactura = cabeceraFactura;
-        this.producto = producto;
+        this.codigoCabeceraFactura = codigoCabeceraFactura;
+        this.codigoProducto = codigoProducto;
     }
 
     public int getCodigo() {
@@ -79,21 +79,22 @@ public class DetalleFactura {
         this.total = total;
     }
 
-    public CabeceraFactura getCabeceraFactura() {
-        return cabeceraFactura;
+    public int getCodigoCabeceraFactura() {
+        return codigoCabeceraFactura;
     }
 
-    public void setCabeceraFactura(CabeceraFactura cabeceraFactura) {
-        this.cabeceraFactura = cabeceraFactura;
+    public void setCodigoCabeceraFactura(int codigoCabeceraFactura) {
+        this.codigoCabeceraFactura = codigoCabeceraFactura;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public int getCodigoProducto() {
+        return codigoProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setCodigoProducto(int codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
+    
     
     
 }

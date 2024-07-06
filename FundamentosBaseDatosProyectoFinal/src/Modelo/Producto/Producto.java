@@ -15,9 +15,9 @@ public class Producto {
     private int stock;
     private double iva;
     private char visualizacion;
-    private Categoria categoria;
+    private int categoria;
 
-    public Producto(int codigo, String nombre, double precio, int stock, double iva, char visualizacion, Categoria categoria) {
+    public Producto(int codigo, String nombre, double precio, int stock, double iva, char visualizacion, int categoria) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
@@ -79,15 +79,13 @@ public class Producto {
         this.visualizacion = visualizacion;
     }
 
-    public Categoria getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
-    
-    
-    
-    
+
+ 
 }

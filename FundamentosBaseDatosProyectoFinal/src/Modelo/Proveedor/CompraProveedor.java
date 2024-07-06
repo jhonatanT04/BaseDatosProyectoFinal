@@ -13,37 +13,37 @@ import java.util.Date;
  * @author venot
  */
 public class CompraProveedor {
-    private Proveedor proveedor;
-    private Producto producto;
+    private int codigoProveedor;
+    private int codigoProducto;
     
     private int codigo;
     private Timestamp fecha;
     private double valorTotal;
     private int cantidad;
-    
-    public CompraProveedor(Proveedor proveedor, Producto producto, int codigo, Timestamp fecha, double valorTotal, int cantidad) {
-        this.proveedor = proveedor;
-        this.producto = producto;
+
+    public CompraProveedor(int codigoProveedor, int codigoProducto, int codigo, Timestamp fecha, double valorTotal, int cantidad) {
+        this.codigoProveedor = codigoProveedor;
+        this.codigoProducto = codigoProducto;
         this.codigo = codigo;
         this.fecha = fecha;
         this.valorTotal = valorTotal;
         this.cantidad = cantidad;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public int getCodigoProveedor() {
+        return codigoProveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setCodigoProveedor(int codigoProveedor) {
+        this.codigoProveedor = codigoProveedor;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public int getCodigoProducto() {
+        return codigoProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setCodigoProducto(int codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
 
     public int getCodigo() {
@@ -54,7 +54,7 @@ public class CompraProveedor {
         this.codigo = codigo;
     }
 
-    public Date getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 

@@ -19,18 +19,18 @@ public class CabeceraFactura {
     private double totalIVA;
     private double valorTotal;
     private char estado;
-    private Cliente cliente;
-    private Empleado empleado;
+    private int codigoCliente;
+    private int codigoEmpleado;
 
-    public CabeceraFactura(int codigo, Timestamp fecha, double subTotal, double totalIVA, double valorTotal, char estado, Cliente cliente, Empleado empleado) {
+    public CabeceraFactura(int codigo, Timestamp fecha, double subTotal, double totalIVA, double valorTotal, char estado, int codigoCliente, int codigoEmpleado) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.subTotal = subTotal;
         this.totalIVA = totalIVA;
         this.valorTotal = valorTotal;
         this.estado = estado;
-        this.cliente = cliente;
-        this.empleado = empleado;
+        this.codigoCliente = codigoCliente;
+        this.codigoEmpleado = codigoEmpleado;
     }
 
     public int getCodigo() {
@@ -81,24 +81,22 @@ public class CabeceraFactura {
         this.estado = estado;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public int getCodigoCliente() {
+        return codigoCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public int getCodigoEmpleado() {
+        return codigoEmpleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setCodigoEmpleado(int codigoEmpleado) {
+        this.codigoEmpleado = codigoEmpleado;
     }
 
-    
-    
     
     
 }
