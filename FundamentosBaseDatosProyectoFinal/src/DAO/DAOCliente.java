@@ -19,109 +19,76 @@ import java.sql.ResultSet;
  */
 public class DAOCliente {
     
-    public boolean insertarCliente(Cliente cliente) {
+    public void insertarCliente(Cliente cliente) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        
-        String sql = "INSERT INTO super_clientes (cli_nombre, cli_apellido, cli_cedula, cli_direccion, cli_telefono, cli_correo_electronico, cli_visualizar) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, cliente.getNombre());
-            pstmt.setString(2, cliente.getApellido());
-            pstmt.setString(3, cliente.getCedula());
-            pstmt.setString(4, cliente.getDireccion());
-            pstmt.setString(5, cliente.getTelefono());
-            pstmt.setString(6,cliente.getCorreo());
-            pstmt.setString(7, String.valueOf(cliente.getVisualizacion()));
-            
-            pstmt.executeUpdate();
-            pstmt.close();
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            return false;
-        } finally {
-            conexion.desconectar();
-            return true;
+        String insertPersonaSQL = "INSERT INTO super_personas (per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico) VALUES (seq_super_personas.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (seq_super_clientes.NEXTVAL, ?, seq_super_personas.CURRVAL)";
+
+        try (PreparedStatement psPersona = conn.prepareStatement(insertPersonaSQL);
+            PreparedStatement psCliente = conn.prepareStatement(insertClienteSQL)) {
+
+            psPersona.setString(1, cliente.getCedula());
+            psPersona.setString(2, cliente.getNombre());
+            psPersona.setString(3, cliente.getApellido());
+            psPersona.setString(4, cliente.getDireccion());
+            psPersona.setString(5, cliente.getTelefono());
+            psPersona.setString(6, cliente.getCorreo());
+            psPersona.executeUpdate();
+
+            psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
+            psCliente.executeUpdate();
         }
     }
-    public void buscaCliente(String cedula){
-        List<Cliente> clientes = new ArrayList<>();
-        
-        if (cedula!=null) {
-            Conexion conexion = new Conexion();
-            Connection conn = conexion.conectar();
-        
-            String sql = "SELECT * FROM super_clientes WHERE cli_cedula = ?";
-        
-            try {
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, cedula);
-                ResultSet rs = pstmt.executeQuery();
-            
-                
-                    if (rs.next()) {
+    
+    public Cliente buscarClientePorCedula( String cedula) throws SQLException {
+        String personaSQL = "SELECT per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico FROM super_personas WHERE per_cedula = ?";
+        String clienteSQL = "SELECT cli_codigo, cli_visualizar FROM super_clientes WHERE super_personas_per_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        try (PreparedStatement psPersona = conn.prepareStatement(personaSQL)) {
+            psPersona.setString(1, cedula);
+            ResultSet rsPersona = psPersona.executeQuery();
+
+            if (rsPersona.next()) {
+                int perCodigo = rsPersona.getInt("per_codigo");
+                String nombre = rsPersona.getString("per_nombre");
+                String apellido = rsPersona.getString("per_apellido");
+                String direccion = rsPersona.getString("per_direccion");
+                String telefono = rsPersona.getString("per_telefono");
+                String correo = rsPersona.getString("per_correo_electronico");
+
+                System.out.println("Persona encontrada:");
+                System.out.println("Cédula: " + cedula);
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Apellido: " + apellido);
+                System.out.println("Dirección: " + direccion);
+                System.out.println("Teléfono: " + telefono);
+                System.out.println("Correo electrónico: " + correo);
+
+                try (PreparedStatement psCliente = conn.prepareStatement(clienteSQL)) {
+                    psCliente.setInt(1, perCodigo);
+                    ResultSet rsCliente = psCliente.executeQuery();
+
+                    if (rsCliente.next()) {
+                        int cliCodigo = rsCliente.getInt("cli_codigo");
+                        String visualizar = rsCliente.getString("cli_visualizar");
                         System.out.println("Cliente encontrado:");
-                        System.out.println("Código: " + rs.getInt("cli_codigo"));
-                        System.out.println("Nombre: " + rs.getString("cli_nombre"));
-                        System.out.println("Apellido: " + rs.getString("cli_apellido"));
-                        System.out.println("Cédula: " + rs.getString("cli_cedula"));
-                        System.out.println("Dirección: " + rs.getString("cli_direccion"));
-                        System.out.println("Teléfono: " + rs.getString("cli_telefono"));
-                        System.out.println("Correo electrónico: " + rs.getString("cli_correo_electronico"));
-                        System.out.println("Visualizar: " + rs.getString("cli_visualizar"));
-                        System.out.println("Persona Codigo : " + rs.getString("per_codigo"));
-                        //Cliente cli = new Cliente(12, 's', 23, "0102", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
-                
-                        //Cliente cli = new Cliente(rs.getInt("cli_codigo"),rs.getString("cli_visualizar"));
+                        System.out.println("Código de cliente: " + cliCodigo);
+                        System.out.println("Visualizar: " + visualizar);
+                        return new Cliente(cliCodigo,visualizar.charAt(0) , perCodigo, cedula, nombre, apellido, direccion, telefono, correo);
+                        
+                        
                     } else {
-                        System.out.println("No se encontró ningún cliente con la cédula " + cedula);
+                        System.out.println("Cliente no encontrado para la cédula: " + cedula);
+                        return null;
                     }
-            
-                rs.close();
-                pstmt.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            } finally {
-            conexion.desconectar();
-            }
-        }else{
-            
-        }
-        
-    }
-    /*
-    public void buscarClientePorCedula(String cli_cedula) {
-        Conexion conexion = new Conexion();
-        Connection conn = conexion.conectar();
-        
-        String sql = "SELECT * FROM super_clientes WHERE cli_cedula = ?";
-        
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, cli_cedula);
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                System.out.println("Cliente encontrado:");
-                System.out.println("Código: " + rs.getInt("cli_codigo"));
-                System.out.println("Nombre: " + rs.getString("cli_nombre"));
-                System.out.println("Apellido: " + rs.getString("cli_apellido"));
-                System.out.println("Cédula: " + rs.getString("cli_cedula"));
-                System.out.println("Dirección: " + rs.getString("cli_direccion"));
-                System.out.println("Teléfono: " + rs.getString("cli_telefono"));
-                System.out.println("Correo electrónico: " + rs.getString("cli_correo_electronico"));
-                System.out.println("Visualizar: " + rs.getString("cli_visualizar"));
+                }
             } else {
-                System.out.println("No se encontró ningún cliente con la cédula " + cli_cedula);
+                System.out.println("Persona no encontrada para la cédula: " + cedula);
+                return null;
             }
-            
-            rs.close();
-            pstmt.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-        } finally {
-            conexion.desconectar();
         }
-    }*/
+    }
+    
 }

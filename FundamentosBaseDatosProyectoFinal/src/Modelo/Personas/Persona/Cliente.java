@@ -33,6 +33,11 @@ public class Cliente extends Persona{
     public void setVisualizacion(char visualizacion) {
         this.visualizacion = visualizacion;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "ClienteCodigo=" + ClienteCodigo + ", visualizacion=" + visualizacion +'}';
+    }
     
     
     

@@ -22,6 +22,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -237,7 +238,7 @@ public class CorreoFinal {
     
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
         //CrearPdf pdfCreator = new CrearPdf();
         
@@ -266,19 +267,14 @@ public class CorreoFinal {
         CorreoFinal c = new CorreoFinal();
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         c.factura(cab, detalles, productos, cli);*/
-        Cliente cli = new Cliente(12, 's', 23, "0102", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
-        Conexion as = new Conexion();
-        as.conectar();
+        //Cliente cli = new Cliente(0, 's', 23, "0103", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
+        
         DAOCliente daoCliente = new DAOCliente();
-        daoCliente.buscaCliente("0102");
+        //daoCliente.insertarCliente(cli);
+        Cliente cli=daoCliente.buscarClientePorCedula("0103");
         
         
         //as.desconectar();
-        
-        
-        
-        
-        
         
         
         /*

@@ -86,4 +86,10 @@ public abstract class Persona {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+    
+    @Override
+    public String toString() {
+        return "Persona{" + "codigo=" + codigo + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + '}';
+    }
+    
 }
