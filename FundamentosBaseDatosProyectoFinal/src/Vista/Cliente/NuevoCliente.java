@@ -177,12 +177,13 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         try {
             // TODO add your handling code here:
             //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
-            if (txtCedula.getText().length()<10||txtCedula.getText().length()>10) {
+            if (txtCedula.getText().trim().length()<10||txtCedula.getText().length()>10) {
                 JOptionPane.showConfirmDialog(rootPane, "El numero de cedula debe de ser de 10 digitos");
             }else{
                 Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
                 if (cli==null) {
-                    controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
+                    controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
+                    
                 }else{
                     JOptionPane.showConfirmDialog(rootPane, "El cliente con cedula "+cli.getCedula()+" ya existe y se llama "+cli.getNombre() +cli.getApellido());
                 }
@@ -193,7 +194,13 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnIngresarClienteActionPerformed
-
+    
+    private boolean validarCampos(){
+        if (txtApellido.getText().trim().isEmpty()||txtNombre.getText().trim().isEmpty()||txtDireccion.getText().trim().isEmpty()||txtTelefono.getText().trim().isEmpty()||txtCorreo.getText().trim().isEmpty()) {
+                        
+        }
+    }
+    
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
         //ania
