@@ -150,4 +150,31 @@ public class DAOProducto {
         return llave;
     }
 
+    public List<Producto> listarProductos() {
+        List<Producto> listaProductos = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        String sql = "SELECT pro_codigo, pro_nombre, pro_precio, pro_stock, pro_IVA, pro_visualizar, super_categorias_cat_codigo FROM super_productos";
+
+        try (Connection conn = conexion.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int codigo = rs.getInt("pro_codigo");
+                String nombre = rs.getString("pro_nombre");
+                double precio = rs.getDouble("pro_precio");
+                int stock = rs.getInt("pro_stock");
+                double iva = rs.getDouble("pro_IVA");
+                char visualizar = rs.getString("pro_visualizar").charAt(0);
+                int categoria = rs.getInt("super_categorias_cat_codigo");
+
+                Producto producto = new Producto(codigo, nombre, precio, stock, iva, visualizar, categoria);
+                listaProductos.add(producto);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar productos: " + e.getMessage());
+        }
+
+        return listaProductos;
+    }
+
 }
