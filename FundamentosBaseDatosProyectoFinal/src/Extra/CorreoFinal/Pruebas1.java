@@ -5,8 +5,10 @@
 package Extra.CorreoFinal;
 
 import DAO.DAOCategoria;
+import DAO.DAOPersona;
 import DAO.DAOProducto;
 import DAO.DAOProveedores;
+import Modelo.Personas.Persona.Cliente;
 import Modelo.Producto.Categoria;
 import Modelo.Producto.Producto;
 import Modelo.Proveedor.Proveedor;
@@ -39,6 +41,7 @@ public class Pruebas1 {
             System.out.println("No se encontró el producto 'Azucar' para eliminar.");
         }*/
         
+       // Cliente cli = new Cliente(0, 0, 0, cedula, nombre, apellido, direccion, telefono, correo);
         
     }
 }
