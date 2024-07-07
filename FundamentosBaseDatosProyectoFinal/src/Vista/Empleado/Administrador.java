@@ -2,14 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
  */
-package ec.edu.ups.Vista.Empleado;
+package Vista.Empleado;
+
+import Vista.Cliente.NuevoCliente;
+import javax.swing.plaf.DesktopPaneUI;
 
 /**
  *
  * @author Usuario
  */
 public class Administrador extends javax.swing.JFrame {
-
+    private NuevoCliente ventanaNuevoCliente;
     /**
      * Creates new form Administrador
      */
@@ -41,7 +44,7 @@ public class Administrador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
+        itemMenuNuevoCliente = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -120,9 +123,14 @@ public class Administrador extends javax.swing.JFrame {
         helpMenu.setMnemonic('h');
         helpMenu.setText("Clientes");
 
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Nuevo Cliente");
-        helpMenu.add(contentMenuItem);
+        itemMenuNuevoCliente.setMnemonic('c');
+        itemMenuNuevoCliente.setText("Nuevo Cliente");
+        itemMenuNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuNuevoClienteActionPerformed(evt);
+            }
+        });
+        helpMenu.add(itemMenuNuevoCliente);
 
         aboutMenuItem.setMnemonic('a');
         aboutMenuItem.setText("Buscar Cliente");
@@ -177,11 +185,11 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
         );
 
         pack();
@@ -194,6 +202,17 @@ public class Administrador extends javax.swing.JFrame {
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void itemMenuNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuNuevoClienteActionPerformed
+        // TODO add your handling code here:
+        if(ventanaNuevoCliente == null){
+            ventanaNuevoCliente = new NuevoCliente();
+            desktopPane.add(ventanaNuevoCliente);
+        }
+        
+        ventanaNuevoCliente.setVisible(true); 
+    
+    }//GEN-LAST:event_itemMenuNuevoClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,7 +251,6 @@ public class Administrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
@@ -241,6 +259,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem itemMenuNuevoCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;

@@ -76,6 +76,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         jLabel12.setText("Direccion:");
 
         bntCancelar.setText("Cancelar");
+        bntCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,7 +122,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +151,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresarCliente)
                     .addComponent(bntCancelar))
@@ -178,21 +183,16 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             // TODO add your handling code here:
             //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
             if (txtCedula.getText().trim().length()<10||txtCedula.getText().length()>10) {
-                JOptionPane.showConfirmDialog(rootPane, "El numero de cedula debe de ser de 10 digitos");
+                JOptionPane.showInternalMessageDialog(rootPane, "El numero de cedula debe de ser de 10 digitos");
             }else{
-                Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
-                if (cli==null) {
-                    controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
-                    if (this.validarCampos()==true) {
-                        
-                    }else{
-                        JOptionPane.showConfirmDialog(rootPane, "Se deben llenar Todos los campos");
+                if (this.validarCampos()==true) {
+                    Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
+                    if (cli==null) {
+                        controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
                     }
-                }else{
-                    JOptionPane.showConfirmDialog(rootPane, "El cliente con cedula "+cli.getCedula()+" ya existe y se llama "+cli.getNombre() +cli.getApellido());
                 }
+                
             }
-            
         } catch (SQLException ex) {
             Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -201,17 +201,29 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
     
     private boolean validarCampos(){
         if (txtApellido.getText().trim().isEmpty()||txtNombre.getText().trim().isEmpty()||txtDireccion.getText().trim().isEmpty()||txtTelefono.getText().trim().isEmpty()||txtCorreo.getText().trim().isEmpty()) {
+            JOptionPane.showInternalMessageDialog(rootPane, "Se deben llenar Todos los campos");
+            return false;
+        }else if ((txtApellido.getText().trim().length()>100)||txtNombre.getText().trim().length()>100||txtDireccion.getText().trim().length()>100||txtCorreo.getText().trim().length()>100){
+            JOptionPane.showInternalMessageDialog(rootPane, "Los campos deben de llenarse con menos de 100 caracteres");
+            return false;
+        }else if (txtTelefono.getText().trim().length()>10||txtTelefono.getText().trim().length()<10){
+            JOptionPane.showInternalMessageDialog(rootPane, "El campo de Telefono de deve llenar con 10 numeros ");
+            System.out.println(txtDireccion.getText().trim().length());
             return false;
         }else{
             return true;
         }
-        
     }
     
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
         //ania
     }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_bntCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
