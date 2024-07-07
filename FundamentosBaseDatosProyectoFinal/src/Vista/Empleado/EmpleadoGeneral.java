@@ -4,7 +4,7 @@
  */
 package ec.edu.ups.Vista.Empleado;
 
-import ec.edu.ups.Vista.Cliente.ActualizarDatos;
+import Vista.Cliente.ActualizarDatos;
 import Vista.Cliente.NuevoCliente;
 
 

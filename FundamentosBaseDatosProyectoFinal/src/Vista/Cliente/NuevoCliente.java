@@ -179,14 +179,14 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarClienteActionPerformed
-        try {
+        /*try {
             // TODO add your handling code here:
             //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
             if (txtCedula.getText().trim().length()<10||txtCedula.getText().length()>10) {
                 JOptionPane.showInternalMessageDialog(rootPane, "El numero de cedula debe de ser de 10 digitos");
             }else{
                 if (this.validarCampos()==true) {
-                    Cliente cli = controladorCliente.buscarCliente(txtCedula.getText().trim(),rootPane);
+                    //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText().trim(),rootPane);
                     if (cli==null) {
                         controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
                     }else{
@@ -197,7 +197,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
     }//GEN-LAST:event_btnIngresarClienteActionPerformed
     
