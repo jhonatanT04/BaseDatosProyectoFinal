@@ -179,7 +179,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarClienteActionPerformed
-        try {
+        /*try {
             // TODO add your handling code here:
             //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
             if (txtCedula.getText().trim().length()<10||txtCedula.getText().length()>10) {
@@ -197,7 +197,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
     }//GEN-LAST:event_btnIngresarClienteActionPerformed
     
