@@ -5,8 +5,10 @@
 package Vista.Cliente;
 
 import Controlador.ControladorCliente;
+import Controlador.ControladorPersona;
 import DAO.DAOCliente;
 import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,12 +20,14 @@ import javax.swing.JOptionPane;
  */
 public class BuscarCliente extends javax.swing.JInternalFrame {
     private ControladorCliente controladorCliente;
+    private ControladorPersona controladorPersona;
     /**
      * Creates new form BuscarCliente
      */
     public BuscarCliente() {
         initComponents();
         controladorCliente = new ControladorCliente();
+        controladorPersona = new ControladorPersona();
     }
 
     /**
@@ -192,19 +196,24 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        
         if (txtCedula.getText().trim().isEmpty()==false) {
             if(txtCedula.getText().trim().length()>10||txtCedula.getText().trim().length()<10){
                 JOptionPane.showInternalMessageDialog(rootPane, "El campo cedula lleva solo 10 digitos");
             }else{
                 try {
-                    Cliente cli = controladorCliente.buscarCliente("1");
-                    txtApellido.setText(cli.getApellido());
-                    txtNombre.setText(cli.getNombre());
-                    txtCorreo.setText(cli.getCorreo());
-                    txtDireccion.setText(cli.getDireccion());
-                    txtTelefono.setText(cli.getTelefono());
-                    
+                    Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
+                    if (per!=null) {
+                        Cliente cli = controladorCliente.buscarCliente(per);
+                        if (cli!=null) {
+                            txtApellido.setText(cli.getApellido());
+                            txtNombre.setText(cli.getNombre());
+                            txtCorreo.setText(cli.getCorreo());
+                            txtDireccion.setText(cli.getDireccion());
+                            txtTelefono.setText(cli.getTelefono());
+                        }
+                    }else{
+                        JOptionPane.showInternalMessageDialog(rootPane, "La persona no existe en la base de datos");
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
                 }

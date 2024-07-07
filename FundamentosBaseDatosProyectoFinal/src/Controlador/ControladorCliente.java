@@ -6,7 +6,9 @@ package Controlador;
 
 import DAO.DAOCliente;
 import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -23,8 +25,8 @@ public class ControladorCliente {
     public void crearCliente(Cliente cliente) throws SQLException{
         daoCliente.insertarCliente(cliente);
     }
-    public Cliente buscarCliente(String cedula) throws SQLException{
-        return daoCliente.buscarClientePorCedula(cedula);
+    public Cliente buscarCliente(Persona per) throws SQLException{
+        return daoCliente.buscarClientePorCedula(per);
     }
     
 }

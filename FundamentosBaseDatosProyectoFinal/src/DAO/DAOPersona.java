@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Empleado;
 import Modelo.Personas.Persona.Persona;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +36,7 @@ public class DAOPersona {
             //return stmt.getGeneratedKeys().getInt(1);
         }
     }
-    public Persona buscarPersona(String cedula) throws SQLException{
+    public Persona buscarPersonaEmpleado(String cedula) throws SQLException{
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
         String sql = "SELECT per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico FROM super_personas WHERE per_cedula = ?";
@@ -49,14 +51,7 @@ public class DAOPersona {
                 String telefono = rsPersona.getString("per_telefono");
                 String correo = rsPersona.getString("per_correo_electronico");
 
-                /*System.out.println("Persona encontrada:");
-                System.out.println("Cédula: " + cedula);
-                System.out.println("Nombre: " + nombre);
-                System.out.println("Apellido: " + apellido);
-                System.out.println("Dirección: " + direccion);
-                System.out.println("Teléfono: " + telefono);
-                System.out.println("Correo electrónico: " + correo);*/
-                return new Persona(perCodigo, cedula, nombre, apellido, direccion, telefono, correo){};
+                return new Empleado(0, 'a',"  ", 'a',perCodigo, cedula, nombre, apellido, direccion, telefono, correo);
                 
             } else {
                 System.out.println("Persona no encontrada para la cédula: " + cedula);
@@ -64,8 +59,32 @@ public class DAOPersona {
             }
         }
     }
+    public Persona buscarPersonaCliente(String cedula) throws SQLException{
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String sql = "SELECT per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico FROM super_personas WHERE per_cedula = ?";
+        try (PreparedStatement psPersona = conn.prepareStatement(sql)) {
+            psPersona.setString(1, cedula);
+            ResultSet rsPersona = psPersona.executeQuery();
+            if (rsPersona.next()) {
+                int perCodigo = rsPersona.getInt("per_codigo");
+                String nombre = rsPersona.getString("per_nombre");
+                String apellido = rsPersona.getString("per_apellido");
+                String direccion = rsPersona.getString("per_direccion");
+                String telefono = rsPersona.getString("per_telefono");
+                String correo = rsPersona.getString("per_correo_electronico");
+
+                return new Cliente(0, 'a', perCodigo, cedula, nombre, apellido, direccion, telefono, correo);
+                
+            } else {
+                System.out.println("Persona no encontrada para la cédula: " + cedula);
+                System.out.println("Persona no encontrada para la cédula: " + cedula);
+                return null;
+            }
+        }
+    }
     
-    public boolean validarSiexistePersona(String cedula) throws SQLException{
+    /*public boolean validarSiexistePersona(String cedula) throws SQLException{
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
         String sql = "SELECT per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico FROM super_personas WHERE per_cedula = ?";
@@ -79,7 +98,7 @@ public class DAOPersona {
                 System.out.println("Apellido: " + apellido);
                 System.out.println("Dirección: " + direccion);
                 System.out.println("Teléfono: " + telefono);
-                System.out.println("Correo electrónico: " + correo);*/
+                System.out.println("Correo electrónico: " + correo);
                 return true;
                 
             } else {
@@ -87,5 +106,5 @@ public class DAOPersona {
                 return false;
             }
         }
-    }
+    }*/
 }
