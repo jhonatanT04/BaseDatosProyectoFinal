@@ -4,17 +4,29 @@
  */
 package Vista.Producto;
 
+import Controlador.ControladorCategoria;
+import Controlador.ControladorProducto;
+import Modelo.Producto.Producto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class ListarProducto extends javax.swing.JInternalFrame {
 
+    private ControladorProducto controladorProducto;
+    private ControladorCategoria controladorCategoria;
+    private Producto producto;
+
     /**
      * Creates new form ListarProducto
      */
-    public ListarProducto() {
+    public ListarProducto(ControladorProducto controladorProducto, ControladorCategoria controladorCategoria) {
         initComponents();
+        this.controladorProducto = controladorProducto;
+        this.controladorCategoria = controladorCategoria;
     }
 
     /**
@@ -44,13 +56,13 @@ public class ListarProducto extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Precio", "Strock", "Iva"
+                "Codigo", "Nombre", "Precio", "Strock", "Iva", "Visualizacion", "Categoria"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -93,8 +105,30 @@ public class ListarProducto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        actualizarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1.getModel();
+        modelo.setRowCount(0); // Limpiar filas existentes
+
+        List<Producto> listaProductos = controladorProducto.listarProductos();
+
+        for (Producto producto : listaProductos) {
+            int codigo = producto.getCodigo();
+            String nombre = producto.getNombre();
+            double precio = producto.getPrecio();
+            int stock = producto.getStock();
+            double iva = producto.getIva();
+            char visualizacion = producto.getVisualizacion();
+            int categoria = producto.getCategoria();
+
+            Object[] rowData = {codigo, nombre, precio, stock, iva, visualizacion, categoria};
+            modelo.addRow(rowData);
+        }
+
+        this.jTable1.setModel(modelo); // Aplicar el modelo actualizado a la tabla
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

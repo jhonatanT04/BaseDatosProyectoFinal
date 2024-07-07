@@ -8,12 +8,13 @@ package DAO;
  *
  * @author Usuario
  */
-
 import Modelo.Proveedor.Proveedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class DAOProveedores {
@@ -139,6 +140,40 @@ public class DAOProveedores {
             System.out.println(ex);
         }
         return llave;
+    }
+
+    public List<Proveedor> listarProveedores() {
+        List<Proveedor> listaProveedores = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        String sql = "SELECT * FROM super_proveedores";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int codigo = rs.getInt("prov_codigo");
+                String nombre = rs.getString("prov_nombre");
+                String telefono = rs.getString("prov_telefono");
+                String direccion = rs.getString("prov_direccion");
+                String correo = rs.getString("prov_correo_electronico");
+                String ruc = rs.getString("prov_ruc");
+
+                Proveedor proveedor = new Proveedor(codigo, nombre, telefono, direccion, correo, ruc);
+                listaProveedores.add(proveedor);
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+
+        return listaProveedores;
     }
 
 }

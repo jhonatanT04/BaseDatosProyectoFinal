@@ -4,17 +4,23 @@
  */
 package Vista.Proovedoores;
 
+import Controlador.ControladorPorveedor;
+import Modelo.Proveedor.Proveedor;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class ListarProveedores_1 extends javax.swing.JInternalFrame {
-
+    private ControladorPorveedor controladorPorveedor;
     /**
      * Creates new form ListarProveedores
      */
-    public ListarProveedores_1() {
+    public ListarProveedores_1(ControladorPorveedor controladorPorveedor) {
         initComponents();
+        this.controladorPorveedor = controladorPorveedor;
     }
 
     /**
@@ -40,12 +46,17 @@ public class ListarProveedores_1 extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Numero Factura", "Nombre del Proveedor", "Fecha Factura", "Valor Total", "Codigo de Proveedor"
+                "Codigo", "Nombre del Proveedor", "Fecha Factura", "Valor Total", "Codigo de Proveedor"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Listar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Mostrar Productos");
 
@@ -94,6 +105,33 @@ public class ListarProveedores_1 extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        actualizarTabla();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0); // Limpiar el modelo de la tabla
+
+        // Obtener la lista de proveedores desde el DAO
+        List<Proveedor> listaProveedores = controladorPorveedor.listarProveedores();
+
+        // Recorrer la lista de proveedores y añadir sus datos al modelo de la tabla
+        for (Proveedor proveedor : listaProveedores) {
+            int codigo = proveedor.getCodigo();
+            String nombre = proveedor.getNombre();
+            String telefono = proveedor.getTelefono();
+            String direccion = proveedor.getDireccion();
+            String correo = proveedor.getCorreo();
+            String ruc = proveedor.getRuc();
+
+            Object[] rowData = {codigo, nombre, telefono, direccion, correo, ruc};
+            modelo.addRow(rowData);
+        }
+
+        // Asignar el modelo actualizado a la tabla
+        jTable1.setModel(modelo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

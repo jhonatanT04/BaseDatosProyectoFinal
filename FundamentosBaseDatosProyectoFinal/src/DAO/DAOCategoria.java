@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class DAOCategoria {
+
     public boolean insertarCategoria(Categoria categoria) {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
@@ -25,7 +27,7 @@ public class DAOCategoria {
         String sql = "INSERT INTO super_categorias (cat_codigo, cat_nombre) VALUES (?, ?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, String.valueOf(categoria.getCodigo())); 
+            pstmt.setString(1, String.valueOf(categoria.getCodigo()));
             pstmt.setString(2, categoria.getNombre());
 
             pstmt.executeUpdate();
@@ -89,7 +91,7 @@ public class DAOCategoria {
             PreparedStatement sentencia = con.prepareStatement(SQLr);
 
             sentencia.setString(1, categoria.getNombre());
-            sentencia.setInt(2, categoria.getCodigo()); 
+            sentencia.setInt(2, categoria.getCodigo());
 
             int filasAfectadas = sentencia.executeUpdate();
 
@@ -133,5 +135,44 @@ public class DAOCategoria {
             System.out.println(ex);
         }
         return llave;
+    }
+
+    public void cargarCategorias(JComboBox<String> comboBox) {
+        String sql = "SELECT cat_nombre FROM super_categorias";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            comboBox.removeAllItems(); // Limpiar el JComboBox antes de cargar nuevas categorías
+            while (rs.next()) {
+                comboBox.addItem(rs.getString("cat_nombre"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar categorías: " + e.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+    }
+
+    public int obtenerCodigoCategoria(String nombreCategoria) {
+        String sql = "SELECT cat_codigo FROM super_categorias WHERE cat_nombre = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        int codigoCategoria = -1;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nombreCategoria);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                codigoCategoria = rs.getInt("cat_codigo");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener código de categoría: " + e.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+
+        return codigoCategoria;
     }
 }

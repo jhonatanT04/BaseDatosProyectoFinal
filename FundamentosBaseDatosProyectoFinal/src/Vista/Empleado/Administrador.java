@@ -4,6 +4,9 @@
  */
 package Vista.Empleado;
 
+import Controlador.ControladorCategoria;
+import Controlador.ControladorPorveedor;
+import Controlador.ControladorProducto;
 import Vista.Cliente.NuevoCliente;
 import Vista.Cliente.BuscarCliente;
 import Vista.Producto.ActualizarProducto;
@@ -58,12 +61,17 @@ public class Administrador extends javax.swing.JFrame {
     private ComprarProveedores_1 comprarProveedores_1;
     private BuscarCompraProveedores buscarCompraProveedores;
     private EliminarCompraProveedores eliminarCompraProveedores;
-    
+    private ControladorProducto controladorProducto;
+    private ControladorCategoria controladorCategoria;
+    private ControladorPorveedor controladorProveedor;
     /**
      * Creates new form Administrador
      */
     public Administrador() {
         initComponents();
+        controladorCategoria = new ControladorCategoria();
+        controladorProducto = new ControladorProducto();
+        controladorProveedor = new ControladorPorveedor();
     }
 
     /**
@@ -331,7 +339,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         if(eliminarProducto == null){
-            eliminarProducto = new EliminarProducto();
+            eliminarProducto = new EliminarProducto(controladorProducto,controladorCategoria);
             desktopPane.add(eliminarProducto);
         }
         
@@ -340,7 +348,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         if(agregarProducto == null){
-            agregarProducto = new AgregarProducto();
+            agregarProducto = new AgregarProducto(controladorProducto,controladorCategoria);
             desktopPane.add(agregarProducto);
         }
         
@@ -479,7 +487,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
         if(actualizarProducto == null){
-            actualizarProducto = new ActualizarProducto();
+            actualizarProducto = new ActualizarProducto(controladorProducto,controladorCategoria);
             desktopPane.add(actualizarProducto);
         }
         
@@ -488,7 +496,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         if(listarProducto == null){
-            listarProducto = new ListarProducto();
+            listarProducto = new ListarProducto(controladorProducto,controladorCategoria);
             desktopPane.add(listarProducto);
         }
         
@@ -506,7 +514,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         if(listarProveedores_1 == null){
-            listarProveedores_1 = new ListarProveedores_1();
+            listarProveedores_1 = new ListarProveedores_1(controladorProveedor);
             desktopPane.add(listarProveedores_1);
         }
         

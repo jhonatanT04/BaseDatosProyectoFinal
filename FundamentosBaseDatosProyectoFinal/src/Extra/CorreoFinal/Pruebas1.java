@@ -4,6 +4,7 @@
  */
 package Extra.CorreoFinal;
 
+import Controlador.ControladorProducto;
 import DAO.DAOCategoria;
 import DAO.DAOPersona;
 import DAO.DAOProducto;
@@ -24,10 +25,12 @@ public class Pruebas1 {
         DAOProducto productoDAO = new DAOProducto();
         DAOCategoria cate = new DAOCategoria();
         DAOProveedores pro = new DAOProveedores();
-        
+        ControladorProducto con = new ControladorProducto();
+        Producto producto = new Producto(1, "Azucar", 5.0, 4, 5, 'h', 1);
+        con.actualizarProducto(producto);
          
         //Proveedor prov = new Proveedor(1, "Juanito", "45464", "ajdhjsa", "bdsad", "hdjsahjd");
-        pro.eliminarProveedor(1);
+        //pro.eliminarProveedor(1);
         //pro.insertarProveedor(prov);
         /*Categoria cat = new Categoria(1, "Producto");
         cate.insertarCategoria(cat);
