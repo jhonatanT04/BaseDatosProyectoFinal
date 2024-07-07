@@ -5,7 +5,11 @@
 package Vista.Empleado;
 
 import Vista.Cliente.NuevoCliente;
-import javax.swing.plaf.DesktopPaneUI;
+import Vista.Cliente.BuscarCliente;
+
+
+
+
 
 /**
  *
@@ -13,6 +17,7 @@ import javax.swing.plaf.DesktopPaneUI;
  */
 public class Administrador extends javax.swing.JFrame {
     private NuevoCliente ventanaNuevoCliente;
+    private BuscarCliente ventanaBuscarCliente;
     /**
      * Creates new form Administrador
      */
@@ -45,13 +50,13 @@ public class Administrador extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         itemMenuNuevoCliente = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
+        itemMenuBuscarCliente = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        itemMenuBuscarEmpleado = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -132,9 +137,14 @@ public class Administrador extends javax.swing.JFrame {
         });
         helpMenu.add(itemMenuNuevoCliente);
 
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("Buscar Cliente");
-        helpMenu.add(aboutMenuItem);
+        itemMenuBuscarCliente.setMnemonic('a');
+        itemMenuBuscarCliente.setText("Buscar Cliente");
+        itemMenuBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuBuscarClienteActionPerformed(evt);
+            }
+        });
+        helpMenu.add(itemMenuBuscarCliente);
 
         jMenuItem3.setText("Actualziar Cliente");
         helpMenu.add(jMenuItem3);
@@ -152,8 +162,13 @@ public class Administrador extends javax.swing.JFrame {
         jMenuItem6.setText("Crear Empleado");
         jMenu1.add(jMenuItem6);
 
-        jMenuItem7.setText("Buscar Empleado");
-        jMenu1.add(jMenuItem7);
+        itemMenuBuscarEmpleado.setText("Buscar Empleado");
+        itemMenuBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuBuscarEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemMenuBuscarEmpleado);
 
         jMenuItem8.setText("Actualizar Empleado");
         jMenu1.add(jMenuItem8);
@@ -214,6 +229,22 @@ public class Administrador extends javax.swing.JFrame {
     
     }//GEN-LAST:event_itemMenuNuevoClienteActionPerformed
 
+    private void itemMenuBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarEmpleadoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_itemMenuBuscarEmpleadoActionPerformed
+
+    private void itemMenuBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarClienteActionPerformed
+        // TODO add your handling code here:
+        
+        if(ventanaBuscarCliente == null){
+            ventanaBuscarCliente = new BuscarCliente();
+            desktopPane.add(ventanaBuscarCliente);
+        }
+        
+        ventanaBuscarCliente.setVisible(true);
+    }//GEN-LAST:event_itemMenuBuscarClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,7 +281,6 @@ public class Administrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
@@ -259,6 +289,8 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem itemMenuBuscarCliente;
+    private javax.swing.JMenuItem itemMenuBuscarEmpleado;
     private javax.swing.JMenuItem itemMenuNuevoCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -272,7 +304,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;

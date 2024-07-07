@@ -8,12 +8,12 @@ package ec.edu.ups.Vista.Facturas;
  *
  * @author venot
  */
-public class BuscarCliente extends javax.swing.JInternalFrame {
+public class BuscarClienteFactura extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form BuscarCliente
      */
-    public BuscarCliente() {
+    public BuscarClienteFactura() {
         initComponents();
     }
 

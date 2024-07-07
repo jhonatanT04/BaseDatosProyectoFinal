@@ -189,6 +189,8 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                     Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
                     if (cli==null) {
                         controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
+                    }else{
+                        JOptionPane.showInternalMessageDialog(rootPane, "El cliente ya con existecon el numero de cedula "+cli.getCedula()+" existe en la base de datos y se llama "+ cli.getNombre() +" "+ cli.getApellido());
                     }
                 }
                 

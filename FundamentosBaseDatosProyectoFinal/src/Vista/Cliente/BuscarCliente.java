@@ -2,19 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package ec.edu.ups.Vista.Cliente;
+package Vista.Cliente;
+
+import Controlador.ControladorCliente;
+import DAO.DAOCliente;
+import Modelo.Personas.Persona.Cliente;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
 public class BuscarCliente extends javax.swing.JInternalFrame {
-
+    private ControladorCliente controladorCliente;
     /**
      * Creates new form BuscarCliente
      */
     public BuscarCliente() {
         initComponents();
+        controladorCliente = new ControladorCliente();
     }
 
     /**
@@ -37,10 +46,10 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        btnIngresar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jSalir = new javax.swing.JButton();
 
         jLabel7.setText("Telefono:");
 
@@ -66,10 +75,10 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Nombres:");
 
-        btnIngresar.setText("Buscar");
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -77,10 +86,10 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Direccion:");
 
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jSalir.setText("Salir");
+        jSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jSalirActionPerformed(evt);
             }
         });
 
@@ -89,13 +98,13 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(276, Short.MAX_VALUE)
+                .addContainerGap(312, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnIngresar)
+                        .addComponent(btnBuscar)
                         .addGap(130, 130, 130))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jSalir)
                         .addGap(35, 35, 35))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -132,9 +141,9 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnIngresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addComponent(jSalir)
                 .addGap(15, 15, 15))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -181,13 +190,34 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnIngresarActionPerformed
+        
+        if (txtCedula.getText().trim().isEmpty()==false) {
+            if(txtCedula.getText().trim().length()>10||txtCedula.getText().trim().length()<10){
+                JOptionPane.showInternalMessageDialog(rootPane, "El campo cedula lleva solo 10 digitos");
+            }else{
+                try {
+                    Cliente cli = controladorCliente.buscarCliente("1");
+                    txtApellido.setText(cli.getApellido());
+                    txtNombre.setText(cli.getNombre());
+                    txtCorreo.setText(cli.getCorreo());
+                    txtDireccion.setText(cli.getDireccion());
+                    txtTelefono.setText(cli.getTelefono());
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }else{
+            JOptionPane.showInternalMessageDialog(rootPane, "Se debe llenar el campo cedula");
+        }
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jSalirActionPerformed
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
@@ -195,8 +225,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -204,6 +233,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jSalir;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
