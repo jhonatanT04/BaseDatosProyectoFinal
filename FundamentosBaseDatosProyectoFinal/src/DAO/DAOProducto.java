@@ -23,68 +23,69 @@ public class DAOProducto {
     public boolean insertarProducto(Producto producto) {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
+        String sql = "INSERT INTO super_productos (pro_codigo, pro_nombre, pro_precio, pro_stock, pro_IVA, pro_visualizar, super_categorias_cat_codigo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        String sql = "INSERT INTO super_productos (pro_nombre, pro_precio, pro_stock, pro_IVA, pro_visualizar) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, producto.getNombre());
-            pstmt.setString(2, String.valueOf(producto.getPrecio()));
-            pstmt.setString(3, String.valueOf(producto.getStock()));
-            pstmt.setString(4, String.valueOf(producto.getIva()));
-            pstmt.setString(5, String.valueOf(producto.getVisualizacion()));
+            pstmt.setInt(1, producto.getCodigo());
+            pstmt.setString(2, producto.getNombre());
+            pstmt.setDouble(3, producto.getPrecio());
+            pstmt.setInt(4, producto.getStock());
+            pstmt.setDouble(5, producto.getIva());
+            pstmt.setString(6, String.valueOf(producto.getVisualizacion()));
+            pstmt.setString(7, String.valueOf(producto.getCategoria()));
 
-            pstmt.executeUpdate();
+            int filasInsertadas = pstmt.executeUpdate();
             pstmt.close();
 
+            if (filasInsertadas > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
             return false;
         } finally {
             conexion.desconectar();
-            return true;
         }
     }
 
-    public void buscarProducto(String nombre) {
-        List<Producto> productos = new ArrayList<>();
+    public Producto buscarProducto(String nombre) throws SQLException {
+        String productoSQL = "SELECT pro_codigo, pro_precio, pro_stock, pro_IVA, pro_visualizar FROM super_productos WHERE pro_nombre = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
-        if (nombre != null) {
-            Conexion conexion = new Conexion();
-            Connection conn = conexion.conectar();
+        try (PreparedStatement psProducto = conn.prepareStatement(productoSQL)) {
+            psProducto.setString(1, nombre);
+            ResultSet rsProducto = psProducto.executeQuery();
 
-            String sql = "SELECT * FROM super_productos WHERE pro_nombre = ?";
+            if (rsProducto.next()) {
+                int codigo = rsProducto.getInt("pro_codigo");
+                double precio = rsProducto.getDouble("pro_precio");
+                int stock = rsProducto.getInt("pro_stock");
+                double IVA = rsProducto.getDouble("pro_IVA");
+                char visualizar = rsProducto.getString("pro_visualizar").charAt(0);
 
-            try {
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, nombre);
-                ResultSet rs = pstmt.executeQuery();
+                System.out.println("Producto encontrado:");
+                System.out.println("Código: " + codigo);
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Precio: " + precio);
+                System.out.println("Stock: " + stock);
+                System.out.println("IVA: " + IVA);
+                System.out.println("Visualizar: " + visualizar);
 
-                if (rs.next()) {
-                    System.out.println("Producto encontrado:");
-                    System.out.println("Código: " + rs.getInt("pro_codigo"));
-                    System.out.println("Nombre: " + rs.getString("pro_nombre"));
-                    System.out.println("Precio: " + rs.getString("pro_precio"));
-                    System.out.println("Stock: " + rs.getString("pro_stock"));
-                    System.out.println("IVA: " + rs.getString("pro_IVA"));
-                    System.out.println("Visualizar: " + rs.getString("pro_visualizar"));
-                    //Cliente cli = new Cliente(12, 's', 23, "0102", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
-
-                    //Cliente cli = new Cliente(rs.getInt("cli_codigo"),rs.getString("cli_visualizar"));
-                } else {
-                    System.out.println("No se encontró ningún cliente con la cédula " + nombre);
-                }
-
-                rs.close();
-                pstmt.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            } finally {
-                conexion.desconectar();
+                return new Producto(codigo, nombre, precio, stock, IVA, visualizar, codigo);
+            } else {
+                System.out.println("Producto no encontrado con el nombre: " + nombre);
+                return null;
             }
-        } else {
-
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            throw e;
+        } finally {
+            conexion.desconectar();
         }
-
     }
 
     public boolean actualizarProducto(Producto producto) {
@@ -103,7 +104,7 @@ public class DAOProducto {
             sentencia.setInt(4, producto.getStock());
             sentencia.setDouble(5, producto.getIva());
             sentencia.setString(6, String.valueOf(producto.getVisualizacion()));
-            sentencia.setInt(7, producto.getCodigo()); 
+            sentencia.setInt(7, producto.getCodigo());
 
             int filasAfectadas = sentencia.executeUpdate();
 
