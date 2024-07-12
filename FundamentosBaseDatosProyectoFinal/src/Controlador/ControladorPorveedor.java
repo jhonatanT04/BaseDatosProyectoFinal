@@ -24,10 +24,14 @@ public class ControladorPorveedor {
         return daoProveedores.insertarProveedor(proveedor);
     }
 
-    public void buscarProveedor(int codigo) {
-        daoProveedores.buscarProveedor(codigo);
+    public Proveedor buscarProveedorNombre(String nombre) {
+        return daoProveedores.buscarProveedorPorNombre(nombre);
     }
 
+    public Proveedor buscarProveedorRUC(String ruc){
+        return daoProveedores.buscarProveedorPorRUC(ruc); 
+    }
+    
     public boolean actualizarProveedor(int codigo, String nombre, String telefono, String direccion, String correo, String ruc) {
         Proveedor proveedor = new Proveedor(codigo, nombre, telefono, direccion, correo, ruc);
         return daoProveedores.actualizarProveedor(proveedor);

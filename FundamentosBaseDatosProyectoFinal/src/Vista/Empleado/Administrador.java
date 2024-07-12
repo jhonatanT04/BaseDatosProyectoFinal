@@ -5,6 +5,7 @@
 package Vista.Empleado;
 
 import Controlador.ControladorCategoria;
+import Controlador.ControladorCompraPoveedor;
 import Controlador.ControladorPorveedor;
 import Controlador.ControladorProducto;
 import Vista.Cliente.NuevoCliente;
@@ -64,6 +65,7 @@ public class Administrador extends javax.swing.JFrame {
     private ControladorProducto controladorProducto;
     private ControladorCategoria controladorCategoria;
     private ControladorPorveedor controladorProveedor;
+    private ControladorCompraPoveedor controladorCompraPoveedor;
     /**
      * Creates new form Administrador
      */
@@ -72,6 +74,7 @@ public class Administrador extends javax.swing.JFrame {
         controladorCategoria = new ControladorCategoria();
         controladorProducto = new ControladorProducto();
         controladorProveedor = new ControladorPorveedor();
+        controladorCompraPoveedor = new ControladorCompraPoveedor();
     }
 
     /**
@@ -523,8 +526,8 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if(comprarProveedores_1 == null){
-            comprarProveedores_1 = new ComprarProveedores_1();
-            desktopPane.add(comprarProveedores_1);
+            comprarProveedores_1 = new ComprarProveedores_1(controladorCompraPoveedor, controladorProveedor, controladorProducto);
+            desktopPane.add(comprarProveedores_1); 
         }
         
         comprarProveedores_1.setVisible(true); 
