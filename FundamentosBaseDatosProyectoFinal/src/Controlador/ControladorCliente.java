@@ -22,8 +22,8 @@ public class ControladorCliente {
     }
     
     
-    public void crearCliente(Cliente cliente) throws SQLException{
-        daoCliente.insertarCliente(cliente);
+    public boolean crearCliente(Cliente cliente) throws SQLException{
+        return daoCliente.insertarCliente(cliente);
     }
     public Cliente buscarCliente(Persona per) throws SQLException{
         return daoCliente.buscarClientePorCedula(per);

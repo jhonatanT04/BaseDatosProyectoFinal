@@ -5,7 +5,9 @@
 package Vista.Cliente;
 
 import Controlador.ControladorCliente;
+import Controlador.ControladorPersona;
 import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,12 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class NuevoCliente extends javax.swing.JInternalFrame {
     private ControladorCliente controladorCliente;
+    private ControladorPersona controladorPersona;
+    private char visu = 'a'; 
     /**
      * Creates new form NuevoCliente
      */
     public NuevoCliente() {
         initComponents();
         controladorCliente = new ControladorCliente();
+        controladorPersona = new ControladorPersona();
     }
 
     /**
@@ -179,29 +184,51 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarClienteActionPerformed
-        /*try {
-            // TODO add your handling code here:
-            //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText());
-            if (txtCedula.getText().trim().length()<10||txtCedula.getText().length()>10) {
-                JOptionPane.showInternalMessageDialog(rootPane, "El numero de cedula debe de ser de 10 digitos");
-            }else{
-                if (this.validarCampos()==true) {
-                    //Cliente cli = controladorCliente.buscarCliente(txtCedula.getText().trim(),rootPane);
-                    if (cli==null) {
-                        controladorCliente.crearCliente(new Cliente(0,'A', 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText()));
+        if (validarCampos()) {
+            try {
+                Cliente per = (Cliente) controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
+                
+                if (per==null) {
+                    System.out.println(per);
+                    Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
+                    controladorPersona.nuevaPersona(cli);
+                    boolean v = controladorCliente.crearCliente(cli);
+                    
+                    if (v==true) {
+                        JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" se creo exitosamente.");
                     }else{
-                        JOptionPane.showInternalMessageDialog(rootPane, "El cliente con el numero de cedula "+cli.getCedula()+" existe en la base de datos y se llama "+ cli.getNombre() +" "+ cli.getApellido());
+                        JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" no se pudo crear dentro de la base de datos.");
+                    }
+                }else{
+                    Cliente cli = controladorCliente.buscarCliente(per);
+                    if (cli==null) {
+                        
+                    }else{
+                        if (cli.getVisualizacion()=='a') {
+                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" ya esta registrado en la base de datos.");
+                        }else if (cli.getVisualizacion()=='i'){
+                            
+                            int opc = JOptionPane.showConfirmDialog(rootPane,"El cliente con numero de cedula "+cli.getCedula()+" se encuantra inavilitado.·¿Desea habilitarlo nuevamente? ","Confirmar",JOptionPane.YES_NO_OPTION );
+                            
+                            if (opc==0) {
+                                //si 
+                            }else{
+                                //no
+                            }
+                            
+                        }
+                        
                     }
                 }
-                
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         
     }//GEN-LAST:event_btnIngresarClienteActionPerformed
     
-    private boolean validarCampos(){
+    private boolean validarCampos() {
+        
         if (txtApellido.getText().trim().isEmpty()||txtNombre.getText().trim().isEmpty()||txtDireccion.getText().trim().isEmpty()||txtTelefono.getText().trim().isEmpty()||txtCorreo.getText().trim().isEmpty()) {
             JOptionPane.showInternalMessageDialog(rootPane, "Se deben llenar Todos los campos");
             return false;
@@ -209,10 +236,14 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             JOptionPane.showInternalMessageDialog(rootPane, "Los campos deben de llenarse con menos de 100 caracteres");
             return false;
         }else if (txtTelefono.getText().trim().length()>10||txtTelefono.getText().trim().length()<10){
-            JOptionPane.showInternalMessageDialog(rootPane, "El campo de Telefono de deve llenar con 10 numeros ");
+            JOptionPane.showInternalMessageDialog(rootPane, "El campo de Telefono de deve tener 10 numeros ");
             //System.out.println(txtDireccion.getText().trim().length());
             return false;
-        }else{
+        }else if (txtCedula.getText().trim().length() >10||txtCedula.getText().trim().length()<10){
+            JOptionPane.showInternalMessageDialog(rootPane, "El campo de Cedula se deve tener 10 numeros ");
+            return false;
+        }
+        else{
             return true;
         }
     }

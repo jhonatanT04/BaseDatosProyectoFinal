@@ -198,7 +198,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (txtCedula.getText().trim().isEmpty()==false) {
             if(txtCedula.getText().trim().length()>10||txtCedula.getText().trim().length()<10){
-                JOptionPane.showInternalMessageDialog(rootPane, "El campo cedula lleva solo 10 digitos");
+                JOptionPane.showInternalMessageDialog(rootPane, "El campo cedula lleva 10 digitos");
             }else{
                 try {
                     Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
