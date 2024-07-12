@@ -204,14 +204,21 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                     Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
                     if (per!=null) {
                         Cliente cli = controladorCliente.buscarCliente(per);
-                        if (cli!=null&&cli.getVisualizacion()=='a') {
-                            txtApellido.setText(cli.getApellido());
-                            txtNombre.setText(cli.getNombre());
-                            txtCorreo.setText(cli.getCorreo());
-                            txtDireccion.setText(cli.getDireccion());
-                            txtTelefono.setText(cli.getTelefono());
+                        if (cli!=null) {
+                            if (cli.getVisualizacion()=='a') {
+                                txtApellido.setText(cli.getApellido());
+                                txtNombre.setText(cli.getNombre());
+                                txtCorreo.setText(cli.getCorreo());
+                                txtDireccion.setText(cli.getDireccion());
+                                txtTelefono.setText(cli.getTelefono());
+                                
+                            }else{
+                                JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
+                            }
                         }else{
-                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivada.");
+                            
+                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente no existe en la base de datos.");
+                            
                         }
                     }else{
                         JOptionPane.showInternalMessageDialog(rootPane, "La persona no existe en la base de datos");

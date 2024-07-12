@@ -32,7 +32,7 @@ public class DAOCliente {
                 System.out.println("KKKKKKKKKKKKK");
                 int cod =daoPersona.insertarPersona(cliente);
                 System.out.println("AAAAAAAAAAAAA");
-                 psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
+                psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
                 psCliente.setString(2, String.valueOf(cod));
                 psCliente.executeUpdate();
                 return true;
@@ -50,9 +50,7 @@ public class DAOCliente {
     
     
     public Cliente buscarClientePorCedula(Persona per) throws SQLException {        
-        //daoPersona = new DAOPersona();
-        //Persona per = daoPersona.buscarPersonaCliente(per.getCedula());
-        //System.out.println(per);
+       
         String clienteSQL = "SELECT cli_codigo, cli_visualizar FROM super_clientes WHERE super_personas_per_codigo = ?";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
@@ -100,6 +98,27 @@ public class DAOCliente {
         }*/
         
         
+    }
+    
+     public void modificarCliente(Cliente cliente) throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String updateClienteSQL = "UPDATE super_clientes SET cli_visualizar = ? WHERE cli_codigo = ?";
+        
+            
+        try (PreparedStatement psCliente = conn.prepareStatement(updateClienteSQL)) {
+            daoPersona.modificarPersona(cliente);
+            System.out.println("AAAA");
+            psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
+            psCliente.setInt(2, cliente.getClienteCodigo());
+            System.out.println("Visua : "+cliente.getVisualizacion());
+            psCliente.executeUpdate();   
+        }
+        finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
     
     

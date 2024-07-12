@@ -189,7 +189,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                 Persona per = controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
                 
                 if (per==null) {
-                    System.out.println(per);
+                    
                     Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
                     
                     boolean v = controladorCliente.crearCliente(cli);
@@ -198,33 +198,27 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                     }else{
                         JOptionPane.showInternalMessageDialog(rootPane, "ERROR DENTRO DEL CONTROLADOR.");
                     }
-                }
-                //Nuevo metodo para que sirva la logica de si empleado quiere ser cliente 
-                else{
+                }else{
                     Cliente cli = controladorCliente.buscarCliente(per); 
                     if (cli==null) {
-                        JOptionPane.showInternalMessageDialog(rootPane, "La persona con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos .·");
-                        /*if (opc==0) {
-                                
-                        }else{
-                            
-                        }*/
+                        JOptionPane.showInternalMessageDialog(rootPane, "La persona con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos y ejerce otro rol.·");
+                        
                     }else{
-                        if (cli.getVisualizacion()=='a') {
-                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" ya esta registrado en la base de datos.");
-                        }else if (cli.getVisualizacion()=='i'){
-                            
-                            int opc = JOptionPane.showConfirmDialog(rootPane,"El cliente con numero de cedula "+cli.getCedula()+" se encuantra inavilitado.·¿Desea habilitarlo nuevamente? ","Confirmar",JOptionPane.YES_NO_OPTION );
-                            
-                            if (opc==0) {
-                                
-                            }else{
-                                //no
+                        if (cli.getVisualizacion()=='i') {
+                            int vari = JOptionPane.showConfirmDialog(rootPane, "El cliente con numero de cedula "+per.getCedula()+" se encuentra desactivado. ¿Desea actualizarlo?·");
+                            if (vari==0) {
+                                int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al cliente con numero de cedula "+cli.getCedula()+" y con nombre de "+cli.getNombre()+" "+cli.getApellido());
+                                if (v==0) {
+                                    System.out.println("Se actualiza cliente");
+                                }
                             }
-                            
+                        }else{
+                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos.·");
                         }
                         
                     }
+                        
+                    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);

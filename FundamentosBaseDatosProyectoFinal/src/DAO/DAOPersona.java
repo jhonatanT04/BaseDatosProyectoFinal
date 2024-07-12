@@ -45,6 +45,27 @@ public class DAOPersona {
             }
         }
     }
+    
+    public void modificarPersona(Persona per) throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String sql = "UPDATE super_personas SET per_cedula = ?, per_nombre = ?, per_apellido = ?, per_direccion = ?, per_telefono = ?, per_correo_electronico = ? WHERE per_codigo = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, per.getCedula());
+            stmt.setString(2, per.getNombre());
+            stmt.setString(3, per.getApellido());
+            stmt.setString(4, per.getDireccion());
+            stmt.setString(5, per.getTelefono());
+            stmt.setString(6, per.getCorreo());
+            stmt.setInt(7, per.getCodigo());
+            int rowsUpdated = stmt.executeUpdate();
+            //return rowsUpdated > 0;
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
 
     public Persona buscarPersonaEmpleado(String cedula) throws SQLException{
         Conexion conexion = new Conexion();

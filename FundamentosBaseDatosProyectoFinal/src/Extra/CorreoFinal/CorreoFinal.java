@@ -7,10 +7,12 @@ package Extra.CorreoFinal;
 import DAO.Conexion;
 import DAO.DAOCliente;
 import DAO.DAOEmpleado;
+import DAO.DAOPersona;
 import Modelo.Factura.CabeceraFactura;
 import Modelo.Factura.DetalleFactura;
 import Modelo.Personas.Persona.Cliente;
 import Modelo.Personas.Persona.Empleado;
+import Modelo.Personas.Persona.Persona;
 import Modelo.Producto.Categoria;
 import Modelo.Producto.Producto;
 import com.lowagie.text.Document;
@@ -277,6 +279,8 @@ public class CorreoFinal {
         //Cliente cli=daoCliente.buscarClientePorCedula("0103");
         
         
+        
+        
         //DAOEmpleado daoEmpleado = new DAOEmpleado();
         //Empleado emp = new Empleado(0, 'a', "Ania1234", 'a', 0, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
         //daoEmpleado.insertarEmpleado(emp);
@@ -315,6 +319,17 @@ public class CorreoFinal {
 
         CorreoFinal emailSender = new CorreoFinal();
         emailSender.sendEmail(to, subject, body, pdfFilePath);*/
+        
+        DAOCliente daoC = new DAOCliente();
+        DAOPersona daoP = new DAOPersona();
+        
+        Persona per = daoP.buscarPersonaCliente("1234567899");
+        Cliente cli = daoC.buscarClientePorCedula(per);
+        cli.setApellido("AAAA");
+        cli.setVisualizacion('a');
+        
+        //daoP.modificarPersona(cli);
+        daoC.modificarCliente(cli);
     }
     
     

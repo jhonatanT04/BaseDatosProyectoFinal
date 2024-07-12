@@ -29,4 +29,8 @@ public class ControladorCliente {
         return daoCliente.buscarClientePorCedula(per);
     }
     
+    public void actualizarCliente(){
+        
+    }
+    
 }
