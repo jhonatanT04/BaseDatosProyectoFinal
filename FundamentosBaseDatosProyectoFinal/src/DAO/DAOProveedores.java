@@ -45,16 +45,16 @@ public class DAOProveedores {
         }
     }
 
-    public void buscarProveedor(double codigo) {
-        if (codigo > 0) {
+    public Proveedor buscarProveedorPorNombre(String nombre) {
+        if (nombre != null && !nombre.trim().isEmpty()) {
             Conexion conexion = new Conexion();
             Connection conn = conexion.conectar();
 
-            String sql = "SELECT * FROM super_proveedores WHERE prov_codigo = ?";
+            String sql = "SELECT * FROM super_proveedores WHERE prov_nombre = ?";
 
             try {
                 PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setDouble(1, codigo);
+                pstmt.setString(1, nombre.trim());
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
@@ -66,7 +66,7 @@ public class DAOProveedores {
                     System.out.println("Correo Electrónico: " + rs.getString("prov_correo_electronico"));
                     System.out.println("RUC: " + rs.getString("prov_ruc"));
                 } else {
-                    System.out.println("No se encontró ningún proveedor con el código " + codigo);
+                    System.out.println("No se encontró ningún proveedor con el nombre " + nombre);
                 }
 
                 rs.close();
@@ -77,8 +77,46 @@ public class DAOProveedores {
                 conexion.desconectar();
             }
         } else {
-            System.out.println("El código del proveedor no puede ser menor o igual a 0.");
+            System.out.println("El nombre del proveedor no puede estar vacío.");
         }
+        return null;
+    }
+
+    public Proveedor buscarProveedorPorRUC(String ruc) {
+        if (ruc != null && !ruc.trim().isEmpty()) {
+            Conexion conexion = new Conexion();
+            Connection conn = conexion.conectar();
+
+            String sql = "SELECT * FROM super_proveedores WHERE prov_ruc = ?";
+
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, ruc.trim());
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    System.out.println("Proveedor encontrado:");
+                    System.out.println("Código: " + rs.getDouble("prov_codigo"));
+                    System.out.println("Nombre: " + rs.getString("prov_nombre"));
+                    System.out.println("Teléfono: " + rs.getString("prov_telefono"));
+                    System.out.println("Dirección: " + rs.getString("prov_direccion"));
+                    System.out.println("Correo Electrónico: " + rs.getString("prov_correo_electronico"));
+                    System.out.println("RUC: " + rs.getString("prov_ruc"));
+                } else {
+                    System.out.println("No se encontró ningún proveedor con el RUC " + ruc);
+                }
+
+                rs.close();
+                pstmt.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            } finally {
+                conexion.desconectar();
+            }
+        } else {
+            System.out.println("El RUC del proveedor no puede estar vacío.");
+        }
+        return null;
     }
 
     public boolean actualizarProveedor(Proveedor proveedor) {
