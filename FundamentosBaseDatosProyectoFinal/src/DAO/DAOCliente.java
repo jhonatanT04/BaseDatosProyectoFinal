@@ -25,22 +25,27 @@ public class DAOCliente {
     public boolean insertarCliente(Cliente cliente) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        //String insertPersonaSQL = "INSERT INTO super_personas (per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico) VALUES (seq_super_personas.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (seq_super_clientes.NEXTVAL, ?, seq_super_personas.CURRVAL)";
-        daoPersona = new DAOPersona();
-        if (daoPersona.buscarPersonaCliente(cliente.getCedula())!=null) {
+        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (seq_super_clientes.NEXTVAL, ?, ?)";
+        
+        if (daoPersona.buscarPersonaCliente(cliente.getCedula()) == null) {
             try (PreparedStatement psCliente = conn.prepareStatement(insertClienteSQL)) {
-                daoPersona.insertarPersona(cliente);
-                psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
+                System.out.println("KKKKKKKKKKKKK");
+                int cod =daoPersona.insertarPersona(cliente);
+                System.out.println("AAAAAAAAAAAAA");
+                 psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
+                psCliente.setString(2, String.valueOf(cod));
                 psCliente.executeUpdate();
                 return true;
+            } finally {
+                if (conn != null) {
+                    conn.close();
+                }
             }
-        }else{
+        } else {
             return false;
         }
-        
-        
     }
+      
     
     
     

@@ -19,12 +19,11 @@ import java.sql.ResultSet;
  * @author venot
  */
 public class DAOPersona {
-    public void insertarPersona(Persona per) throws SQLException {
+    public int insertarPersona(Persona per) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
         String sql = "INSERT INTO super_personas (per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico) " +
-                 "VALUES (super_personas_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-
+                     "VALUES (super_personas_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, new String[]{"per_codigo"})) {
             stmt.setString(1, per.getCedula());
             stmt.setString(2, per.getNombre());
@@ -32,12 +31,17 @@ public class DAOPersona {
             stmt.setString(4, per.getDireccion());
             stmt.setString(5, per.getTelefono());
             stmt.setString(6, per.getCorreo());
-        
             stmt.executeUpdate();
-          
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("No se pudo obtener el per_codigo generado.");
+            }
+            
         } finally {
-        if (conn != null) {
-            conn.close();
+            if (conn != null) {
+                conn.close();
             }
         }
     }

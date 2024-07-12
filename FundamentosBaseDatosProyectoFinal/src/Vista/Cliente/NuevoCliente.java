@@ -187,18 +187,18 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         if (validarCampos()) {
             try {
                 Cliente per = (Cliente) controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
-                
                 if (per==null) {
                     System.out.println(per);
                     Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
-                    controladorPersona.nuevaPersona(cli);
+                    //controladorPersona.nuevaPersona(cli);
                     boolean v = controladorCliente.crearCliente(cli);
-                    
-                    if (v==true) {
+                    if (v) {
                         JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" se creo exitosamente.");
                     }else{
-                        JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" no se pudo crear dentro de la base de datos.");
+                        JOptionPane.showInternalMessageDialog(rootPane, "XD.");
                     }
+                    
+                    
                 }else{
                     Cliente cli = controladorCliente.buscarCliente(per);
                     if (cli==null) {

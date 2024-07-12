@@ -268,18 +268,20 @@ public class CorreoFinal {
         CorreoFinal c = new CorreoFinal();
         //LOS PRODUCTOS Y DETALLES SE DEBEN INGRESAR EN EL MIMO ORDEN
         c.factura(cab, detalles, productos, cli);*/
-        //Cliente cli = new Cliente(0, 's', 23, "0103", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
         
-        //DAOCliente daoCliente = new DAOCliente();
-        //daoCliente.insertarCliente(cli);
+        /*Cliente cli = new Cliente(0, 's', 23, "344", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
+        
+        DAOCliente daoCliente = new DAOCliente();
+        daoCliente.insertarCliente(cli);
+        
         //Cliente cli=daoCliente.buscarClientePorCedula("0103");
         
         
-        DAOEmpleado daoEmpleado = new DAOEmpleado();
+        //DAOEmpleado daoEmpleado = new DAOEmpleado();
         //Empleado emp = new Empleado(0, 'a', "Ania1234", 'a', 0, "0101", "Ana", "Leon", "Otra casa", "091234", "ania");
         //daoEmpleado.insertarEmpleado(emp);
-        daoEmpleado.buscarClientePorCedula("0101");
-        
+        //daoEmpleado.buscarClientePorCedula("0101");
+       
         
         /*
         String dateString = "12/31/2000";
