@@ -204,12 +204,14 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                     Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
                     if (per!=null) {
                         Cliente cli = controladorCliente.buscarCliente(per);
-                        if (cli!=null) {
+                        if (cli!=null&&cli.getVisualizacion()=='a') {
                             txtApellido.setText(cli.getApellido());
                             txtNombre.setText(cli.getNombre());
                             txtCorreo.setText(cli.getCorreo());
                             txtDireccion.setText(cli.getDireccion());
                             txtTelefono.setText(cli.getTelefono());
+                        }else{
+                            JOptionPane.showInternalMessageDialog(rootPane, "La persona esta desactivada.");
                         }
                     }else{
                         JOptionPane.showInternalMessageDialog(rootPane, "La persona no existe en la base de datos");
