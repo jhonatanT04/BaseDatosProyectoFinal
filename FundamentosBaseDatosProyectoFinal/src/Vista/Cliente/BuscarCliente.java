@@ -211,7 +211,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                             txtDireccion.setText(cli.getDireccion());
                             txtTelefono.setText(cli.getTelefono());
                         }else{
-                            JOptionPane.showInternalMessageDialog(rootPane, "La persona esta desactivada.");
+                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivada.");
                         }
                     }else{
                         JOptionPane.showInternalMessageDialog(rootPane, "La persona no existe en la base de datos");

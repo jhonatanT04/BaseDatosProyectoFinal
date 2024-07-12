@@ -4,7 +4,7 @@
  */
 package ec.edu.ups.Vista.Empleado;
 
-import Vista.Cliente.ActualizarDatos;
+import Vista.Cliente.ActualizarDatosClientes;
 import Vista.Cliente.NuevoCliente;
 
 
@@ -16,7 +16,7 @@ public class EmpleadoGeneral extends javax.swing.JFrame {
 
   
     NuevoCliente nuevoCliente;
-    ActualizarDatos actualizarDatos;
+    ActualizarDatosClientes actualizarDatos;
     /**
      * Creates new form NewMDIApplication
      */
@@ -143,7 +143,7 @@ public class EmpleadoGeneral extends javax.swing.JFrame {
 
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
         if(actualizarDatos == null){
-            actualizarDatos = new ActualizarDatos();
+            actualizarDatos = new ActualizarDatosClientes();
             desktopPane.add(actualizarDatos);
         }
         actualizarDatos.setVisible(true);

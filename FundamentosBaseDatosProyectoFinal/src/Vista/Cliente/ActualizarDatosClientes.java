@@ -8,12 +8,12 @@ package Vista.Cliente;
  *
  * @author Usuario
  */
-public class ActualizarDatos extends javax.swing.JInternalFrame {
-
+public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
+    private Controlador.
     /**
      * Creates new form ActualizarDatos
      */
-    public ActualizarDatos() {
+    public ActualizarDatosClientes() {
         initComponents();
     }
 
@@ -51,6 +51,11 @@ public class ActualizarDatos extends javax.swing.JInternalFrame {
         txtCorreo.setEditable(false);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
 
@@ -163,6 +168,10 @@ public class ActualizarDatos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

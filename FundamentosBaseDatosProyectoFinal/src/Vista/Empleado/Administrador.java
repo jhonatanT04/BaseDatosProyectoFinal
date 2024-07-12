@@ -15,7 +15,7 @@ import Vista.Proovedoores.BuscarCompraProveedores;
 import Vista.Proovedoores.ComprarProveedores_1;
 import Vista.Proovedoores.EliminarCompraProveedores;
 import Vista.Proovedoores.ListarProveedores_1;
-import Vista.Cliente.ActualizarDatos;
+import Vista.Cliente.ActualizarDatosClientes;
 import Vista.Cliente.EliminarCliente;
 import Vista.Cliente.ListarCliente;
 import Vista.Empleado.ActualizarEmpleado;
@@ -42,7 +42,7 @@ import Vista.Producto.ListarProducto;
 public class Administrador extends javax.swing.JFrame {
     private NuevoCliente ventanaNuevoCliente;
     private BuscarCliente ventanaBuscarCliente;
-    private ActualizarDatos veActualizarDatos;
+    private ActualizarDatosClientes veActualizarDatos;
     private EliminarCliente veEliminarCliente;
     private ListarCliente listarCliente;
     private IngresarEmpleado ingresarEmpleado;
@@ -391,7 +391,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         if(veActualizarDatos == null){
-            veActualizarDatos = new ActualizarDatos();
+            veActualizarDatos = new ActualizarDatosClientes();
             desktopPane.add(veActualizarDatos);
         }
         
