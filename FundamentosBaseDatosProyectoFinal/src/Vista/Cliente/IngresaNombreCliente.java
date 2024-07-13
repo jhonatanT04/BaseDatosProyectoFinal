@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author venot
  */
-public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
+public class IngresaNombreCliente extends javax.swing.JInternalFrame {
     private ControladorCliente controladorCliente;
     private ControladorPersona controladorPersona;
     private Cliente cliente;
@@ -29,7 +30,7 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
     /**
      * Creates new form IngresaCedulaCliente
      */
-    public IngresaCedulaCliente(JTable jTableClientes) {
+    public IngresaNombreCliente(JTable jTableClientes) {
         initComponents();
         controladorCliente = new ControladorCliente();
         controladorPersona = new ControladorPersona();
@@ -49,9 +50,9 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jBntBuscar = new javax.swing.JButton();
         jBntCancelar = new javax.swing.JButton();
-        txtCedula = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
 
-        jLabel1.setText("Cedula del Empleado:");
+        jLabel1.setText("Ingrese el nombre :");
 
         jBntBuscar.setText("Buscar");
         jBntBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -67,9 +68,9 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedulaActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
@@ -81,7 +82,7 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
                 .addGap(55, 55, 55)
-                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(391, Short.MAX_VALUE)
@@ -96,7 +97,7 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBntBuscar)
@@ -127,43 +128,28 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
     private void jBntBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntBuscarActionPerformed
         // TODO add your handling code here:
         
-        if (txtCedula.getText().trim().isEmpty()==false) {
-            if(txtCedula.getText().trim().length()>10||txtCedula.getText().trim().length()<10){
-                JOptionPane.showInternalMessageDialog(rootPane, "El campo cedula lleva 10 digitos");
-            }else{
-                try {
-                    Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
-                    if (per!=null) {
-                        Cliente cli = controladorCliente.buscarCliente(per);
-                        if (cli!=null) {
-                            if (cli.getVisualizacion()=='a') {
-                                /*txtApellido.setText(cli.getApellido());
-                                txtNombre.setText(cli.getNombre());
-                                txtCorreo.setText(cli.getCorreo());
-                                txtDireccion.setText(cli.getDireccion());
-                                txtTelefono.setText(cli.getTelefono());*/
-                                cliente = cli;
-                                addClienteToTable(cliente);
-                                this.setVisible(false);
-                                this.txtCedula.setText("");
-                                
-                            }else{
-                                JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
-                            }
-                        }else{
-                            
-                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente no existe en la base de datos.");
-                            
-                        }
+        if (txtNombre.getText().trim().isEmpty()==false) {
+            try {
+                List<Persona> listP = controladorPersona.listarPersonasClientes(txtNombre.getText().trim());
+                if (listP!=null) {
+                    List<Cliente> listC = controladorCliente.buscarPorNombreCliente(listP);
+                    if (listC!=null) {
+                        llenarTabla(listC);
+                        this.setVisible(false);
+                        this.txtNombre.setText("");
                     }else{
-                        JOptionPane.showInternalMessageDialog(rootPane, "La persona no existe en la base de datos");
+                        JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun cliente con este nombre");
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                }else{
+                    JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun personas con este nombre");
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }else{
-            JOptionPane.showInternalMessageDialog(rootPane, "Se debe llenar el campo cedula");
+            JOptionPane.showInternalMessageDialog(rootPane, "Se debe llenar el campo nombre");
         }
     }//GEN-LAST:event_jBntBuscarActionPerformed
     
@@ -175,15 +161,35 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
     private void jBntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntCancelarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        this.txtCedula.setText("");
+        this.txtNombre.setText("");
     }//GEN-LAST:event_jBntCancelarActionPerformed
 
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
     
     public Cliente getVentanaCedula(){
         return cliente;
+    }
+    
+    public void llenarTabla(List<Cliente> clientes){
+        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        jTableClientes.setModel(tableModel);
+        for (Cliente cliente : clientes) {
+            if (cliente.getVisualizacion()=='a') {
+                Object[] rowData = {
+                    cliente.getCedula(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getDireccion(),
+                    cliente.getTelefono(),
+                    cliente.getCorreo()
+                };
+                tableModel.addRow(rowData);
+            }
+            
+        }
     }
     
     public void setVentanaCedula(){
@@ -195,6 +201,6 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBntCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

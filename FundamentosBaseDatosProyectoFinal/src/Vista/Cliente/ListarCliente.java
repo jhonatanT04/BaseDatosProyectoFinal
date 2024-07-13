@@ -6,6 +6,7 @@ package Vista.Cliente;
 
 import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class ListarCliente extends javax.swing.JInternalFrame {
     private IngresaCedulaCliente ingresarCedula;
+    private IngresaNombreCliente ingresarNombre;
     private javax.swing.JDesktopPane desktopPane;
     /**
      * Creates new form ListarCliente
@@ -38,7 +40,7 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         buttonGroupSeleccion = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableClientes = new javax.swing.JTable();
         jboxNombre = new javax.swing.JRadioButton();
         Cedula = new javax.swing.JRadioButton();
         jboxTodo = new javax.swing.JRadioButton();
@@ -46,18 +48,18 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jbntSalir = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo", "Visualizar"
+                "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableClientes);
 
         jboxNombre.setText("Nombre");
         jboxNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -92,13 +94,12 @@ public class ListarCliente extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jboxNombre)
                                     .addGap(129, 129, 129)
                                     .addComponent(Cedula)
                                     .addGap(121, 121, 121)
                                     .addComponent(jboxTodo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                                     .addComponent(jBntSeleccion))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
@@ -156,20 +157,37 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
             if (Cedula.isSelected()) {
                 desplegarCedula();
-                
+                this.limpiarTabla();
+                //wSystem.out.println(ingresarCedula.getVentanaCedula().getCedula());
+            }else if(jboxNombre.isSelected()){
+                desplegarTodo();
+                this.limpiarTabla();
             }
         }else{
             JOptionPane.showInternalMessageDialog(rootPane, "Escoja una opcion.");
         }
     }//GEN-LAST:event_jBntSeleccionActionPerformed
-    
+    public void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();
+        model.setRowCount(0);
+    }
     private void desplegarCedula(){
+        
         if(ingresarCedula == null){
-            ingresarCedula = new IngresaCedulaCliente();
+            ingresarCedula = new IngresaCedulaCliente(jTableClientes);
             desktopPane.add(ingresarCedula);
         }
-        
+        ingresarCedula.setVentanaCedula();
         ingresarCedula.setVisible(true); 
+    }
+    private void desplegarTodo(){
+        
+        if(ingresarNombre == null){
+            ingresarNombre = new IngresaNombreCliente(jTableClientes);
+            desktopPane.add(ingresarNombre);
+        }
+        
+        ingresarNombre.setVisible(true); 
     }
    
     
@@ -181,7 +199,7 @@ public class ListarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JButton jbntSalir;
     private javax.swing.JRadioButton jboxNombre;
     private javax.swing.JRadioButton jboxTodo;

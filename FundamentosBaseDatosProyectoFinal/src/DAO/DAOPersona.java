@@ -115,5 +115,29 @@ public class DAOPersona {
         }
     }
     
-    
+    public List<Persona> buscarPersonaPorNombreClientes(String nombre) throws SQLException {
+        List<Persona> personas = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String sql = "SELECT * FROM super_personas WHERE per_nombre LIKE ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + nombre + "%");
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Persona persona = new Cliente(0, 'a', 0, sql, nombre, sql, sql, sql, nombre);
+                persona.setCodigo(rs.getInt("per_codigo"));
+                persona.setCedula(rs.getString("per_cedula"));
+                persona.setNombre(rs.getString("per_nombre"));
+                persona.setApellido(rs.getString("per_apellido"));
+                persona.setDireccion(rs.getString("per_direccion"));
+                persona.setTelefono(rs.getString("per_telefono"));
+                persona.setCorreo(rs.getString("per_correo_electronico"));
+                personas.add(persona);
+            }
+        }
+        
+        return personas;
+    }
 }

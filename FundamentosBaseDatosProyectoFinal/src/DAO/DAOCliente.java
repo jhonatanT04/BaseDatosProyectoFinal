@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.AbstractList;
 import javax.swing.JRootPane;
 
 /**
@@ -71,33 +72,6 @@ public class DAOCliente {
                 return null;
             }
         }
-        
-        /*if (per == null) {
-            String clienteSQL = "SELECT cli_codigo, cli_visualizar FROM super_clientes WHERE super_personas_per_codigo = ?";
-            Conexion conexion = new Conexion();
-            Connection conn = conexion.conectar();
-            try (PreparedStatement psCliente = conn.prepareStatement(clienteSQL)) {
-                psCliente.setInt(1, per.getCodigo());
-                ResultSet rsCliente = psCliente.executeQuery();
-                if (rsCliente.next()) {
-                    int cliCodigo = rsCliente.getInt("cli_codigo");
-                    String visualizar = rsCliente.getString("cli_visualizar");
-                    System.out.println("Cliente encontrado:");
-                    System.out.println("Código de cliente: " + cliCodigo);
-                    System.out.println("Visualizar: " + visualizar);
-                    return new Cliente(cliCodigo,visualizar.charAt(0) , per.getCodigo(), per.getCedula(),per.getNombre(),per.getApellido() ,per.getDireccion(),per.getTelefono(), per.getCorreo());
-                } else {
-                    //System.out.println("Cliente no encontrado para la cédula: " + cedula);
-                    //JOptionPane.showInternalMessageDialog(rootPane, "La persona con cedula  "+per.getCedula()+" no existe en clientes.");
-                    return null;
-                }
-            }
-        }else{
-            JOptionPane.showInternalMessageDialog(rootPane, "La persona con cedula  "+cedula+" no existe en la base.");
-            return null;
-        }*/
-        
-        
     }
     
      public boolean modificarCliente(Cliente cliente) throws SQLException {
@@ -122,6 +96,32 @@ public class DAOCliente {
         }
     }
     
+     
+     public List<Cliente> buscarPersonaPorNombre(List<Persona> personas) throws SQLException {        
+       
+        String clienteSQL = "SELECT cli_codigo, cli_visualizar FROM super_clientes WHERE super_personas_per_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        List<Cliente> listaClientes = new ArrayList<>();
+        for (Persona per : personas) {
+            try (PreparedStatement psCliente = conn.prepareStatement(clienteSQL)) {
+                psCliente.setInt(1, per.getCodigo());
+                ResultSet rsCliente = psCliente.executeQuery();
+                if (rsCliente.next()) {
+                    int cliCodigo = rsCliente.getInt("cli_codigo");
+                    String visualizar = rsCliente.getString("cli_visualizar");
+                    System.out.println("Cliente encontrado:");
+                    System.out.println("Código de cliente: " + cliCodigo);
+                    System.out.println("Visualizar: " + visualizar);
+                    listaClientes.add(new Cliente(cliCodigo, visualizar.charAt(0), per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo()));
+                     
+                //return new Cliente(cliCodigo,visualizar.charAt(0) , per.getCodigo(), per.getCedula(),per.getNombre(),per.getApellido() ,per.getDireccion(),per.getTelefono(), per.getCorreo());
+                }
+            }
+        }
+        return listaClientes;
+        
+    }
     
     
 }

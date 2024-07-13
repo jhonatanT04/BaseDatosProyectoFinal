@@ -7,6 +7,7 @@ package Controlador;
 import DAO.DAOPersona;
 import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -31,5 +32,7 @@ public class ControladorPersona {
    public Persona buscarPersonaEmpleado(String Cedula) throws SQLException{
        return daopersona.buscarPersonaEmpleado(Cedula);
    }
-   
+   public List<Persona> listarPersonasClientes(String nombre) throws SQLException{
+       return daopersona.buscarPersonaPorNombreClientes(nombre);
+   }
 }

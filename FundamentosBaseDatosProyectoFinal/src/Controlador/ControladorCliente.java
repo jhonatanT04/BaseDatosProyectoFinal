@@ -9,6 +9,8 @@ import Modelo.Personas.Persona.Cliente;
 import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
 import javax.swing.JRootPane;
+import java.util.List;
+
 
 /**
  *
@@ -32,5 +34,7 @@ public class ControladorCliente {
     public boolean actualizarCliente(Cliente cliente) throws SQLException{
         return daoCliente.modificarCliente( cliente);
     }
-    
+    public List<Cliente> buscarPorNombreCliente(List<Persona> persns) throws SQLException{
+        return daoCliente.buscarPersonaPorNombre(persns);
+    }
 }
