@@ -239,6 +239,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_txtCedulaActionPerformed
 
 

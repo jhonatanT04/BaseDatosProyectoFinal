@@ -409,7 +409,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         if(listarCliente == null){
-            listarCliente = new ListarCliente();
+            listarCliente = new ListarCliente(desktopPane);
             desktopPane.add(listarCliente);
         }
         
