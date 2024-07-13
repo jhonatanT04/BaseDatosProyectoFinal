@@ -16,7 +16,7 @@ import javax.swing.JRootPane;
  */
 public class ControladorCliente {
     private DAOCliente daoCliente;
-
+    
     public ControladorCliente() {
         daoCliente= new DAOCliente();
     }
@@ -29,8 +29,8 @@ public class ControladorCliente {
         return daoCliente.buscarClientePorCedula(per);
     }
     
-    public void actualizarCliente(){
-        
+    public boolean actualizarCliente(Cliente cliente) throws SQLException{
+        return daoCliente.modificarCliente( cliente);
     }
     
 }

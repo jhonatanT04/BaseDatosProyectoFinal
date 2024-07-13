@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
     private ControladorCliente controladorCliente;
     private ControladorPersona controladorPersona;
+    private Cliente cliente;
+    private String primeraCedula;
     /**
      * Creates new form ActualizarDatos
      */
@@ -58,9 +60,6 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
         txtDireccion = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
 
         jButton1.setText("Cancelar");
 
@@ -102,20 +101,9 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
         jLabel12.setText("Cedula:");
 
         jButton2.setText("Cancelar");
-
-        jLabel1.setText("Estado de Visualizacion");
-
-        jRadioButton3.setText("jRadioButton3");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton4.setText("jRadioButton4");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -125,44 +113,37 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(151, 151, 151)
-                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(btnBuscar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel1))
-                                        .addGap(49, 49, 49)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jRadioButton3))))
-                                .addGap(22, 22, 22)
-                                .addComponent(jRadioButton4)))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel11))
+                                    .addGap(70, 70, 70)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addComponent(btnBuscar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnActualizar)
-                        .addGap(30, 30, 30)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addGap(61, 61, 61))
+                .addGap(59, 59, 59))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,16 +173,11 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
-                .addGap(58, 58, 58)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btnActualizar))
-                .addGap(48, 48, 48))
+                .addGap(79, 79, 79))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,8 +211,10 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
                                 txtCorreo.setText(cli.getCorreo());
                                 txtDireccion.setText(cli.getDireccion());
                                 txtTelefono.setText(cli.getTelefono());
+                                cliente = cli;
+                                primeraCedula =txtCedula.getText().trim();
                                 habilitarCampos(true);
-                                
+                                System.out.println("Primera cedula "+ primeraCedula);
                                 
                             }else{
                                 habilitarCampos(false);
@@ -264,17 +242,41 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        
+        if (validarCampos()) {
+            try {
+                Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
+                if (per==null||txtCedula.getText().trim().equals(primeraCedula)) {
+                    int opc = JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro que quiere modificar el cliente.");
+                    if (opc==0) {
+                        cliente.setCedula(txtCedula.getText().trim());
+                        cliente.setNombre(txtNombre.getText().trim());
+                        cliente.setApellido(txtApellido.getText().trim());
+                        cliente.setDireccion(txtDireccion.getText().trim());
+                        cliente.setTelefono(txtTelefono.getText().trim());
+                        cliente.setCorreo(txtCorreo.getText().trim());
+                        controladorCliente.actualizarCliente(cliente);
+                        this.habilitarCampos(false);
+                        this.limpiarCampos();
+                    }
+                }else{
+                    JOptionPane.showInternalMessageDialog(rootPane, "Existe una persona con este numero de cedula "+per.getCedula());
+                }
+                
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(ActualizarDatosClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+        this.setVisible(false);
+        this.habilitarCampos(false);
+        this.limpiarCampos();
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void limpiarCampos(){
         txtCedula.setText("");
         txtApellido.setText("");
@@ -292,8 +294,25 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
         txtTelefono.setEditable(opc);
         btnBuscar.setEnabled(!opc);
         btnActualizar.setEnabled(opc);
-        
-        
+    }
+    private boolean validarCampos() {
+        if (txtApellido.getText().trim().isEmpty()||txtNombre.getText().trim().isEmpty()||txtDireccion.getText().trim().isEmpty()||txtTelefono.getText().trim().isEmpty()||txtCorreo.getText().trim().isEmpty()) {
+            JOptionPane.showInternalMessageDialog(rootPane, "Se deben llenar Todos los campos");
+            return false;
+        }else if ((txtApellido.getText().trim().length()>100)||txtNombre.getText().trim().length()>100||txtDireccion.getText().trim().length()>100||txtCorreo.getText().trim().length()>100){
+            JOptionPane.showInternalMessageDialog(rootPane, "Los campos deben de llenarse con menos de 100 caracteres");
+            return false;
+        }else if (txtTelefono.getText().trim().length()>10||txtTelefono.getText().trim().length()<10){
+            JOptionPane.showInternalMessageDialog(rootPane, "El campo de Telefono de deve tener 10 numeros ");
+            //System.out.println(txtDireccion.getText().trim().length());
+            return false;
+        }else if (txtCedula.getText().trim().length() >10||txtCedula.getText().trim().length()<10){
+            JOptionPane.showInternalMessageDialog(rootPane, "El campo de Cedula se deve tener 10 numeros ");
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -303,7 +322,6 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -311,8 +329,6 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;

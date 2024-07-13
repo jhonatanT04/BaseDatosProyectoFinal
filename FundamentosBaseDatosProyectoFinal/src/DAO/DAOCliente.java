@@ -100,7 +100,7 @@ public class DAOCliente {
         
     }
     
-     public void modificarCliente(Cliente cliente) throws SQLException {
+     public boolean modificarCliente(Cliente cliente) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
         String updateClienteSQL = "UPDATE super_clientes SET cli_visualizar = ? WHERE cli_codigo = ?";
@@ -108,11 +108,12 @@ public class DAOCliente {
             
         try (PreparedStatement psCliente = conn.prepareStatement(updateClienteSQL)) {
             daoPersona.modificarPersona(cliente);
-            System.out.println("AAAA");
+            
             psCliente.setString(1, String.valueOf(cliente.getVisualizacion()));
             psCliente.setInt(2, cliente.getClienteCodigo());
-            System.out.println("Visua : "+cliente.getVisualizacion());
+            
             psCliente.executeUpdate();   
+            return true;
         }
         finally {
             if (conn != null) {
