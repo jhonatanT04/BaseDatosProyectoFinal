@@ -4,11 +4,13 @@
  */
 package Vista.Proovedoores;
 
-import Controlador.ControladorCompraPoveedor;
 import Controlador.ControladorPorveedor;
 import Controlador.ControladorProducto;
+import Controlador.ControladorCompraPoveedor;
 import Modelo.Producto.Producto;
+import Modelo.Proveedor.CompraProveedor;
 import Modelo.Proveedor.Proveedor;
+import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,18 +23,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ComprarProveedores_1 extends javax.swing.JInternalFrame {
 
-    private ControladorPorveedor controladorProveedor;
+    private ControladorPorveedor controladorProveedor;  // Corregido aquí
     private ControladorProducto controladorProducto;
-    private ControladorCompraPoveedor controladorCompraProveedor;
+    private ControladorCompraPoveedor controladorCompraProveedor;  // Corregido aquí
 
     /**
      * Creates new form ComprarProveedores
      */
-    public ComprarProveedores_1(ControladorCompraPoveedor controladorCompraPoveedor, ControladorPorveedor controladorPorveedor, ControladorProducto controladorProducto) {
+    public ComprarProveedores_1(ControladorCompraPoveedor controladorCompraProveedor, ControladorPorveedor controladorProveedor, ControladorProducto controladorProducto) {
         initComponents();
-        this.controladorCompraProveedor = controladorCompraPoveedor;
+        this.controladorCompraProveedor = controladorCompraProveedor;
         this.controladorProducto = controladorProducto;
-        this.controladorProveedor = controladorPorveedor;
+        this.controladorProveedor = controladorProveedor;  // Corregido aquí
     }
 
     /**
@@ -415,29 +417,77 @@ public class ComprarProveedores_1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_radioNombreActionPerformed
 
     private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
+        
         if (radioRUC.isSelected()) {
             String ruc = txtRUCProveedor.getText();
-            Proveedor proveedor = controladorProveedor.buscarProveedorRUC(ruc);
-            txtCodigoProveedor.setText(String.valueOf(proveedor.getCodigo()));  
-            txtNombreProveedor.setText(proveedor.getNombre());
-            txtCorreoProveedor.setText(proveedor.getCorreo());
-            txtDireccionProveedor.setText(proveedor.getDireccion());
-            txtTelefonoProveedor.setText(proveedor.getTelefono());
+            if (!ruc.isEmpty()) {
+                Proveedor proveedor = controladorProveedor.buscarProveedorRUC(ruc);
+                if (proveedor != null) {
+                    txtCodigoProveedor.setText(String.valueOf(proveedor.getCodigo()));
+                    txtNombreProveedor.setText(proveedor.getNombre());
+                    txtCorreoProveedor.setText(proveedor.getCorreo());
+                    txtDireccionProveedor.setText(proveedor.getDireccion());
+                    txtTelefonoProveedor.setText(proveedor.getTelefono());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Proveedor no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese un RUC.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (radioNombre.isSelected()) {
             String nombre = txtNombreProveedor.getText();
-            Proveedor proveedor = controladorProveedor.buscarProveedorNombre(nombre) ;
-            txtCodigoProveedor.setText(String.valueOf(proveedor.getCodigo()));  
-            txtRUCProveedor.setText(proveedor.getNombre());
-            txtCorreoProveedor.setText(proveedor.getCorreo());
-            txtDireccionProveedor.setText(proveedor.getDireccion());
-            txtTelefonoProveedor.setText(proveedor.getTelefono());
+            if (!nombre.isEmpty()) {
+                Proveedor proveedor = controladorProveedor.buscarProveedorNombre(nombre);
+                if (proveedor != null) {
+                    txtCodigoProveedor.setText(String.valueOf(proveedor.getCodigo()));
+                    txtRUCProveedor.setText(proveedor.getRuc());  
+                    txtCorreoProveedor.setText(proveedor.getCorreo());
+                    txtDireccionProveedor.setText(proveedor.getDireccion());
+                    txtTelefonoProveedor.setText(proveedor.getTelefono());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Proveedor no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un criterio de búsqueda (RUC o Nombre).", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        
+        try {
+            int filaSeleccionada = jTable1.getSelectedRow();
+            if (filaSeleccionada == -1) {
+                throw new IllegalArgumentException("Por favor, seleccione un producto de la tabla.");
+            }
+
+            int codigoProducto = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
+            int codigoProveedor = Integer.parseInt(txtCodigoProveedor.getText().trim());
+            int codigo = Integer.parseInt(txtCodigo.getText().trim());
+            Timestamp fecha = Timestamp.valueOf(txtFecha.getText().trim());
+            int cantidad = Integer.parseInt(txtCantidad.getText().trim());
+            double precio = Double.parseDouble(txtTotal.getText().trim());
+            double valorTotal = cantidad * precio;
+
+            // Crear instancia de CompraProveedor
+            CompraProveedor compra = new CompraProveedor(codigoProveedor, codigoProducto, codigo, fecha, valorTotal, cantidad);
+            controladorCompraProveedor.insertarCompraProveedor(compra);
+            // Aquí puedes agregar la lógica para guardar la compra en la base de datos o en tu estructura de datos
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Compra registrada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpiar campos de texto
+            txtCodigo.setText("");
+            txtCodigoProveedor.setText("");
+            txtFecha.setText("");
+            txtCantidad.setText("");
+            txtTotal.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos en los campos numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_AceptarActionPerformed
 
 

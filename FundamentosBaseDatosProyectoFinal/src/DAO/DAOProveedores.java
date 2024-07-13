@@ -46,77 +46,79 @@ public class DAOProveedores {
     }
 
     public Proveedor buscarProveedorPorNombre(String nombre) {
-        if (nombre != null && !nombre.trim().isEmpty()) {
-            Conexion conexion = new Conexion();
-            Connection conn = conexion.conectar();
+        String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_nombre = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
-            String sql = "SELECT * FROM super_proveedores WHERE prov_nombre = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nombre);
+            ResultSet rs = pstmt.executeQuery();
 
-            try {
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, nombre.trim());
-                ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int codigo = rs.getInt("prov_codigo");
+                String ruc = rs.getString("prov_ruc");
+                String nombreProveedor = rs.getString("prov_nombre");
+                String telefono = rs.getString("prov_telefono");
+                String direccion = rs.getString("prov_direccion");
+                String correo = rs.getString("prov_correo_electronico");
 
-                if (rs.next()) {
-                    System.out.println("Proveedor encontrado:");
-                    System.out.println("Código: " + rs.getDouble("prov_codigo"));
-                    System.out.println("Nombre: " + rs.getString("prov_nombre"));
-                    System.out.println("Teléfono: " + rs.getString("prov_telefono"));
-                    System.out.println("Dirección: " + rs.getString("prov_direccion"));
-                    System.out.println("Correo Electrónico: " + rs.getString("prov_correo_electronico"));
-                    System.out.println("RUC: " + rs.getString("prov_ruc"));
-                } else {
-                    System.out.println("No se encontró ningún proveedor con el nombre " + nombre);
-                }
+                System.out.println("Proveedor encontrado:");
+                System.out.println("Código: " + codigo);
+                System.out.println("Nombre: " + nombreProveedor);
+                System.out.println("RUC: " + ruc);
+                System.out.println("Teléfono: " + telefono);
+                System.out.println("Dirección: " + direccion);
+                System.out.println("Correo Electrónico: " + correo);
 
-                rs.close();
-                pstmt.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            } finally {
-                conexion.desconectar();
+                return new Proveedor(codigo, ruc, nombreProveedor, telefono, direccion, correo);
+            } else {
+                System.out.println("No se encontró ningún proveedor con el nombre " + nombre);
+                return null;
             }
-        } else {
-            System.out.println("El nombre del proveedor no puede estar vacío.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            return null;
+        } finally {
+            conexion.desconectar();
         }
-        return null;
     }
 
     public Proveedor buscarProveedorPorRUC(String ruc) {
-        if (ruc != null && !ruc.trim().isEmpty()) {
-            Conexion conexion = new Conexion();
-            Connection conn = conexion.conectar();
+        String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_ruc = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
-            String sql = "SELECT * FROM super_proveedores WHERE prov_ruc = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, ruc);
+            ResultSet rs = pstmt.executeQuery();
 
-            try {
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, ruc.trim());
-                ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int codigo = rs.getInt("prov_codigo");
+                String nombre = rs.getString("prov_nombre");
+                String nombreProveedor = rs.getString("prov_nombre");
+                String telefono = rs.getString("prov_telefono");
+                String direccion = rs.getString("prov_direccion");
+                String correo = rs.getString("prov_correo_electronico");
 
-                if (rs.next()) {
-                    System.out.println("Proveedor encontrado:");
-                    System.out.println("Código: " + rs.getDouble("prov_codigo"));
-                    System.out.println("Nombre: " + rs.getString("prov_nombre"));
-                    System.out.println("Teléfono: " + rs.getString("prov_telefono"));
-                    System.out.println("Dirección: " + rs.getString("prov_direccion"));
-                    System.out.println("Correo Electrónico: " + rs.getString("prov_correo_electronico"));
-                    System.out.println("RUC: " + rs.getString("prov_ruc"));
-                } else {
-                    System.out.println("No se encontró ningún proveedor con el RUC " + ruc);
-                }
+                System.out.println("Proveedor encontrado:");
+                System.out.println("Código: " + codigo);
+                System.out.println("Nombre: " + nombreProveedor);
+                System.out.println("RUC: " + ruc);
+                System.out.println("Teléfono: " + telefono);
+                System.out.println("Dirección: " + direccion);
+                System.out.println("Correo Electrónico: " + correo);
 
-                rs.close();
-                pstmt.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            } finally {
-                conexion.desconectar();
+                return new Proveedor(codigo, ruc, nombreProveedor, telefono, direccion, correo);
+            } else {
+                System.out.println("No se encontró ningún proveedor con el RUC " + ruc);
+                return null;
             }
-        } else {
-            System.out.println("El RUC del proveedor no puede estar vacío.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            return null;
+        } finally {
+            conexion.desconectar();
         }
-        return null;
     }
 
     public boolean actualizarProveedor(Proveedor proveedor) {
