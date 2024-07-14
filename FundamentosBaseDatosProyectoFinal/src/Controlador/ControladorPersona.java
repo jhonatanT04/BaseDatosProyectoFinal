@@ -32,7 +32,10 @@ public class ControladorPersona {
    public Persona buscarPersonaEmpleado(String Cedula) throws SQLException{
        return daopersona.buscarPersonaEmpleado(Cedula);
    }
-   public List<Persona> listarPersonasClientes(String nombre) throws SQLException{
+   public List<Persona> listarPersonasClientesNombre(String nombre) throws SQLException{
        return daopersona.buscarPersonaPorNombreClientes(nombre);
+   }
+   public List<Persona> listarPersonasClientes() throws SQLException{
+       return daopersona.listarClientes();
    }
 }

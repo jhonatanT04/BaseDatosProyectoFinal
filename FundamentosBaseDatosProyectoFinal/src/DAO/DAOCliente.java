@@ -98,7 +98,7 @@ public class DAOCliente {
     
      
      public List<Cliente> buscarPersonaPorNombre(List<Persona> personas) throws SQLException {        
-       
+         
         String clienteSQL = "SELECT cli_codigo, cli_visualizar FROM super_clientes WHERE super_personas_per_codigo = ?";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
@@ -123,5 +123,29 @@ public class DAOCliente {
         
     }
     
-    
+    /*public List<Cliente> ListarPersonaPorNombre(List<Persona> personas) throws SQLException {        
+         
+        String clienteSQL = "SELECT cli_codigo, cli_visualizar FROM super_clientes WHERE super_personas_per_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        List<Cliente> listaClientes = new ArrayList<>();
+        for (Persona per : personas) {
+            try (PreparedStatement psCliente = conn.prepareStatement(clienteSQL)) {
+                psCliente.setInt(1, per.getCodigo());
+                ResultSet rsCliente = psCliente.executeQuery();
+                if (rsCliente.next()) {
+                    int cliCodigo = rsCliente.getInt("cli_codigo");
+                    String visualizar = rsCliente.getString("cli_visualizar");
+                    System.out.println("Cliente encontrado:");
+                    System.out.println("Código de cliente: " + cliCodigo);
+                    System.out.println("Visualizar: " + visualizar);
+                    listaClientes.add(new Cliente(cliCodigo, visualizar.charAt(0), per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo()));
+                     
+                //return new Cliente(cliCodigo,visualizar.charAt(0) , per.getCodigo(), per.getCedula(),per.getNombre(),per.getApellido() ,per.getDireccion(),per.getTelefono(), per.getCorreo());
+                }
+            }
+        }
+        return listaClientes;
+        
+    }*/
 }

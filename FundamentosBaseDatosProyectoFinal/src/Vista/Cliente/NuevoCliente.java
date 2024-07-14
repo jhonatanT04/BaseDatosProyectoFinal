@@ -195,6 +195,8 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                     boolean v = controladorCliente.crearCliente(cli);
                     if (v) {
                         JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" se creo exitosamente.");
+                        this.limpiarCampos();
+                        
                     }else{
                         JOptionPane.showInternalMessageDialog(rootPane, "ERROR DENTRO DEL CONTROLADOR.");
                     }
@@ -247,6 +249,14 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             return true;
         }
     }
+    public void limpiarCampos(){
+        txtCedula.setText("");
+        txtApellido.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+    }
     
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
@@ -255,6 +265,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
 
     private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed
         // TODO add your handling code here:
+        this.limpiarCampos();
         this.setVisible(false);
     }//GEN-LAST:event_bntCancelarActionPerformed
 

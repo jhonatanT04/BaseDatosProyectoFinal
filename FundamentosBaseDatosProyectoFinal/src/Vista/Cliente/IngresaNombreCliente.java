@@ -130,7 +130,7 @@ public class IngresaNombreCliente extends javax.swing.JInternalFrame {
         
         if (txtNombre.getText().trim().isEmpty()==false) {
             try {
-                List<Persona> listP = controladorPersona.listarPersonasClientes(txtNombre.getText().trim());
+                List<Persona> listP = controladorPersona.listarPersonasClientesNombre(txtNombre.getText().trim());
                 if (listP!=null) {
                     List<Cliente> listC = controladorCliente.buscarPorNombreCliente(listP);
                     if (listC!=null) {

@@ -4,6 +4,14 @@
  */
 package Vista.Cliente;
 
+import Controlador.ControladorCliente;
+import Controlador.ControladorPersona;
+import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Persona;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +24,9 @@ public class ListarCliente extends javax.swing.JInternalFrame {
     private IngresaCedulaCliente ingresarCedula;
     private IngresaNombreCliente ingresarNombre;
     private javax.swing.JDesktopPane desktopPane;
+    private ControladorCliente controladorCliente;
+    private ControladorPersona controladorPersona;
+    
     /**
      * Creates new form ListarCliente
      */
@@ -25,7 +36,8 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         buttonGroupSeleccion.add(jboxTodo);
         buttonGroupSeleccion.add(Cedula);
         desktopPane = p;
-        
+        controladorPersona=new ControladorPersona();
+        controladorCliente=new ControladorCliente();
     }
 
     /**
@@ -82,6 +94,11 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         jLabel1.setText("Listar por :");
 
         jbntSalir.setText("Salir");
+        jbntSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbntSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,17 +173,33 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
             if (Cedula.isSelected()) {
-                desplegarCedula();
                 this.limpiarTabla();
+                desplegarCedula();
+                
                 //wSystem.out.println(ingresarCedula.getVentanaCedula().getCedula());
             }else if(jboxNombre.isSelected()){
-                desplegarTodo();
                 this.limpiarTabla();
+                desplegarNombre();
+                
+            }else if(jboxTodo.isSelected()){
+                this.limpiarTabla();
+                try {
+                    this.desplegarTodo();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }else{
             JOptionPane.showInternalMessageDialog(rootPane, "Escoja una opcion.");
         }
     }//GEN-LAST:event_jBntSeleccionActionPerformed
+
+    private void jbntSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbntSalirActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        this.limpiarTabla();
+    }//GEN-LAST:event_jbntSalirActionPerformed
     public void limpiarTabla() {
         DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();
         model.setRowCount(0);
@@ -180,7 +213,7 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         ingresarCedula.setVentanaCedula();
         ingresarCedula.setVisible(true); 
     }
-    private void desplegarTodo(){
+    private void desplegarNombre(){
         
         if(ingresarNombre == null){
             ingresarNombre = new IngresaNombreCliente(jTableClientes);
@@ -189,7 +222,38 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         
         ingresarNombre.setVisible(true); 
     }
-   
+   private void desplegarTodo() throws SQLException{
+       List<Persona> listaP = controladorPersona.listarPersonasClientes();
+       if (listaP!=null) {
+           List<Cliente> listaC = controladorCliente.buscarPorNombreCliente(listaP);
+           if (listaC!=null) {
+               this.llenarTabla(listaC);
+           }else{
+                JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun cliente en la base de datos.");
+           }
+       }else{
+           JOptionPane.showInternalMessageDialog(rootPane, "No existe ninguna persona en la base de datos.");
+       }
+   }
+   public void llenarTabla(List<Cliente> clientes){
+        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        jTableClientes.setModel(tableModel);
+        for (Cliente cliente : clientes) {
+            if (cliente.getVisualizacion()=='a') {
+                Object[] rowData = {
+                    cliente.getCedula(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getDireccion(),
+                    cliente.getTelefono(),
+                    cliente.getCorreo()
+                };
+                tableModel.addRow(rowData);
+            }
+            
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

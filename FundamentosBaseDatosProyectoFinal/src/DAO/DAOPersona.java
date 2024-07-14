@@ -140,4 +140,34 @@ public class DAOPersona {
         
         return personas;
     }
+    
+    public List<Persona> listarClientes() {
+        List<Persona> personas = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String sql = "SELECT * FROM super_personas";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Persona persona = new Cliente(0, ' ', 0, sql, sql, sql, sql, sql, sql);
+                
+                persona.setCodigo(rs.getInt("per_codigo"));
+                persona.setCedula(rs.getString("per_cedula"));
+                persona.setNombre(rs.getString("per_nombre"));
+                persona.setApellido(rs.getString("per_apellido"));
+                persona.setDireccion(rs.getString("per_direccion"));
+                persona.setTelefono(rs.getString("per_telefono"));
+                persona.setCorreo(rs.getString("per_correo_electronico"));
+                personas.add(persona);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return personas;
+    }
+    
 }
+
