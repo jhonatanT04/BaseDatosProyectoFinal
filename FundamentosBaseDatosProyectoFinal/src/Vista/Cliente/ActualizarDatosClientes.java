@@ -294,6 +294,7 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
         txtTelefono.setEditable(opc);
         btnBuscar.setEnabled(!opc);
         btnActualizar.setEnabled(opc);
+        
     }
     private boolean validarCampos() {
         if (txtApellido.getText().trim().isEmpty()||txtNombre.getText().trim().isEmpty()||txtDireccion.getText().trim().isEmpty()||txtTelefono.getText().trim().isEmpty()||txtCorreo.getText().trim().isEmpty()) {
