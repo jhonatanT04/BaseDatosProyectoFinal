@@ -249,6 +249,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             return true;
         }
     }
+    
     public void limpiarCampos(){
         txtCedula.setText("");
         txtApellido.setText("");
