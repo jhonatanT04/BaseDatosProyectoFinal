@@ -4,6 +4,8 @@
  */
 package Vista.Empleado;
 
+import Controlador.ControladorEmpleado;
+import Controlador.ControladorPersona;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,8 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class IngresarEmpleado extends javax.swing.JInternalFrame {
-
+    private ControladorPersona controladorPersona;
+    private ControladorEmpleado controladorEmpleado;
     /**
      * Creates new form IngresarEmpleado
      */

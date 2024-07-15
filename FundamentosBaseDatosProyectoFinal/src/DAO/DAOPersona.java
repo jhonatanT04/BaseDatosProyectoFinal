@@ -115,6 +115,8 @@ public class DAOPersona {
         }
     }
     
+    
+    
     public List<Persona> buscarPersonaPorNombreClientes(String nombre) throws SQLException {
         List<Persona> personas = new ArrayList<>();
         Conexion conexion = new Conexion();
