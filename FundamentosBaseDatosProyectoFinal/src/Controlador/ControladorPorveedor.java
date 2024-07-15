@@ -6,6 +6,7 @@ package Controlador;
 
 import DAO.DAOProveedores;
 import Modelo.Proveedor.Proveedor;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -24,11 +25,11 @@ public class ControladorPorveedor {
         return daoProveedores.insertarProveedor(proveedor);
     }
 
-    public Proveedor buscarProveedorNombre(String nombre) {
+    public Proveedor buscarProveedorNombre(String nombre) throws SQLException {
         return daoProveedores.buscarProveedorPorNombre(nombre);
     }
 
-    public Proveedor buscarProveedorRUC(String ruc){
+    public Proveedor buscarProveedorRUC(String ruc) throws SQLException{
         return daoProveedores.buscarProveedorPorRUC(ruc); 
     }
     

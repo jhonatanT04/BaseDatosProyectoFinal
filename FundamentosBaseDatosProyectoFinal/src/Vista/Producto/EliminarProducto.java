@@ -241,7 +241,6 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
             btnEliminar.setEnabled(true);
 
         } else {
-            // Manejar el caso donde el producto no se encuentre
             JOptionPane.showMessageDialog(null, "Producto no encontrado.");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed

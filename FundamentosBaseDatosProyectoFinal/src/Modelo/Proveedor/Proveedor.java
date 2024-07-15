@@ -9,6 +9,7 @@ package Modelo.Proveedor;
  * @author venot
  */
 public class Proveedor {
+
     private int codigo;
     private String nombre;
     private String telefono;
@@ -24,9 +25,7 @@ public class Proveedor {
         this.correo = correo;
         this.ruc = ruc;
     }
-    
-    
-    
+
     public int getCodigo() {
         return codigo;
     }
@@ -74,9 +73,10 @@ public class Proveedor {
     public void setRuc(String ruc) {
         this.ruc = ruc;
     }
+
+    @Override
+    public String toString() {
+        return "Proveedor{" + "codigo=" + codigo + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion + ", correo=" + correo + ", ruc=" + ruc + '}';
+    }
     
-    
-    
-    
-            
 }
