@@ -4,6 +4,7 @@
  */
 package Extra.CorreoFinal;
 
+import Controlador.ControladorEmpleado;
 import DAO.Conexion;
 import DAO.DAOCliente;
 import DAO.DAOEmpleado;
@@ -319,17 +320,13 @@ public class CorreoFinal {
 
         CorreoFinal emailSender = new CorreoFinal();
         emailSender.sendEmail(to, subject, body, pdfFilePath);*/
-        
-        DAOCliente daoC = new DAOCliente();
+        Empleado emp = new Empleado(0, 'a', "Ania1234", 'a', 135, "09233442", "", "Leon", "Otra casa", "091234", "ania");
+        DAOEmpleado daoE = new DAOEmpleado();
         DAOPersona daoP = new DAOPersona();
+        ControladorEmpleado controladorEm = new ControladorEmpleado();
+        emp = controladorEm.buscarEmpleado(emp);
+        System.out.println(emp.getEmpleadoCodigo());
         
-        Persona per = daoP.buscarPersonaCliente("1234567899");
-        Cliente cli = daoC.buscarClientePorCedula(per);
-        cli.setApellido("AAAA");
-        cli.setVisualizacion('a');
-        
-        //daoP.modificarPersona(cli);
-        daoC.modificarCliente(cli);
     }
     
     

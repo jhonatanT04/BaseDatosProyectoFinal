@@ -24,7 +24,7 @@ public class ControladorEmpleado {
     public boolean crearCliente(Empleado emp) throws SQLException {
         return daoEmpleado.insertarEmpleado(emp);
     }
-    public Empleado buscarCliente(Persona per) throws SQLException {
+    public Empleado buscarEmpleado(Persona per) throws SQLException {
         return daoEmpleado.buscarEmpleadoPorCedula(per);
     }
     

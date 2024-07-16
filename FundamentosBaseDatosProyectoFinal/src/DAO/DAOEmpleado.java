@@ -62,7 +62,7 @@ public class DAOEmpleado {
                 String empPermiso = rsCliente.getString("emp_permiso");
                
                 
-                return new Empleado(empCodigo, visualizar.charAt(0),  empContra, empPermiso.charAt(1),  per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
+                return new Empleado(empCodigo, visualizar.charAt(0),  empContra, empPermiso.charAt(0),  per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
                 //return new Cliente(cliCodigo, visualizar.charAt(0), per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
                 //return new Cliente(cliCodigo,visualizar.charAt(0) , per.getCodigo(), per.getCedula(),per.getNombre(),per.getApellido() ,per.getDireccion(),per.getTelefono(), per.getCorreo());
             }else {

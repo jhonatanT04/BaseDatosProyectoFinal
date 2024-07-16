@@ -6,6 +6,12 @@ package Vista.Empleado;
 
 import Controlador.ControladorEmpleado;
 import Controlador.ControladorPersona;
+import Modelo.Personas.Persona.Empleado;
+import Modelo.Personas.Persona.Persona;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,15 +19,19 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class IngresarEmpleado extends javax.swing.JInternalFrame {
-    private ControladorPersona controladorPersona;
+    private ControladorPersona controladorPersona ;
     private ControladorEmpleado controladorEmpleado;
+    private char visu = 'a';
+    
     /**
      * Creates new form IngresarEmpleado
      */
     public IngresarEmpleado() {
         initComponents();
-        buttonGroup.add(bntCancelar);
-        buttonGroup.add(bntCancelar);
+        controladorEmpleado = new ControladorEmpleado();
+        controladorPersona = new ControladorPersona();
+        buttonGroup.add(jRadioButtonAdministrador);
+        buttonGroup.add(jRadioButtonGeneral);
     }
 
     /**
@@ -53,7 +63,7 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         btnIngresarCliente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtContrasenia = new javax.swing.JTextField();
 
         jLabel8.setText("Permisos:");
 
@@ -122,10 +132,10 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                        .addComponent(jTextField1))
+                                        .addComponent(txtContrasenia))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jRadioButtonAdministrador)
-                                        .addGap(35, 35, 35))))
+                                        .addGap(36, 36, 36))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(123, 123, 123)
@@ -184,15 +194,15 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButtonAdministrador)
-                            .addComponent(jLabel8))
-                        .addGap(44, 44, 44))
+                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel8)
+                        .addGap(47, 47, 47))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jRadioButtonGeneral)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonGeneral)
+                            .addComponent(jRadioButtonAdministrador))
                         .addGap(35, 35, 35)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresarCliente)
@@ -236,47 +246,53 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bntCancelarActionPerformed
 
     private void btnIngresarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarClienteActionPerformed
-        /*if (validarCampos()) {
+        if (validarCampos()) {
             try {
                 Persona per = controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
 
                 if (per==null) {
-
-                    Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
-
-                    boolean v = controladorCliente.crearCliente(cli);
+                    char permiso ;
+                    if (jRadioButtonAdministrador.isSelected()) {
+                        permiso = 'a';
+                    }else{
+                        permiso = 'g';
+                    }
+                    //Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
+                    Empleado emp = new Empleado(0,visu,txtContrasenia.getText(),'s',0 , txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
+                    boolean v = controladorEmpleado.crearCliente(emp);
+                    
                     if (v) {
-                        JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+cli.getCedula()+" se creo exitosamente.");
+                        JOptionPane.showInternalMessageDialog(rootPane, "El empleado con numero de cedula "+emp.getCedula()+" se creo exitosamente.");
                         this.limpiarCampos();
 
                     }else{
-                        JOptionPane.showInternalMessageDialog(rootPane, "ERROR DENTRO DEL CONTROLADOR.");
+                        JOptionPane.showInternalMessageDialog(rootPane, "ERROR DENTRO DEL SISTEMA.");
                     }
                 }else{
-                    Cliente cli = controladorCliente.buscarCliente(per);
-                    if (cli==null) {
+                    Empleado emp = controladorEmpleado.buscarEmpleado(per);
+                    if (emp==null) {
                         JOptionPane.showInternalMessageDialog(rootPane, "La persona con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos y ejerce otro rol.·");
 
                     }else{
-                        if (cli.getVisualizacion()=='i') {
-                            int vari = JOptionPane.showConfirmDialog(rootPane, "El cliente con numero de cedula "+per.getCedula()+" se encuentra desactivado. ¿Desea actualizarlo?·");
+                        if (emp.getVisualizacion()=='i') {
+                            int vari = JOptionPane.showConfirmDialog(rootPane, "El empleado con numero de cedula "+per.getCedula()+" se encuentra desactivado. ¿Desea actualizarlo?·");
                             if (vari==0) {
-                                int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al cliente con numero de cedula "+cli.getCedula()+" y con nombre de "+cli.getNombre()+" "+cli.getApellido());
+                                int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al empleado con numero de cedula "+emp.getCedula()+" y con nombre de "+emp.getNombre()+" "+emp.getApellido());
                                 if (v==0) {
-                                    System.out.println("Se actualiza cliente");
+                                    System.out.println("Se actualiza empleado");
                                 }
                             }
                         }else{
-                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos.·");
+                            JOptionPane.showInternalMessageDialog(rootPane, "El empleado con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos.·");
                         }
 
                     }
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(IngresarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }*/
+        }
 
     }//GEN-LAST:event_btnIngresarClienteActionPerformed
 
@@ -295,6 +311,9 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
         }else if (txtCedula.getText().trim().length() >10||txtCedula.getText().trim().length()<10){
             JOptionPane.showInternalMessageDialog(rootPane, "El campo de Cedula se deve tener 10 numeros ");
             return false;
+        }else if(jRadioButtonGeneral.isSelected()==false &&jRadioButtonAdministrador.isSelected()==false){
+            JOptionPane.showInternalMessageDialog(rootPane, "Se debe seleccionar el rol del empleado.");
+            return false;
         }
         else{
             return true;
@@ -307,6 +326,9 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
         txtCorreo.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
+        txtContrasenia.setText("");
+        jRadioButtonGeneral.setSelected(false);
+        jRadioButtonAdministrador.setSelected(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCancelar;
@@ -323,9 +345,9 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonAdministrador;
     private javax.swing.JRadioButton jRadioButtonGeneral;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;

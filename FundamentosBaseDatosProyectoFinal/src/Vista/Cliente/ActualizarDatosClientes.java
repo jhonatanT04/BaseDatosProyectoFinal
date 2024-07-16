@@ -284,6 +284,7 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
         txtCorreo.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
+        primeraCedula="";
     }
     public void habilitarCampos(boolean opc){
         

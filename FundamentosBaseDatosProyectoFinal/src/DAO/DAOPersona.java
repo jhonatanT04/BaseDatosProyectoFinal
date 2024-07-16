@@ -22,6 +22,8 @@ public class DAOPersona {
     public int insertarPersona(Persona per) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
+        //SEQ_SUPER_PERSONAS
+        
         String sql = "INSERT INTO super_personas (per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico) " +
                      "VALUES (super_personas_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, new String[]{"per_codigo"})) {

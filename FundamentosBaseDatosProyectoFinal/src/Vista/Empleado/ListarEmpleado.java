@@ -29,22 +29,52 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBntSeleccionar = new javax.swing.JButton();
+        jboxNombre = new javax.swing.JRadioButton();
+        Cedula = new javax.swing.JRadioButton();
+        jboxTodo = new javax.swing.JRadioButton();
+        jBntCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo", "Permisos", "Visualizar"
+                "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo", "Permisos", "Visualizar"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Listar");
+        jBntSeleccionar.setText("Seleccionar");
+        jBntSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBntSeleccionarActionPerformed(evt);
+            }
+        });
+
+        jboxNombre.setText("Nombre");
+        jboxNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jboxNombreActionPerformed(evt);
+            }
+        });
+
+        Cedula.setText("Cedula");
+
+        jboxTodo.setText("Listar todo");
+
+        jBntCancelar.setText("Cancelar");
+        jBntCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBntCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Listar por :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -53,28 +83,56 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(213, 213, 213)
-                        .addComponent(jButton1))
+                        .addGap(101, 101, 101)
+                        .addComponent(jboxNombre)
+                        .addGap(129, 129, 129)
+                        .addComponent(Cedula)
+                        .addGap(121, 121, 121)
+                        .addComponent(jboxTodo)
+                        .addGap(66, 66, 66)
+                        .addComponent(jBntSeleccionar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBntCancelar)))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 65, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jboxNombre)
+                            .addComponent(Cedula)
+                            .addComponent(jboxTodo)
+                            .addComponent(jBntSeleccionar))
+                        .addGap(55, 55, 55)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBntCancelar)
+                        .addGap(28, 28, 28))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,11 +142,51 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jboxNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jboxNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jboxNombreActionPerformed
+
+    private void jBntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntCancelarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jBntCancelarActionPerformed
+
+    private void jBntSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntSeleccionarActionPerformed
+        // TODO add your handling code here:
+        if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
+            if (Cedula.isSelected()) {
+                this.limpiarTabla();
+                desplegarCedula();
+
+                //wSystem.out.println(ingresarCedula.getVentanaCedula().getCedula());
+            }else if(jboxNombre.isSelected()){
+                this.limpiarTabla();
+                desplegarNombre();
+
+            }else if(jboxTodo.isSelected()){
+                this.limpiarTabla();
+                try {
+                    this.desplegarTodo();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }else{
+            JOptionPane.showInternalMessageDialog(rootPane, "Escoja una opcion.");
+        }
+    }//GEN-LAST:event_jBntSeleccionarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JRadioButton Cedula;
+    private javax.swing.JButton jBntCancelar;
+    private javax.swing.JButton jBntSeleccionar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JRadioButton jboxNombre;
+    private javax.swing.JRadioButton jboxTodo;
     // End of variables declaration//GEN-END:variables
 }
