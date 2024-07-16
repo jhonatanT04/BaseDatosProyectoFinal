@@ -8,7 +8,7 @@ import Controlador.ControladorEmpleado;
 import Controlador.ControladorPersona;
 import Modelo.Personas.Persona.Empleado;
 import Modelo.Personas.Persona.Persona;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
