@@ -153,7 +153,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
 
     private void jBntSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntSeleccionarActionPerformed
         // TODO add your handling code here:
-        if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
+        /*if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
             if (Cedula.isSelected()) {
                 this.limpiarTabla();
                 desplegarCedula();
@@ -174,7 +174,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
             }
         }else{
             JOptionPane.showInternalMessageDialog(rootPane, "Escoja una opcion.");
-        }
+        }*/
     }//GEN-LAST:event_jBntSeleccionarActionPerformed
 
 
