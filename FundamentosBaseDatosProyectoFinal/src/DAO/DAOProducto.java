@@ -75,7 +75,7 @@ public class DAOProducto {
                 System.out.println("IVA: " + IVA);
                 System.out.println("Visualizar: " + visualizar);
 
-                return new Producto(nombre, precio, stock, IVA, visualizar, codigo);
+                return new Producto(codigo, nombre, precio, stock, IVA, visualizar, codigo);
             } else {
                 System.out.println("Producto no encontrado con el nombre: " + nombre);
                 return null;
@@ -113,7 +113,7 @@ public class DAOProducto {
                 System.out.println("IVA: " + IVA);
                 System.out.println("Visualizar: " + visualizar);
 
-                return new Producto(nombre, precio, stock, IVA, visualizar, codigoProducto);
+                return new Producto(codigoProducto, nombre, precio, stock, IVA, visualizar, codigoProducto);
             } else {
                 System.out.println("Producto no encontrado con el código: " + codigo);
                 return null;
@@ -205,7 +205,7 @@ public class DAOProducto {
                 char visualizar = rs.getString("pro_visualizar").charAt(0);
                 int categoria = rs.getInt("super_categorias_cat_codigo");
 
-                Producto producto = new Producto(nombre, precio, stock, iva, visualizar, categoria);
+                Producto producto = new Producto(codigo, nombre, precio, stock, iva, visualizar, categoria);
                 listaProductos.add(producto);
             }
 
