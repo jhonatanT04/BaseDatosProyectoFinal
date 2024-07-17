@@ -4,17 +4,38 @@
  */
 package Vista.Empleado;
 
+import Controlador.ControladorEmpleado;
+import Controlador.ControladorPersona;
+import Modelo.Personas.Persona.Empleado;
+import Modelo.Personas.Persona.Persona;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Usuario
  */
 public class ListarEmpleado extends javax.swing.JInternalFrame {
-
+    private IngresaCedula ingresarCedula;
+    private IngresaNombre ingresarNombre;
+    private javax.swing.JDesktopPane desktopPane;
+    private ControladorEmpleado controladorEmpleado;
+    private ControladorPersona controladorPersona;
     /**
      * Creates new form ListarEmpleado
      */
-    public ListarEmpleado() {
+    public ListarEmpleado(javax.swing.JDesktopPane p) {
         initComponents();
+        buttonGroupSeleccion.add(jboxNombre);
+        buttonGroupSeleccion.add(jboxTodo);
+        buttonGroupSeleccion.add(Cedula);
+        desktopPane = p;
+        controladorPersona=new ControladorPersona();
+        controladorEmpleado=new ControladorEmpleado();
     }
 
     /**
@@ -26,9 +47,10 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupSeleccion = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableEmpleados = new javax.swing.JTable();
         jBntSeleccionar = new javax.swing.JButton();
         jboxNombre = new javax.swing.JRadioButton();
         Cedula = new javax.swing.JRadioButton();
@@ -36,7 +58,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
         jBntCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -47,7 +69,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
                 "Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo", "Permisos", "Visualizar"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableEmpleados);
 
         jBntSeleccionar.setText("Seleccionar");
         jBntSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +175,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
 
     private void jBntSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntSeleccionarActionPerformed
         // TODO add your handling code here:
-        /*if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
+        if(Cedula.isSelected()||jboxNombre.isSelected()||jboxTodo.isSelected()){
             if (Cedula.isSelected()) {
                 this.limpiarTabla();
                 desplegarCedula();
@@ -164,28 +186,87 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
                 desplegarNombre();
 
             }else if(jboxTodo.isSelected()){
-                this.limpiarTabla();
                 try {
+                    this.limpiarTabla();
+                    
                     this.desplegarTodo();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ListarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
 
             }
         }else{
             JOptionPane.showInternalMessageDialog(rootPane, "Escoja una opcion.");
-        }*/
+        }
     }//GEN-LAST:event_jBntSeleccionarActionPerformed
-
-
+    
+    public void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTableEmpleados.getModel();
+        model.setRowCount(0);
+    }
+    private void desplegarCedula(){
+        
+        if(ingresarCedula == null){
+            ingresarCedula = new IngresaCedula(jTableEmpleados);
+            desktopPane.add(ingresarCedula);
+        }
+        ingresarCedula.setVentanaCedula();
+        ingresarCedula.setVisible(true); 
+    }
+    private void desplegarNombre(){
+        
+        if(ingresarNombre == null){
+            ingresarNombre = new IngresaNombre(jTableEmpleados);
+            desktopPane.add(ingresarNombre);
+        }
+        
+        ingresarNombre.setVisible(true); 
+    }
+   private void desplegarTodo() throws SQLException{
+       List<Persona> listaP = controladorPersona.listarPersonasClientes();
+       if (listaP!=null) {
+           List<Empleado> listaE = controladorEmpleado.ListarEmpleados(listaP);
+           //List<Empleado> listaC = controladorCliente.buscarPorNombreCliente(listaP);
+           if (listaE!=null) {
+               this.llenarTabla(listaE);
+           }else{
+                JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun cliente en la base de datos.");
+           }
+       }else{
+           JOptionPane.showInternalMessageDialog(rootPane, "No existe ninguna persona en la base de datos.");
+       }
+   }
+   public void llenarTabla(List<Empleado> clientes){
+        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        jTableEmpleados.setModel(tableModel);
+        for (Empleado emp : clientes) {
+            if (emp.getVisualizacion()=='a') {
+                Object[] rowData = {
+                    emp.getCedula(),
+                    emp.getNombre(),
+                    emp.getApellido(),
+                    emp.getDireccion(),
+                    emp.getTelefono(),
+                    emp.getCorreo()
+                };
+                tableModel.addRow(rowData);
+            }
+            
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Cedula;
+    private javax.swing.ButtonGroup buttonGroupSeleccion;
     private javax.swing.JButton jBntCancelar;
     private javax.swing.JButton jBntSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableEmpleados;
     private javax.swing.JRadioButton jboxNombre;
     private javax.swing.JRadioButton jboxTodo;
     // End of variables declaration//GEN-END:variables

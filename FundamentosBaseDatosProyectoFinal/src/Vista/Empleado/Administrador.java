@@ -404,7 +404,7 @@ public class Administrador extends javax.swing.JFrame {
             desktopPane.add(veEliminarCliente);
         }
         
-        ventanaBuscarCliente.setVisible(true); 
+        veEliminarCliente.setVisible(true); 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -445,7 +445,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         if(listarEmpleado == null){
-            listarEmpleado = new ListarEmpleado();
+            listarEmpleado = new ListarEmpleado(desktopPane);
             desktopPane.add(listarEmpleado);
         }
         

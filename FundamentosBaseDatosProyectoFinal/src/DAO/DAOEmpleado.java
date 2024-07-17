@@ -72,5 +72,32 @@ public class DAOEmpleado {
             }
         }
     }
+    public List<Empleado> ListarEmpleados(List<Persona> personas) throws SQLException {        
+         
+        String clienteSQL = "SELECT emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso FROM super_empleados WHERE super_personas_per_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        List<Empleado> listaClientes = new ArrayList<>();
+        for (Persona per : personas) {
+            try (PreparedStatement psCliente = conn.prepareStatement(clienteSQL)) {
+                psCliente.setInt(1, per.getCodigo());
+                ResultSet rsCliente = psCliente.executeQuery();
+                if (rsCliente.next()) {
+                    int empCodigo = rsCliente.getInt("emp_codigo");
+                    String visualizar = rsCliente.getString("emp_visualizar");
+                    String contrasenia = rsCliente.getString("emp_contrasenia");
+                    String permiso = rsCliente.getString("emp_permiso");
+                    System.out.println("Empleado encontrado:");
+                    System.out.println("Código de cliente: " + empCodigo);
+                    System.out.println("Visualizar: " + visualizar);
+                    listaClientes.add(new Empleado(empCodigo, visualizar.charAt(0),  contrasenia, permiso.charAt(0),  per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo()));
+                     
+                
+                }
+            }
+        }
+        return listaClientes;
+        
+    }
 
 }

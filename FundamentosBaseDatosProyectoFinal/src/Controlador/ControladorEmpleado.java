@@ -30,9 +30,9 @@ public class ControladorEmpleado {
     
     /*public boolean actualizarCliente(Empleado emp) throws SQLException{
         return daoCliente.modificarCliente(emp);
-    }
-    public List<Empleado> buscarPorNombreCliente(List<Persona> persns) throws SQLException{
-        return daoCliente.buscarPersonaPorNombre(persns);
     }*/
+    public List<Empleado> ListarEmpleados(List<Persona> persns) throws SQLException{
+        return daoEmpleado.ListarEmpleados(persns);
+    }
     
 }
