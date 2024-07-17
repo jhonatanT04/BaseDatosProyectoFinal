@@ -30,6 +30,8 @@ import Vista.Producto.AgregarProducto;
 import Vista.Producto.BuscarProducto;
 import Vista.Producto.EliminarProducto;
 import Vista.Producto.ListarProducto;
+import Vista.Proovedoores.CrearProveedors_1;
+import Vista.Proovedoores.ListarCompraProveedores;
 
 
 
@@ -58,10 +60,12 @@ public class Administrador extends javax.swing.JFrame {
     private ActualizarProducto actualizarProducto;
     private EliminarProducto eliminarProducto;
     private ListarProducto listarProducto;
+    private CrearProveedors_1 crearProveedors_1;
     private ListarProveedores_1 listarProveedores_1;
     private ComprarProveedores_1 comprarProveedores_1;
     private BuscarCompraProveedores buscarCompraProveedores;
     private EliminarCompraProveedores eliminarCompraProveedores;
+    private ListarCompraProveedores listarCompraProveedores;
     private ControladorProducto controladorProducto;
     private ControladorCategoria controladorCategoria;
     private ControladorPorveedor controladorProveedor;
@@ -95,10 +99,12 @@ public class Administrador extends javax.swing.JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
+        jMenuItem15 = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         itemMenuNuevoCliente = new javax.swing.JMenuItem();
         itemMenuBuscarCliente = new javax.swing.JMenuItem();
@@ -169,6 +175,19 @@ public class Administrador extends javax.swing.JFrame {
 
         editMenu.setMnemonic('e');
         editMenu.setText("Proveedores");
+        editMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editMenuActionPerformed(evt);
+            }
+        });
+
+        jMenuItem15.setText("Ingresar Proveedor");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        editMenu.add(jMenuItem15);
 
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Listar Proveedor");
@@ -202,6 +221,14 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
         editMenu.add(jMenuItem14);
+
+        jMenuItem16.setText("Listar Compra Proveedor");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        editMenu.add(jMenuItem16);
 
         menuBar.add(editMenu);
 
@@ -537,6 +564,28 @@ public class Administrador extends javax.swing.JFrame {
         buscarCompraProveedores.setVisible(true); 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void editMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuActionPerformed
+        
+    }//GEN-LAST:event_editMenuActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        if(listarCompraProveedores == null){
+            listarCompraProveedores = new ListarCompraProveedores();
+            desktopPane.add(listarCompraProveedores);
+        }
+        
+        listarCompraProveedores.setVisible(true);
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        if(crearProveedors_1 == null){
+            crearProveedors_1 = new CrearProveedors_1(controladorProveedor);
+            desktopPane.add(crearProveedors_1);
+        }
+        
+        crearProveedors_1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -590,6 +639,8 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

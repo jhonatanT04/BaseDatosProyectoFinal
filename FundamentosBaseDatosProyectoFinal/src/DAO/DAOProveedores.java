@@ -23,11 +23,11 @@ public class DAOProveedores {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
-        String sql = "INSERT INTO super_proveedores (prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO super_proveedores (prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc) VALUES (seq_prov_codigo.NEXTVAL , ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setDouble(1, proveedor.getCodigo());
+            pstmt.setInt(0, proveedor.getCodigo()); 
             pstmt.setString(2, proveedor.getNombre());
             pstmt.setString(3, proveedor.getTelefono());
             pstmt.setString(4, proveedor.getDireccion());
@@ -35,13 +35,18 @@ public class DAOProveedores {
             pstmt.setString(6, proveedor.getRuc());
 
             pstmt.executeUpdate();
-            pstmt.close();
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
             return false;
         } finally {
-            conexion.desconectar();
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL CERRAR LA CONEXIÓN: " + e.getMessage());
+            }
         }
     }
 

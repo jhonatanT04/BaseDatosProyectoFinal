@@ -20,8 +20,7 @@ public class ControladorPorveedor {
         this.daoProveedores = new DAOProveedores();
     }
 
-    public boolean agregarProveedor(int codigo, String nombre, String telefono, String direccion, String correo, String ruc) {
-        Proveedor proveedor = new Proveedor(codigo, nombre, telefono, direccion, correo, ruc);
+    public boolean agregarProveedor(Proveedor proveedor){
         return daoProveedores.insertarProveedor(proveedor);
     }
 
