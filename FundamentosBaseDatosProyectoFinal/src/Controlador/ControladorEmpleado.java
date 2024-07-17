@@ -28,9 +28,9 @@ public class ControladorEmpleado {
         return daoEmpleado.buscarEmpleadoPorCedula(per);
     }
     
-    /*public boolean actualizarCliente(Empleado emp) throws SQLException{
-        return daoCliente.modificarCliente(emp);
-    }*/
+    public boolean actualizarEmpleado(Empleado emp) throws SQLException{
+        return daoEmpleado.modificarCliente(emp);
+    }
     public List<Empleado> ListarEmpleados(List<Persona> persns) throws SQLException{
         return daoEmpleado.ListarEmpleados(persns);
     }

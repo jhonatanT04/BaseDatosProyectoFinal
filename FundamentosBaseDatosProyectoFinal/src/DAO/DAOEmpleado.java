@@ -99,5 +99,25 @@ public class DAOEmpleado {
         return listaClientes;
         
     }
+    public boolean modificarCliente(Empleado emp) throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String updateClienteSQL = "UPDATE super_empleados SET emp_visualizar = ?, emp_contrasenia = ?, emp_permiso = ? WHERE cli_codigo = ?";
+        
+        try (PreparedStatement psCliente = conn.prepareStatement(updateClienteSQL)) {
+            daoPersona.modificarPersona(emp);
+            
+            psCliente.setString(1, String.valueOf(emp.getVisualizacion()));
+            psCliente.setInt(2, emp.getEmpleadoCodigo());
+            
+            psCliente.executeUpdate();   
+            return true;
+        }
+        finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
 
 }
