@@ -19,7 +19,7 @@ import Vista.Cliente.ActualizarDatosClientes;
 import Vista.Cliente.EliminarCliente;
 import Vista.Cliente.ListarCliente;
 import Vista.Empleado.ActualizarEmpleado;
-import Vista.Empleado.BuscarEmpleado;
+
 import Vista.Empleado.EliminarEmpelado;
 import Vista.Empleado.IngresarEmpleado;
 import Vista.Empleado.ListarEmpleado;
@@ -46,7 +46,7 @@ public class Administrador extends javax.swing.JFrame {
     private EliminarCliente veEliminarCliente;
     private ListarCliente listarCliente;
     private IngresarEmpleado ingresarEmpleado;
-    private BuscarEmpleado buscarEmpleado;
+    
     private ActualizarEmpleado actualizarEmpleado;
     private EliminarEmpelado eliminarEmpelado;
     private ListarEmpleado listarEmpleado;
@@ -370,12 +370,7 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemMenuNuevoClienteActionPerformed
 
     private void itemMenuBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarEmpleadoActionPerformed
-        if(buscarEmpleado == null){
-            buscarEmpleado = new BuscarEmpleado();
-            desktopPane.add(buscarEmpleado);
-        }
         
-        buscarEmpleado.setVisible(true); 
     }//GEN-LAST:event_itemMenuBuscarEmpleadoActionPerformed
 
     private void itemMenuBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarClienteActionPerformed
