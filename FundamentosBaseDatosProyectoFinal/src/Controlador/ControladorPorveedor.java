@@ -33,6 +33,10 @@ public class ControladorPorveedor {
         return daoProveedores.buscarProveedorPorRUC(ruc); 
     }
     
+    public Proveedor buscarProveedorPorCodigo(int codigo) throws SQLException {
+        return daoProveedores.buscarProveedorPorCodigo(codigo);
+    }
+    
     public boolean actualizarProveedor(int codigo, String nombre, String telefono, String direccion, String correo, String ruc) {
         Proveedor proveedor = new Proveedor(codigo, nombre, telefono, direccion, correo, ruc);
         return daoProveedores.actualizarProveedor(proveedor);

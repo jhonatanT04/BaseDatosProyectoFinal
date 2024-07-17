@@ -88,6 +88,44 @@ public class DAOProducto {
         }
     }
 
+    public Producto buscarProductoPorCodigo(int codigo) throws SQLException {
+        String productoSQL = "SELECT pro_codigo, pro_nombre, pro_precio, pro_stock, pro_IVA, pro_visualizar FROM super_productos WHERE pro_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        try (PreparedStatement psProducto = conn.prepareStatement(productoSQL)) {
+            psProducto.setInt(1, codigo);
+            ResultSet rsProducto = psProducto.executeQuery();
+
+            if (rsProducto.next()) {
+                int codigoProducto = rsProducto.getInt("pro_codigo");
+                String nombre = rsProducto.getString("pro_nombre");
+                double precio = rsProducto.getDouble("pro_precio");
+                int stock = rsProducto.getInt("pro_stock");
+                double IVA = rsProducto.getDouble("pro_IVA");
+                char visualizar = rsProducto.getString("pro_visualizar").charAt(0);
+
+                System.out.println("Producto encontrado:");
+                System.out.println("Código: " + codigoProducto);
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Precio: " + precio);
+                System.out.println("Stock: " + stock);
+                System.out.println("IVA: " + IVA);
+                System.out.println("Visualizar: " + visualizar);
+
+                return new Producto(codigoProducto, nombre, precio, stock, IVA, visualizar, codigoProducto);
+            } else {
+                System.out.println("Producto no encontrado con el código: " + codigo);
+                return null;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            throw e;
+        } finally {
+            conexion.desconectar();
+        }
+    }
+
     public boolean actualizarProducto(Producto producto) {
         boolean llave = false;
         try {

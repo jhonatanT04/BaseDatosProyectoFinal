@@ -24,8 +24,8 @@ public class ControladorCompraPoveedor {
         return daoCompraProveedor.insertarCompraProveedor(compraProveedor);
     }
 
-    public void buscarCompraProveedor(int codigo) {
-        daoCompraProveedor.buscarCompraProveedor(codigo);
+    public CompraProveedor buscarCompraProveedor(int codigo) {
+        return daoCompraProveedor.buscarCompraProveedor(codigo);
     }
 
     public boolean actualizarCompraProveedor(CompraProveedor compraProveedor) {

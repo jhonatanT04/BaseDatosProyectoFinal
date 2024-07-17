@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -42,39 +44,48 @@ public class DAOCompraProveedor {
         }
     }
 
-    public void buscarCompraProveedor(int codigo) {
-        if (codigo > 0) {
-            Conexion conexion = new Conexion();
-            Connection conn = conexion.conectar();
+    public CompraProveedor buscarCompraProveedor(int codigo) {
+        String sql = "SELECT com_codigo, com_fecha, com_valor_total, com_cantidad, super_productos_pro_codigo, super_proveedores_prov_codigo FROM super_compra_proveedores WHERE com_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
-            String sql = "SELECT * FROM super_compra_proveedores WHERE com_codigo = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
 
-            try {
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(1, codigo);
-                ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int comCodigo = rs.getInt("com_codigo");
+                Timestamp comFecha = rs.getTimestamp("com_fecha");
+                double comValorTotal = rs.getDouble("com_valor_total");
+                int comCantidad = rs.getInt("com_cantidad");
+                int superProductosProCodigo = rs.getInt("super_productos_pro_codigo");
+                int superProveedoresProvCodigo = rs.getInt("super_proveedores_prov_codigo");
 
-                if (rs.next()) {
-                    System.out.println("Compra encontrada:");
-                    System.out.println("Código: " + rs.getInt("com_codigo"));
-                    System.out.println("Fecha: " + rs.getTimestamp("com_fecha"));
-                    System.out.println("Valor Total: " + rs.getDouble("com_valor_total"));
-                    System.out.println("Cantidad: " + rs.getInt("com_cantidad"));
-                    System.out.println("Código Producto: " + rs.getInt("super_productos_pro_codigo"));
-                    System.out.println("Código Proveedor: " + rs.getDouble("super_proveedores_prov_codigo"));
-                } else {
-                    System.out.println("No se encontró ninguna compra con el código " + codigo);
-                }
+                System.out.println("Compra encontrada:");
+                System.out.println("Código: " + comCodigo);
+                System.out.println("Fecha: " + comFecha);
+                System.out.println("Valor Total: " + comValorTotal);
+                System.out.println("Cantidad: " + comCantidad);
+                System.out.println("Código Producto: " + superProductosProCodigo);
+                System.out.println("Código Proveedor: " + superProveedoresProvCodigo);
 
-                rs.close();
-                pstmt.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            } finally {
-                conexion.desconectar();
+                return new CompraProveedor(
+                        superProveedoresProvCodigo,
+                        superProductosProCodigo,
+                        comCodigo,
+                        comFecha,
+                        comValorTotal,
+                        comCantidad
+                );
+            } else {
+                System.out.println("No se encontró ninguna compra con el código " + codigo);
+                return null;
             }
-        } else {
-            System.out.println("El código de la compra no puede ser menor o igual a 0.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            return null;
+        } finally {
+            conexion.desconectar();
         }
     }
 

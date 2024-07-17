@@ -28,6 +28,10 @@ public class ControladorProducto {
         return daoProducto.buscarProducto(nombre);
     }
 
+    public Producto buscarProductoCodigo(int codigo) throws SQLException {
+        return daoProducto.buscarProductoPorCodigo(codigo);
+    }
+    
     public boolean actualizarProducto(Producto producto) {
         return daoProducto.actualizarProducto(producto);
     }

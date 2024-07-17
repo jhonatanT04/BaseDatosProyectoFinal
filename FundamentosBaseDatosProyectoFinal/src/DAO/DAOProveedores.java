@@ -83,6 +83,44 @@ public class DAOProveedores {
         }
     }
 
+    public Proveedor buscarProveedorPorCodigo(int codigo) {
+        String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_codigo = ?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int codigoProveedor = rs.getInt("prov_codigo");
+                String ruc = rs.getString("prov_ruc");
+                String nombreProveedor = rs.getString("prov_nombre");
+                String telefono = rs.getString("prov_telefono");
+                String direccion = rs.getString("prov_direccion");
+                String correo = rs.getString("prov_correo_electronico");
+
+                System.out.println("Proveedor encontrado:");
+                System.out.println("Código: " + codigoProveedor);
+                System.out.println("Nombre: " + nombreProveedor);
+                System.out.println("RUC: " + ruc);
+                System.out.println("Teléfono: " + telefono);
+                System.out.println("Dirección: " + direccion);
+                System.out.println("Correo Electrónico: " + correo);
+
+                return new Proveedor(codigoProveedor, ruc, nombreProveedor, telefono, direccion, correo);
+            } else {
+                System.out.println("No se encontró ningún proveedor con el código " + codigo);
+                return null;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            return null;
+        } finally {
+            conexion.desconectar();
+        }
+    }
+
     public Proveedor buscarProveedorPorRUC(String ruc) {
         String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_ruc = ?";
         Conexion conexion = new Conexion();
