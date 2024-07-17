@@ -176,6 +176,7 @@ public class IngresaNombreCliente extends javax.swing.JInternalFrame {
         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         jTableClientes.setModel(tableModel);
+        boolean var = false;
         for (Cliente cliente : clientes) {
             if (cliente.getVisualizacion()=='a') {
                 Object[] rowData = {
@@ -187,9 +188,17 @@ public class IngresaNombreCliente extends javax.swing.JInternalFrame {
                     cliente.getCorreo()
                 };
                 tableModel.addRow(rowData);
+            }else{
+                if(var==false){
+                    var= true;
+                }
             }
             
         }
+        if (var) {
+           JOptionPane.showInternalMessageDialog(rootPane, "Existen empleados suspendidos.");
+        }
+
     }
     
     public void setVentanaCedula(){

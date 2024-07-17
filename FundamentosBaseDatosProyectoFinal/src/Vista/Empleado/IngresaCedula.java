@@ -140,22 +140,18 @@ public class IngresaCedula extends javax.swing.JInternalFrame {
                         Empleado emp = controladorEmpleado.buscarEmpleado(per);
                         if (emp!=null) {
                             if (emp.getVisualizacion()=='a') {
-                                /*txtApellido.setText(cli.getApellido());
-                                txtNombre.setText(cli.getNombre());
-                                txtCorreo.setText(cli.getCorreo());
-                                txtDireccion.setText(cli.getDireccion());
-                                txtTelefono.setText(cli.getTelefono());*/
+                                
                                 empleado = emp;
                                 addClienteToTable(empleado);
                                 this.setVisible(false);
                                 this.txtCedula.setText("");
                                 
                             }else{
-                                JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
+                                JOptionPane.showInternalMessageDialog(rootPane, "El empleado esta desactivado.");
                             }
                         }else{
                             
-                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente no existe en la base de datos.");
+                            JOptionPane.showInternalMessageDialog(rootPane, "El empleado no existe en la base de datos.");
                             
                         }
                     }else{

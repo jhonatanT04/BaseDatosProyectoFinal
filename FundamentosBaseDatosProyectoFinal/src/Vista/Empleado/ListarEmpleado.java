@@ -170,7 +170,8 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
 
     private void jBntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntCancelarActionPerformed
         // TODO add your handling code here:
-        
+        this.setVisible(false);
+        this.limpiarTabla();
     }//GEN-LAST:event_jBntCancelarActionPerformed
 
     private void jBntSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntSeleccionarActionPerformed
@@ -180,7 +181,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
                 this.limpiarTabla();
                 desplegarCedula();
 
-                //wSystem.out.println(ingresarCedula.getVentanaCedula().getCedula());
+                
             }else if(jboxNombre.isSelected()){
                 this.limpiarTabla();
                 desplegarNombre();
@@ -229,7 +230,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
            if (listaE!=null) {
                this.llenarTabla(listaE);
            }else{
-                JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun cliente en la base de datos.");
+                JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun empleado en la base de datos.");
            }
        }else{
            JOptionPane.showInternalMessageDialog(rootPane, "No existe ninguna persona en la base de datos.");
@@ -239,6 +240,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo","Permiso"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         jTableEmpleados.setModel(tableModel);
+        
         for (Empleado emp : empleados) {
             if (emp.getVisualizacion()=='a') {
                 String permiso = null;
@@ -258,8 +260,9 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
                 };
                 tableModel.addRow(rowData);
             }
-            
+           
         }
+        
     }
     
     

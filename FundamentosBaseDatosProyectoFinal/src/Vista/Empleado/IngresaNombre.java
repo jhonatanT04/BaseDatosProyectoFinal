@@ -2,8 +2,10 @@ package Vista.Empleado;
 
 import Vista.Cliente.*;
 import Controlador.ControladorCliente;
+import Controlador.ControladorEmpleado;
 import Controlador.ControladorPersona;
 import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Empleado;
 import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author venot
  */
 public class IngresaNombre extends javax.swing.JInternalFrame {
-    private ControladorCliente controladorCliente;
+    private ControladorEmpleado controladorEmpleado;
     private ControladorPersona controladorPersona;
     private Cliente cliente;
     private JTable jTableClientes;
@@ -33,7 +35,7 @@ public class IngresaNombre extends javax.swing.JInternalFrame {
      */
     public IngresaNombre(JTable jTableClientes) {
         initComponents();
-        controladorCliente = new ControladorCliente();
+        controladorEmpleado = new ControladorEmpleado();
         controladorPersona = new ControladorPersona();
         this.jTableClientes = jTableClientes;
     }
@@ -133,13 +135,15 @@ public class IngresaNombre extends javax.swing.JInternalFrame {
             try {
                 List<Persona> listP = controladorPersona.listarPersonasClientesNombre(txtNombre.getText().trim());
                 if (listP!=null) {
-                    List<Cliente> listC = controladorCliente.buscarPorNombreCliente(listP);
-                    if (listC!=null) {
-                        llenarTabla(listC);
+                    List<Empleado> lisE = controladorEmpleado.ListarEmpleados(listP);
+                    //List<Cliente> listC = controladorCliente.buscarPorNombreCliente(listP);
+                    if (lisE!=null) {
+                        llenarTabla(lisE);
                         this.setVisible(false);
                         this.txtNombre.setText("");
+                        
                     }else{
-                        JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun cliente con este nombre");
+                        JOptionPane.showInternalMessageDialog(rootPane, "No existe ningun empleado con este nombre");
                     }
                     
                 }else{
@@ -173,23 +177,39 @@ public class IngresaNombre extends javax.swing.JInternalFrame {
         return cliente;
     }
     
-    public void llenarTabla(List<Cliente> clientes){
-        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"};
+    public void llenarTabla(List<Empleado> empleados){
+        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo","Permiso"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         jTableClientes.setModel(tableModel);
-        for (Cliente cliente : clientes) {
-            if (cliente.getVisualizacion()=='a') {
+        boolean var=false;
+         for (Empleado emp : empleados) {
+            if (emp.getVisualizacion()=='a') {
+                String permiso = null;
+                if (emp.getPermiso()=='a') {
+                    permiso = "administrativo";
+                }else{
+                    permiso = "General";
+                }
                 Object[] rowData = {
-                    cliente.getCedula(),
-                    cliente.getNombre(),
-                    cliente.getApellido(),
-                    cliente.getDireccion(),
-                    cliente.getTelefono(),
-                    cliente.getCorreo()
+                    emp.getCedula(),
+                    emp.getNombre(),
+                    emp.getApellido(),
+                    emp.getDireccion(),
+                    emp.getTelefono(),
+                    emp.getCorreo(),
+                    permiso,
                 };
                 tableModel.addRow(rowData);
+            }else{
+                if(var==false){
+                    var= true;
+                }
             }
             
+            
+        }
+        if (var) {
+           JOptionPane.showInternalMessageDialog(rootPane, "Existen empleados suspendidos.");
         }
     }
     
