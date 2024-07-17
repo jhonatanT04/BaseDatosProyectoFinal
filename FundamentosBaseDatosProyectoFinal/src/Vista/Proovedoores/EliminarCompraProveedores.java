@@ -148,13 +148,13 @@ public class EliminarCompraProveedores extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Precio", "Stock", "IVA"
+                "Codigo", "Nombre", "Precio", "Stock"
             }
         ));
         jTable1.setEnabled(false);
@@ -332,21 +332,28 @@ public class EliminarCompraProveedores extends javax.swing.JInternalFrame {
         try {
             Proveedor proveedor = controladorProveedor.buscarProveedorPorCodigo(compraProveedor.getCodigo());
             txtNombreProveedor.setText(proveedor.getNombre());
+            txtCorreoProveedor.setText(proveedor.getCorreo());
+            txtDireccionProveedor.setText(proveedor.getDireccion());
+            txtRUCProveedor.setText(proveedor.getRuc());
+            txtCodigoProveedor.setText(String.valueOf(proveedor.getCodigo()));
+            txtTelefonoProveedor.setText(proveedor.getTelefono()); 
         } catch (SQLException ex) {
             Logger.getLogger(EliminarCompraProveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
             Producto producto = controladorProducto.buscarProductoCodigo(compraProveedor.getCodigoProducto());
-            String[] columnas = {"Código", "Nombre", "Descripción", "Stock", "Precio Unitario", "Cantidad", "Foto"};
+            String[] columnas = {"Código", "Nombre", "Precio", "Stock"};
             DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
 
-            // Agregar el producto al modelo de la tabla
             Object[] fila = {
                 producto.getCodigo(),
                 producto.getNombre(),
+                producto.getPrecio(),
                 producto.getStock(),};
             modeloTabla.addRow(fila);
+
+            jTable1.setModel(modeloTabla);
         } catch (SQLException ex) {
             Logger.getLogger(EliminarCompraProveedores.class.getName()).log(Level.SEVERE, null, ex);
         }

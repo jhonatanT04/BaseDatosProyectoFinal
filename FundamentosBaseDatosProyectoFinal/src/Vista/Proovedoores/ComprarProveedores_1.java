@@ -183,13 +183,13 @@ public class ComprarProveedores_1 extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Precio", "Stock", "IVA"
+                "Codigo", "Nombre", "Precio", "Stock"
             }
         ));
         jTable1.setEnabled(false);
