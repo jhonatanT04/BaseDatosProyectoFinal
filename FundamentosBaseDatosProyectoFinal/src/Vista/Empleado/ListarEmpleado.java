@@ -193,8 +193,6 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(ListarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-
             }
         }else{
             JOptionPane.showInternalMessageDialog(rootPane, "Escoja una opcion.");
@@ -237,19 +235,26 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
            JOptionPane.showInternalMessageDialog(rootPane, "No existe ninguna persona en la base de datos.");
        }
    }
-   public void llenarTabla(List<Empleado> clientes){
-        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo"};
+   public void llenarTabla(List<Empleado> empleados){
+        String[] columnNames = {"Cedula", "Nombre", "Apellido", "Direccion", "Telefono", "Correo","Permiso"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         jTableEmpleados.setModel(tableModel);
-        for (Empleado emp : clientes) {
+        for (Empleado emp : empleados) {
             if (emp.getVisualizacion()=='a') {
+                String permiso = null;
+                if (emp.getPermiso()=='a') {
+                    permiso = "administrativo";
+                }else{
+                    permiso = "General";
+                }
                 Object[] rowData = {
                     emp.getCedula(),
                     emp.getNombre(),
                     emp.getApellido(),
                     emp.getDireccion(),
                     emp.getTelefono(),
-                    emp.getCorreo()
+                    emp.getCorreo(),
+                    permiso,
                 };
                 tableModel.addRow(rowData);
             }
