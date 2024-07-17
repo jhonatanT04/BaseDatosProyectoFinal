@@ -102,13 +102,15 @@ public class DAOEmpleado {
     public boolean modificarCliente(Empleado emp) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        String updateClienteSQL = "UPDATE super_empleados SET emp_visualizar = ?, emp_contrasenia = ?, emp_permiso = ? WHERE cli_codigo = ?";
+        String updateClienteSQL = "UPDATE super_empleados SET emp_visualizar = ?, emp_contrasenia = ?, emp_permiso = ? WHERE emp_codigo = ?";
         
         try (PreparedStatement psCliente = conn.prepareStatement(updateClienteSQL)) {
             daoPersona.modificarPersona(emp);
             
             psCliente.setString(1, String.valueOf(emp.getVisualizacion()));
-            psCliente.setInt(2, emp.getEmpleadoCodigo());
+            psCliente.setString(2, emp.getContrasenia());
+            psCliente.setString(3, String.valueOf(emp.getPermiso()));
+            psCliente.setInt(4, emp.getEmpleadoCodigo());
             
             psCliente.executeUpdate();   
             return true;

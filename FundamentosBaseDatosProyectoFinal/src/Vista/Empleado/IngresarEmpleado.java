@@ -327,8 +327,7 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtTelefono.setText("");
         txtContrasenia.setText("");
-        jRadioButtonGeneral.setSelected(false);
-        jRadioButtonAdministrador.setSelected(false);
+        buttonGroup.clearSelection();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCancelar;
