@@ -30,6 +30,8 @@ public class Pruebas1 {
         //Producto producto = new Producto(1, "Azucar", 5.0, 4, 5, 'h', 1);
         //con.actualizarProducto(producto);
         ControladorPorveedor cont = new ControladorPorveedor();
+        cont.listarProveedores();
+        
         //cont.buscarProveedorNombre("Proveedor A");
         //Proveedor prov = new Proveedor(1, "Juanito", "45464", "ajdhjsa", "bdsad", "hdjsahjd");
         //pro.eliminarProveedor(1);

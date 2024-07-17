@@ -191,6 +191,7 @@ public class DAOProducto {
     public List<Producto> listarProductos() {
         List<Producto> listaProductos = new ArrayList<>();
         Conexion conexion = new Conexion();
+        System.out.println("listado");
         String sql = "SELECT pro_codigo, pro_nombre, pro_precio, pro_stock, pro_IVA, pro_visualizar, super_categorias_cat_codigo FROM super_productos";
 
         try (Connection conn = conexion.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {

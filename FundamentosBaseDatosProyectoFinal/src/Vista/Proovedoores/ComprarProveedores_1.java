@@ -497,9 +497,15 @@ public class ComprarProveedores_1 extends javax.swing.JInternalFrame {
 
             controladorCompraProveedor.insertarCompraProveedor(compra);
             
-            //Producto p = new Producto(codigo, title, precio, ABORT, precio, 0, codigo);
+            String nombrep = controladorProducto.buscarProductoCodigo(codigoProducto).getNombre();
+            double preciop = controladorProducto.buscarProductoCodigo(codigoProducto).getPrecio();
+            int stockn = cantidad + controladorProducto.buscarProductoCodigo(codigoProducto).getStock();
+            double ivap = controladorProducto.buscarProductoCodigo(codigoProducto).getIva();
+            char visualizacionp = controladorProducto.buscarProductoCodigo(codigoProducto).getVisualizacion();
+            int codigoCategorip = controladorProducto.buscarProductoCodigo(codigoProducto).getCategoria();
+            Producto pactualizado = new Producto(codigoProducto, nombrep, preciop, stockn, ivap, visualizacionp, codigoCategorip);
+            controladorProducto.actualizarProducto(pactualizado);
             
-
             JOptionPane.showMessageDialog(this, "Compra registrada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             txtCodigo.setText("");
