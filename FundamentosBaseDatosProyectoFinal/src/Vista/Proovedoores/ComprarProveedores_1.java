@@ -489,12 +489,16 @@ public class ComprarProveedores_1 extends javax.swing.JInternalFrame {
             int codigo = Integer.parseInt(txtCodigo.getText().trim());
             Timestamp fecha = Timestamp.valueOf(txtFecha.getText().trim());
             int cantidad = Integer.parseInt(txtCantidad.getText().trim());
-            double precio = Double.parseDouble(txtTotal.getText().trim());
+            double precio = Double.parseDouble(jTable1.getValueAt(0, 2).toString());
             double valorTotal = cantidad * precio;
+            txtTotal.setText(String.valueOf(valorTotal)); 
 
             CompraProveedor compra = new CompraProveedor(codigoProveedor, codigoProducto, codigo, fecha, precio, cantidad);
 
             controladorCompraProveedor.insertarCompraProveedor(compra);
+            
+            //Producto p = new Producto(codigo, title, precio, ABORT, precio, 0, codigo);
+            
 
             JOptionPane.showMessageDialog(this, "Compra registrada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
