@@ -256,21 +256,21 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                 try {
                     Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
                     if (per!=null) {
-                        Empleado cli = controladorEmpleado.buscarEmpleado(per);
-                        if (cli!=null) {
-                            if (cli.getVisualizacion()=='a') {
-                                txtApellido.setText(cli.getApellido());
-                                txtNombre.setText(cli.getNombre());
-                                txtCorreo.setText(cli.getCorreo());
-                                txtDireccion.setText(cli.getDireccion());
-                                txtTelefono.setText(cli.getTelefono());
-                                txtContrasenia.setText(cli.getContrasenia());
-                                if (cli.getPermiso()=='a') {
-                                    
+                        Empleado emp = controladorEmpleado.buscarEmpleado(per);
+                        if (emp!=null) {
+                            if (emp.getVisualizacion()=='a') {
+                                txtApellido.setText(emp.getApellido());
+                                txtNombre.setText(emp.getNombre());
+                                txtCorreo.setText(emp.getCorreo());
+                                txtDireccion.setText(emp.getDireccion());
+                                txtTelefono.setText(emp.getTelefono());
+                                txtContrasenia.setText(emp.getContrasenia());
+                                if (emp.getPermiso()=='a') {
+                                    jRadioButtonAdministrador.setSelected(true);
                                 }else{
-                                    
+                                    jRadioButtonGeneral.setSelected(true);
                                 }
-                                empleado = cli;
+                                empleado = emp;
                                 primeraCedula =txtCedula.getText().trim();
                                 habilitarCampos(true);
                                 System.out.println("Primera cedula "+ primeraCedula);
@@ -321,7 +321,12 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                         empleado.setDireccion(txtDireccion.getText().trim());
                         empleado.setTelefono(txtTelefono.getText().trim());
                         empleado.setCorreo(txtCorreo.getText().trim());
-                        
+                        empleado.setContrasenia(txtContrasenia.getText());
+                        if (jRadioButtonAdministrador.isSelected()) {
+                            empleado.setPermiso('a');
+                        }else if (jRadioButtonGeneral.isSelected()){
+                            empleado.setPermiso('g');
+                        }
                         
                         
                         controladorEmpleado.actualizarEmpleado(empleado);
@@ -350,6 +355,7 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
         txtCorreo.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
+        txtContrasenia.setText("");
         primeraCedula="";
         buttonGroupSeleccion.clearSelection();
     }
@@ -362,6 +368,7 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
         txtTelefono.setEditable(opc);
         btnBuscar.setEnabled(!opc);
         btnActualizar.setEnabled(opc);
+        
         
         
     }

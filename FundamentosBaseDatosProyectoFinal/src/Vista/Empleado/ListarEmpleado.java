@@ -172,6 +172,7 @@ public class ListarEmpleado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         this.limpiarTabla();
+        buttonGroupSeleccion.clearSelection();
     }//GEN-LAST:event_jBntCancelarActionPerformed
 
     private void jBntSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntSeleccionarActionPerformed

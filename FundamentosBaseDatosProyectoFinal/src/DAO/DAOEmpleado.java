@@ -74,7 +74,7 @@ public class DAOEmpleado {
     }
     public List<Empleado> ListarEmpleados(List<Persona> personas) throws SQLException {        
          
-        String clienteSQL = "SELECT emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso FROM super_empleados WHERE super_personas_per_codigo = ?";
+        String clienteSQL = "SELECT emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso FROM super_empleados WHERE super_personas_per_codigo = ? order by 1 desc";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
         List<Empleado> listaClientes = new ArrayList<>();
