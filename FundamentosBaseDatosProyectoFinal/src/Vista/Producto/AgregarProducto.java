@@ -200,7 +200,7 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
 
             int categoria = controladorCategoria.obtenerCodigoCategoria(nombreCategoriaSeleccionada);
 
-            Producto producto = new Producto(0,nombre, precio, stock, iva, visualizacion, categoria);
+            producto = new Producto(0,nombre, precio, stock, iva, visualizacion, categoria);
 
             boolean insertado = controladorProducto.insertarProducto(producto);
 
