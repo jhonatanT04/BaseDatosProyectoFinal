@@ -218,8 +218,18 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
                                 
                             }else{
                                 habilitarCampos(false);
-                                JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
-                                
+                                //JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
+                                int opc = JOptionPane.showConfirmDialog(rootPane, "El cliente con numero de cedula "+per.getCedula()+" se encuentra desactivado. ¿Desea actualizarlo?·");
+                                if (opc==0) {
+                                    int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al cliente con numero de cedula "+cli.getCedula()+" y con nombre de "+cli.getNombre()+" "+cli.getApellido());
+                                    if (v==0) {
+                                        cli.setVisualizacion('a');
+                                        controladorCliente.actualizarCliente(cli);
+                                        System.out.println("Se actualiza cliente");
+                                        JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");
+                                        this.limpiarCampos();
+                                    }
+                                }
                             }
                         }else{
                             habilitarCampos(false);

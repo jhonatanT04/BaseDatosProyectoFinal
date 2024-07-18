@@ -211,7 +211,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                             if (vari==0) {
                                 int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al cliente con numero de cedula "+cli.getCedula()+" y con nombre de "+cli.getNombre()+" "+cli.getApellido());
                                 if (v==0) {
+                                    cli.setVisualizacion('a');
+                                    controladorCliente.actualizarCliente(cli);
                                     System.out.println("Se actualiza cliente");
+                                    JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");
+                                    this.limpiarCampos();
                                 }
                             }
                         }else{

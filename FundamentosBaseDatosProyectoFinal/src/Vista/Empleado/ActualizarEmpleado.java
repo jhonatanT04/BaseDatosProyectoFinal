@@ -277,7 +277,18 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                                 
                             }else{
                                 habilitarCampos(false);
-                                JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
+                                //JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
+                                int opc = JOptionPane.showConfirmDialog(rootPane, "El empleado con numero de cedula "+per.getCedula()+" se encuentra desactivado. ¿Desea actualizarlo?·");
+                                if (opc==0) {
+                                    int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al empleado con numero de cedula "+emp.getCedula()+" y con nombre de "+emp.getNombre()+" "+emp.getApellido());
+                                    if (v==0) {
+                                        emp.setVisualizacion('a');
+                                        controladorEmpleado.actualizarEmpleado(emp);
+                                        System.out.println("Se actualiza cliente");
+                                        JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");
+                                        this.limpiarCampos();
+                                    }
+                                }
                                 
                             }
                         }else{

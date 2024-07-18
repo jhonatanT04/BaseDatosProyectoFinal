@@ -199,6 +199,7 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         this.limpiarTabla();
+        buttonGroupSeleccion.clearSelection();
     }//GEN-LAST:event_jbntSalirActionPerformed
     public void limpiarTabla() {
         DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();

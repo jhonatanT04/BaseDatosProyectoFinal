@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class IngresarEmpleado extends javax.swing.JInternalFrame {
     private ControladorPersona controladorPersona ;
     private ControladorEmpleado controladorEmpleado;
-    private char visu = 'a';
+    private char visu = 'i';
     
     /**
      * Creates new form IngresarEmpleado
@@ -279,7 +279,11 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
                             if (vari==0) {
                                 int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al empleado con numero de cedula "+emp.getCedula()+" y con nombre de "+emp.getNombre()+" "+emp.getApellido());
                                 if (v==0) {
-                                    System.out.println("Se actualiza empleado");
+                                    emp.setVisualizacion('a');
+                                    controladorEmpleado.actualizarEmpleado(emp);
+                                    this.limpiarCampos();
+                                    JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");
+                                    
                                 }
                             }
                         }else{
