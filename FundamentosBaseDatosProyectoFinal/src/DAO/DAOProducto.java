@@ -29,7 +29,7 @@ public class DAOProducto {
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //pstmt.setInt(1, producto.getCodigo());
-            //System.out.println(producto.getNombre());
+            System.out.println(producto.getNombre());
             pstmt.setString(1, producto.getNombre());
             pstmt.setDouble(2, producto.getPrecio());
             pstmt.setInt(3, producto.getStock());

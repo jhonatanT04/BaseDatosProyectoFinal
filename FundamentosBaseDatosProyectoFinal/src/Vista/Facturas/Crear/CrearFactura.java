@@ -7,12 +7,20 @@ package Vista.Facturas.Crear;
 import Controlador.ControladorProducto;
 import Modelo.Producto.Producto;
 import Vista.Proovedoores.ComprarProveedores_1;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -349,42 +357,52 @@ public class CrearFactura extends javax.swing.JInternalFrame {
 
         if (nombreProducto != null && !nombreProducto.trim().isEmpty()) {
             try {
-                Producto productoEncontrado = controladorProducto.buscarProducto(nombreProducto.trim());
+                List<Producto> productosEncontrados = (List<Producto>) controladorProducto.buscarProducto(nombreProducto.trim());
 
-                if (productoEncontrado != null) {
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-                    String cantidadStr = JOptionPane.showInputDialog(this, "Ingrese la cantidad:", "Cantidad", JOptionPane.PLAIN_MESSAGE);
-
-                    if (cantidadStr != null && !cantidadStr.trim().isEmpty()) {
-                        try {
-                            int cantidad = Integer.parseInt(cantidadStr);
-                            if (cantidad > 0) {
-                                double precioSinIVA = productoEncontrado.getPrecio();
-                                double iva = productoEncontrado.getIva();
-                                double precioConIVA = precioSinIVA * (1 + iva);
-                                double subtotal = precioConIVA * cantidad;
-                                double total = subtotal + precioConIVA;
-
-                                // Agregar el producto encontrado a la tabla con la cantidad y subtotal calculados
-                                model.addRow(new Object[]{
-                                    productoEncontrado.getNombre(),
-                                    cantidad,
-                                    productoEncontrado.getPrecio(),
-                                    productoEncontrado.getIva(),
-                                    subtotal,
-                                    total
-                                });
-
-                                JOptionPane.showMessageDialog(this, "Producto encontrado y agregado a la tabla.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(this, "Ingrese un número válido para la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
+                if (productosEncontrados != null && !productosEncontrados.isEmpty()) {
+                    if (productosEncontrados.size() == 1) {
+                        Producto productoEncontrado = productosEncontrados.get(0);
+                        agregarProductoATabla(productoEncontrado);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Debe ingresar la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JFrame frameSeleccion = new JFrame("Seleccionar Producto");
+                        frameSeleccion.setSize(500, 400);
+                        frameSeleccion.setLocationRelativeTo(this);
+
+                        DefaultTableModel model = new DefaultTableModel();
+                        model.addColumn("Nombre");
+                        model.addColumn("Precio");
+                        model.addColumn("IVA");
+                        model.addColumn("Stock");
+
+                        for (Producto producto : productosEncontrados) {
+                            model.addRow(new Object[]{
+                                producto.getNombre(),
+                                producto.getPrecio(),
+                                producto.getIva(),
+                                producto.getStock()
+                            });
+                        }
+
+                        JTable table = new JTable(model);
+                        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        JButton btnSeleccionar = new JButton("Seleccionar");
+                        btnSeleccionar.addActionListener(e -> {
+                            int selectedRow = table.getSelectedRow();
+                            if (selectedRow >= 0) {
+                                Producto productoSeleccionado = productosEncontrados.get(selectedRow);
+                                agregarProductoATabla(productoSeleccionado);
+                                frameSeleccion.dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(frameSeleccion, "Debe seleccionar un producto.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        });
+
+                        frameSeleccion.setLayout(new BorderLayout());
+                        frameSeleccion.add(new JScrollPane(table), BorderLayout.CENTER);
+                        frameSeleccion.add(btnSeleccionar, BorderLayout.SOUTH);
+
+                        frameSeleccion.setVisible(true);
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontró el producto con el nombre: " + nombreProducto, "Error", JOptionPane.ERROR_MESSAGE);
@@ -397,6 +415,40 @@ public class CrearFactura extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAgregarProductosActionPerformed
 
+    private void agregarProductoATabla(Producto producto) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String cantidadStr = JOptionPane.showInputDialog(this, "Ingrese la cantidad:", "Cantidad", JOptionPane.PLAIN_MESSAGE);
+
+        if (cantidadStr != null && !cantidadStr.trim().isEmpty()) {
+            try {
+                int cantidad = Integer.parseInt(cantidadStr);
+                if (cantidad > 0) {
+                    double precioSinIVA = producto.getPrecio();
+                    double iva = producto.getIva();
+                    double precioConIVA = precioSinIVA * (1 + iva);
+                    double subtotal = precioConIVA * cantidad;
+                    double total = subtotal + precioConIVA;
+
+                    model.addRow(new Object[]{
+                        producto.getNombre(),
+                        cantidad,
+                        producto.getPrecio(),
+                        producto.getIva(),
+                        subtotal,
+                        total
+                    });
+
+                    JOptionPane.showMessageDialog(this, "Producto encontrado y agregado a la tabla.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Ingrese un número válido para la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProductos;
