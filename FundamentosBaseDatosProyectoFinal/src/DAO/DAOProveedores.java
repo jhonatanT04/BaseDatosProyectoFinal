@@ -23,16 +23,14 @@ public class DAOProveedores {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
-        String sql = "INSERT INTO super_proveedores (prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc) VALUES (seq_prov_codigo.NEXTVAL , ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO super_proveedores (prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc) VALUES (seq_prov_codigo.NEXTVAL, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(0, proveedor.getCodigo()); 
-            pstmt.setString(2, proveedor.getNombre());
-            pstmt.setString(3, proveedor.getTelefono());
-            pstmt.setString(4, proveedor.getDireccion());
-            pstmt.setString(5, proveedor.getCorreo());
-            pstmt.setString(6, proveedor.getRuc());
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, proveedor.getNombre());
+            pstmt.setString(2, proveedor.getTelefono());
+            pstmt.setString(3, proveedor.getDireccion());
+            pstmt.setString(4, proveedor.getCorreo());
+            pstmt.setString(5, proveedor.getRuc());
 
             pstmt.executeUpdate();
             return true;
@@ -137,7 +135,6 @@ public class DAOProveedores {
 
             if (rs.next()) {
                 int codigo = rs.getInt("prov_codigo");
-                String nombre = rs.getString("prov_nombre");
                 String nombreProveedor = rs.getString("prov_nombre");
                 String telefono = rs.getString("prov_telefono");
                 String direccion = rs.getString("prov_direccion");
@@ -166,22 +163,19 @@ public class DAOProveedores {
 
     public boolean actualizarProveedor(Proveedor proveedor) {
         boolean llave = false;
-        try {
-            System.out.println("Actualizando proveedor: " + proveedor);
+        String sql = "UPDATE super_proveedores SET prov_nombre=?, prov_telefono=?, prov_direccion=?, prov_correo_electronico=?, prov_ruc=? WHERE prov_codigo=?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
-            String SQLr = "UPDATE super_proveedores SET prov_nombre=?, prov_telefono=?, prov_direccion=?, prov_correo_electronico=?, prov_ruc=? WHERE prov_codigo=?";
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectar();
-            PreparedStatement sentencia = con.prepareStatement(SQLr);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, proveedor.getNombre());
+            pstmt.setString(2, proveedor.getTelefono());
+            pstmt.setString(3, proveedor.getDireccion());
+            pstmt.setString(4, proveedor.getCorreo());
+            pstmt.setString(5, proveedor.getRuc());
+            pstmt.setInt(6, proveedor.getCodigo());
 
-            sentencia.setString(1, proveedor.getNombre());
-            sentencia.setString(2, proveedor.getTelefono());
-            sentencia.setString(3, proveedor.getDireccion());
-            sentencia.setString(4, proveedor.getCorreo());
-            sentencia.setString(5, proveedor.getRuc());
-            sentencia.setDouble(6, proveedor.getCodigo());
-
-            int filasAfectadas = sentencia.executeUpdate();
+            int filasAfectadas = pstmt.executeUpdate();
 
             if (filasAfectadas > 0) {
                 System.out.println("Se actualizó correctamente el proveedor");
@@ -189,26 +183,30 @@ public class DAOProveedores {
             } else {
                 System.out.println("No se pudo actualizar el proveedor");
             }
-
-            sentencia.close();
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL CERRAR LA CONEXIÓN: " + e.getMessage());
+            }
         }
         return llave;
     }
 
-    public boolean eliminarProveedor(double codigo) {
+    public boolean eliminarProveedor(int codigo) {
         boolean llave = false;
-        try {
-            String SQLr = "DELETE FROM super_proveedores WHERE prov_codigo=?";
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectar();
-            PreparedStatement sentencia = con.prepareStatement(SQLr);
+        String sql = "DELETE FROM super_proveedores WHERE prov_codigo=?";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
-            sentencia.setDouble(1, codigo);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, codigo);
 
-            int filasAfectadas = sentencia.executeUpdate();
+            int filasAfectadas = pstmt.executeUpdate();
 
             if (filasAfectadas > 0) {
                 System.out.println("Se eliminó correctamente el proveedor con código " + codigo);
@@ -216,11 +214,16 @@ public class DAOProveedores {
             } else {
                 System.out.println("No se pudo eliminar el proveedor con el código " + codigo + " (No existe en la base de datos)");
             }
-
-            sentencia.close();
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL CERRAR LA CONEXIÓN: " + e.getMessage());
+            }
         }
         return llave;
     }
@@ -258,5 +261,4 @@ public class DAOProveedores {
 
         return listaProveedores;
     }
-
 }
