@@ -39,8 +39,8 @@ public class DAOProducto {
             //System.out.println(producto.getIva());
             psProducto.setString(5, String.valueOf(producto.getVisualizacion()));
             //System.out.println(producto.getVisualizacion());
-            psProducto.setInt(6, 9);
-            //System.out.println(producto.getCategoria());
+            psProducto.setInt(6, producto.getCategoria());
+            System.out.println(producto.getCategoria());
             psProducto.executeUpdate();
             return true;
         } finally {
