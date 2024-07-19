@@ -20,7 +20,7 @@ public class ControladorProducto {
         daoProducto = new DAOProducto();
     }
 
-    public boolean insertarProducto(Producto producto) {
+    public boolean insertarProducto(Producto producto) throws SQLException {
         return daoProducto.insertarProducto(producto);
     }
 

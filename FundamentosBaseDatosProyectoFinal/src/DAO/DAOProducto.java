@@ -20,37 +20,35 @@ import javax.swing.JOptionPane;
  */
 public class DAOProducto {
 
-    public boolean insertarProducto(Producto producto) {
+    public boolean insertarProducto(Producto producto) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        String sql = "INSERT INTO super_productos (pro_codigo, pro_nombre, pro_precio, pro_stock, pro_IVA"
-                + ", pro_visualizar, super_categorias_cat_codigo) VALUES (seq_pro_codigo.nextval, ?, ?, ?, ?, ?, ?)";
+        String insertProductoSQL = "INSERT INTO super_productos (pro_codigo, pro_nombre, pro_precio, pro_stock, pro_iva, pro_visualizar, super_categorias_cat_codigo) VALUES (SEQ_PRO_CODIGO.nextval, ?, ?, ?, ?, ?, ?);";
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            //pstmt.setInt(1, producto.getCodigo());
-            System.out.println(producto.getNombre());
-            pstmt.setString(1, producto.getNombre());
-            pstmt.setDouble(2, producto.getPrecio());
-            pstmt.setInt(3, producto.getStock());
-            pstmt.setDouble(4, producto.getIva());
-            pstmt.setString(5, String.valueOf(producto.getVisualizacion()));
-            pstmt.setString(6, String.valueOf(producto.getCategoria()));
-
-            int filasInsertadas = pstmt.executeUpdate();
-            pstmt.close();
-
-            if (filasInsertadas > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            return false;
+        try (PreparedStatement psProducto = conn.prepareStatement(insertProductoSQL)) {
+             //System.out.println("KKKKKKKKKKKKK");
+            //int cod =daoPersona.insertarPersona(empleado);
+                //System.out.println("AAAAAAAAAAAAA");
+            psProducto.setString(1, producto.getNombre());
+            //System.out.println(producto.getNombre());
+            psProducto.setDouble(2,  producto.getPrecio());
+            //System.out.println("precio "+producto.getPrecio());
+            psProducto.setInt(3, producto.getStock());
+            
+            psProducto.setDouble(4, producto.getIva());
+            //System.out.println(producto.getIva());
+            psProducto.setString(5, String.valueOf(producto.getVisualizacion()));
+            //System.out.println(producto.getVisualizacion());
+            psProducto.setInt(6, 9);
+            //System.out.println(producto.getCategoria());
+            psProducto.executeUpdate();
+            return true;
         } finally {
-            conexion.desconectar();
+            if (conn != null) {
+                conn.close();
+            }
         }
+        
     }
 
     public Producto buscarProducto(String nombre) throws SQLException {

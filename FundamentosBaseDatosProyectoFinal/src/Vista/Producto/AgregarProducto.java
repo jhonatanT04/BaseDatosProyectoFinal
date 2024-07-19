@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 
 /**
@@ -202,7 +204,12 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
 
             producto = new Producto(0,nombre, precio, stock, iva, visualizacion, categoria);
 
-            boolean insertado = controladorProducto.insertarProducto(producto);
+            boolean insertado=false;
+            try {
+                insertado = controladorProducto.insertarProducto(producto);
+            } catch (SQLException ex) {
+                Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             if (insertado) {
                 JOptionPane.showMessageDialog(null, "Producto insertado correctamente.");
