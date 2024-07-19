@@ -113,7 +113,6 @@ public class Administrador extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        itemMenuBuscarEmpleado = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -289,14 +288,6 @@ public class Administrador extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem6);
 
-        itemMenuBuscarEmpleado.setText("Buscar Empleado");
-        itemMenuBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuBuscarEmpleadoActionPerformed(evt);
-            }
-        });
-        jMenu1.add(itemMenuBuscarEmpleado);
-
         jMenuItem8.setText("Actualizar Empleado");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,10 +386,6 @@ public class Administrador extends javax.swing.JFrame {
         ventanaNuevoCliente.setVisible(true); 
     
     }//GEN-LAST:event_itemMenuNuevoClienteActionPerformed
-
-    private void itemMenuBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarEmpleadoActionPerformed
-        
-    }//GEN-LAST:event_itemMenuBuscarEmpleadoActionPerformed
 
     private void itemMenuBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarClienteActionPerformed
         // TODO add your handling code here:
@@ -629,7 +616,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem itemMenuBuscarCliente;
-    private javax.swing.JMenuItem itemMenuBuscarEmpleado;
     private javax.swing.JMenuItem itemMenuNuevoCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
