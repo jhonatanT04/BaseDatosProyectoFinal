@@ -38,7 +38,7 @@ public class CrearFactura extends javax.swing.JInternalFrame {
         initComponents();
         this.controladorProducto = controladorProducto;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate = dateFormat.format(new Date());
         txtFecha.setText(currentDate);
     }
