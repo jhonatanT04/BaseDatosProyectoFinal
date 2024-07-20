@@ -30,10 +30,14 @@ public class ControladorCategoria {
         return daoCategoria.insertarCategoria(categoria);
     }
 
-    public void buscarCategoria(String nombre) {
-        daoCategoria.buscarCategoria(nombre);
+    public Categoria buscarCategoria(String nombre) {
+        return daoCategoria.buscarCategoriaPorNombre(nombre);
     }
 
+    public Categoria buscarCategoriaPorCodigo(int codigo) {
+        return daoCategoria.buscarCategoriaPorCodigo(codigo); 
+    }
+    
     public boolean actualizarCategoria(Categoria categoria) {
         return daoCategoria.actualizarCategoria(categoria);
     }

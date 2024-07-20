@@ -54,8 +54,6 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
             conexion.desconectar();
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,13 +186,50 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
             String nombre = txtNombre.getText();
-            double precio = Double.parseDouble(txtPrecio.getText());
-            int stock = Integer.parseInt(txtStock.getText());
-            double iva = Double.parseDouble(txtIVA.getText());
-            char visualizacion = 'A';
+            if (nombre == null || nombre.trim().isEmpty() || nombre.length() > 100) {
+                JOptionPane.showMessageDialog(null, "El nombre no puede estar vacío y debe tener menos de 100 caracteres.");
+                return;
+            }
+
+            double precio;
+            try {
+                precio = Double.parseDouble(txtPrecio.getText());
+                if (precio <= 0) {
+                    JOptionPane.showMessageDialog(null, "El precio debe ser un número positivo.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error: Asegúrese de ingresar un número válido en el campo de precio.");
+                return;
+            }
+
+            int stock;
+            try {
+                stock = Integer.parseInt(txtStock.getText());
+                if (stock < 0) {
+                    JOptionPane.showMessageDialog(null, "El stock no puede ser negativo.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error: Asegúrese de ingresar un número válido en el campo de stock.");
+                return;
+            }
+
+            double iva;
+            try {
+                iva = Double.parseDouble(txtIVA.getText());
+                if (iva < 0 || iva > 100) {
+                    JOptionPane.showMessageDialog(null, "El IVA debe ser un porcentaje entre 0 y 100.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error: Asegúrese de ingresar un número válido en el campo de IVA.");
+                return;
+            }
+
+            char visualizacion = 'A'; // Esta visible
 
             String nombreCategoriaSeleccionada = (String) jComboBox1.getSelectedItem();
-
             if (nombreCategoriaSeleccionada == null || nombreCategoriaSeleccionada.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, seleccione una categoría.");
                 return;
@@ -202,9 +237,9 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
 
             int categoria = controladorCategoria.obtenerCodigoCategoria(nombreCategoriaSeleccionada);
 
-            producto = new Producto(0,nombre, precio, stock, iva, visualizacion, categoria);
+            Producto producto = new Producto(0, nombre, precio, stock, iva, visualizacion, categoria);
 
-            boolean insertado=false;
+            boolean insertado = false;
             try {
                 insertado = controladorProducto.insertarProducto(producto);
             } catch (SQLException ex) {
@@ -216,9 +251,10 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Error al insertar el producto.");
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error: Asegúrese de ingresar números válidos en los campos de precio, stock e IVA.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
