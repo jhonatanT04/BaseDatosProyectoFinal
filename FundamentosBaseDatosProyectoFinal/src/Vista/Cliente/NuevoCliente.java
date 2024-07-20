@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class NuevoCliente extends javax.swing.JInternalFrame {
     private ControladorCliente controladorCliente;
     private ControladorPersona controladorPersona;
-    private char visu = 'a'; 
+    private char visu = 'A'; 
     /**
      * Creates new form NuevoCliente
      */

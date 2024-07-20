@@ -112,6 +112,8 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Contraseña:");
 
+        txtContrasenia.setEditable(false);
+
         jLabel13.setText("Permisos:");
 
         jRadioButtonAdministrador.setText("Administrativo");
@@ -258,14 +260,14 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                     if (per!=null) {
                         Empleado emp = controladorEmpleado.buscarEmpleado(per);
                         if (emp!=null) {
-                            if (emp.getVisualizacion()=='a') {
+                            if (emp.getVisualizacion()=='A') {
                                 txtApellido.setText(emp.getApellido());
                                 txtNombre.setText(emp.getNombre());
                                 txtCorreo.setText(emp.getCorreo());
                                 txtDireccion.setText(emp.getDireccion());
                                 txtTelefono.setText(emp.getTelefono());
                                 txtContrasenia.setText(emp.getContrasenia());
-                                if (emp.getPermiso()=='a') {
+                                if (emp.getPermiso()=='A') {
                                     jRadioButtonAdministrador.setSelected(true);
                                 }else{
                                     jRadioButtonGeneral.setSelected(true);
@@ -282,7 +284,7 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                                 if (opc==0) {
                                     int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al empleado con numero de cedula "+emp.getCedula()+" y con nombre de "+emp.getNombre()+" "+emp.getApellido());
                                     if (v==0) {
-                                        emp.setVisualizacion('a');
+                                        emp.setVisualizacion('A');
                                         controladorEmpleado.actualizarEmpleado(emp);
                                         System.out.println("Se actualiza cliente");
                                         JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");
@@ -334,9 +336,9 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                         empleado.setCorreo(txtCorreo.getText().trim());
                         empleado.setContrasenia(txtContrasenia.getText());
                         if (jRadioButtonAdministrador.isSelected()) {
-                            empleado.setPermiso('a');
+                            empleado.setPermiso('A');
                         }else if (jRadioButtonGeneral.isSelected()){
-                            empleado.setPermiso('g');
+                            empleado.setPermiso('G');
                         }
                         
                         

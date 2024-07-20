@@ -183,10 +183,10 @@ public class IngresaNombre extends javax.swing.JInternalFrame {
         jTableClientes.setModel(tableModel);
         boolean var=false;
          for (Empleado emp : empleados) {
-            if (emp.getVisualizacion()=='a') {
+            if (emp.getVisualizacion()=='A') {
                 String permiso = null;
-                if (emp.getPermiso()=='a') {
-                    permiso = "administrativo";
+                if (emp.getPermiso()=='A') {
+                    permiso = "Administrativo";
                 }else{
                     permiso = "General";
                 }

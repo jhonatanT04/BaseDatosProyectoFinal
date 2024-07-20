@@ -136,7 +136,7 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
                     if (per!=null) {
                         Cliente cli = controladorCliente.buscarCliente(per);
                         if (cli!=null) {
-                            if (cli.getVisualizacion()=='a') {
+                            if (cli.getVisualizacion()=='A') {
                                 /*txtApellido.setText(cli.getApellido());
                                 txtNombre.setText(cli.getNombre());
                                 txtCorreo.setText(cli.getCorreo());

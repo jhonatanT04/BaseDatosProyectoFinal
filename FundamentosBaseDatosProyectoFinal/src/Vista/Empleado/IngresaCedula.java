@@ -139,7 +139,7 @@ public class IngresaCedula extends javax.swing.JInternalFrame {
                     if (per!=null) {
                         Empleado emp = controladorEmpleado.buscarEmpleado(per);
                         if (emp!=null) {
-                            if (emp.getVisualizacion()=='a') {
+                            if (emp.getVisualizacion()=='A') {
                                 
                                 empleado = emp;
                                 addClienteToTable(empleado);

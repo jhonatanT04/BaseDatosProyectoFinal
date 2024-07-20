@@ -253,9 +253,9 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
                 if (per==null) {
                     char permiso ;
                     if (jRadioButtonAdministrador.isSelected()) {
-                        permiso = 'a';
+                        permiso = 'A';
                     }else{
-                        permiso = 'g';
+                        permiso = 'G';
                     }
                     //Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
                     Empleado emp = new Empleado(0,visu,txtContrasenia.getText(),'s',0 , txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
@@ -274,12 +274,12 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
                         JOptionPane.showInternalMessageDialog(rootPane, "La persona con numero de cedula "+per.getCedula()+" ya se encuentra dentro de la base de datos y ejerce otro rol.·");
 
                     }else{
-                        if (emp.getVisualizacion()=='i') {
+                        if (emp.getVisualizacion()=='I') {
                             int vari = JOptionPane.showConfirmDialog(rootPane, "El empleado con numero de cedula "+per.getCedula()+" se encuentra desactivado. ¿Desea actualizarlo?·");
                             if (vari==0) {
                                 int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al empleado con numero de cedula "+emp.getCedula()+" y con nombre de "+emp.getNombre()+" "+emp.getApellido());
                                 if (v==0) {
-                                    emp.setVisualizacion('a');
+                                    emp.setVisualizacion('A');
                                     controladorEmpleado.actualizarEmpleado(emp);
                                     this.limpiarCampos();
                                     JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");
