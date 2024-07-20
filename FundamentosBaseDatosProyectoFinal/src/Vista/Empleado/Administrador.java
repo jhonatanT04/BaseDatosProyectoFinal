@@ -548,8 +548,8 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         if(buscarCompraProveedores == null){
-            buscarCompraProveedores = new BuscarCompraProveedores();
-            desktopPane.add(buscarCompraProveedores);
+            buscarCompraProveedores = new BuscarCompraProveedores(controladorCompraPoveedor, controladorProveedor, controladorProducto);
+            desktopPane.add(buscarCompraProveedores); 
         }
         
         buscarCompraProveedores.setVisible(true); 
@@ -561,7 +561,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         if(listarCompraProveedores == null){
-            listarCompraProveedores = new ListarCompraProveedores();
+            listarCompraProveedores = new ListarCompraProveedores(controladorCompraPoveedor, controladorProveedor);
             desktopPane.add(listarCompraProveedores);
         }
         

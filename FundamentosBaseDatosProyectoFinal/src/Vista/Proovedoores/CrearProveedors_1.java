@@ -6,6 +6,9 @@ package Vista.Proovedoores;
 
 import Controlador.ControladorPorveedor;
 import Modelo.Proveedor.Proveedor;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -156,20 +159,82 @@ public class CrearProveedors_1 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
-        String nombre = txtNombre.getText();
-        String telefono = txtTelefono.getText();
-        String direccion = txtDireccion.getText();
-        String correo = txtCorreo.getText();
-        String ruc = txtRuc.getText();
+        try {
+            // Obtener los datos de los campos de texto
+            String nombre = txtNombre.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String direccion = txtDireccion.getText().trim();
+            String correo = txtCorreo.getText().trim();
+            String ruc = txtRuc.getText().trim();
 
-        Proveedor proveedor = new Proveedor(0, nombre, telefono, direccion, correo, ruc);
+            // Validar que los campos no estén vacíos
+            if (nombre.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || correo.isEmpty() || ruc.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        boolean exito = controladorProveedor.agregarProveedor(proveedor);
+            // Validar formato del correo electrónico
+            if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+                JOptionPane.showMessageDialog(this, "Correo electrónico no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        if (exito) {
-            JOptionPane.showMessageDialog(this, "Proveedor registrado exitosamente.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar el proveedor.");
+            if (!ruc.matches("^\\d{10}$")) {
+            JOptionPane.showMessageDialog(this, "RUC no válido. Debe contener 10 dígitos numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+            
+            // Validar formato del teléfono (puedes ajustar el patrón según las reglas locales)
+            if (!telefono.matches("^\\d{7,15}$")) {
+                JOptionPane.showMessageDialog(this, "Teléfono no válido. Debe contener entre 7 y 15 dígitos numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto Proveedor
+            Proveedor proveedor = new Proveedor(0, nombre, telefono, direccion, correo, ruc);
+
+            // Intentar registrar el proveedor en la base de datos
+            boolean exito = controladorProveedor.agregarProveedor(proveedor);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Proveedor registrado exitosamente.");
+                // Limpiar los campos de texto después de un registro exitoso
+                txtNombre.setText("");
+                txtTelefono.setText("");
+                txtDireccion.setText("");
+                txtCorreo.setText("");
+                txtRuc.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar el proveedor.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            // Obtener el código de error específico de Oracle
+            int errorCode = ex.getErrorCode();
+            String errorMessage;
+
+            switch (errorCode) {
+                case 1:  // Código de error de clave duplicada
+                    errorMessage = "El RUC ya está registrado. Por favor, use un RUC diferente.";
+                    break;
+                case 1400:  // Código de error de columna no puede ser nula
+                    errorMessage = "Uno de los campos obligatorios está vacío.";
+                    break;
+                case 2291:  // Código de error de restricción de clave foránea
+                    errorMessage = "Error en la relación de claves foráneas. Verifique los datos ingresados.";
+                    break;
+                case 1722:  // Código de error de número inválido
+                    errorMessage = "Formato de número inválido.";
+                    break;
+                case 12899:  // Código de error de valor demasiado grande para la columna
+                    errorMessage = "El valor ingresado es demasiado grande para uno de los campos. Verifique los datos ingresados.";
+                    break;
+                default:  // Error genérico
+                    errorMessage = "Error al registrar el proveedor: " + ex.getMessage();
+                    break;
+            }
+
+            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(CrearProveedors_1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_RegistrarActionPerformed
 

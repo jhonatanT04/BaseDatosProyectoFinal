@@ -19,11 +19,11 @@ import javax.swing.JOptionPane;
 
 public class DAOProveedores {
 
-    public boolean insertarProveedor(Proveedor proveedor) {
+    public boolean insertarProveedor(Proveedor proveedor) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
-        String sql = "INSERT INTO super_proveedores (prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc) VALUES (seq_prov_codigo.NEXTVAL, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO super_proveedores (prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc) VALUES (SEQ_PROV_CODIGO.NEXTVAL, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, proveedor.getNombre());
@@ -49,7 +49,7 @@ public class DAOProveedores {
     }
 
     public Proveedor buscarProveedorPorNombre(String nombre) {
-        String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_nombre = ?";
+        String sql = "SELECT prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc FROM super_proveedores WHERE prov_nombre = ?";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
@@ -87,7 +87,7 @@ public class DAOProveedores {
     }
 
     public Proveedor buscarProveedorPorCodigo(int codigo) {
-        String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_codigo = ?";
+        String sql = "SELECT prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc FROM super_proveedores WHERE prov_codigo = ?";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
@@ -125,7 +125,7 @@ public class DAOProveedores {
     }
 
     public Proveedor buscarProveedorPorRUC(String ruc) {
-        String sql = "SELECT prov_codigo, prov_ruc, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico FROM super_proveedores WHERE prov_ruc = ?";
+        String sql = "SELECT prov_codigo, prov_nombre, prov_telefono, prov_direccion, prov_correo_electronico, prov_ruc FROM super_proveedores WHERE prov_ruc = ?";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 

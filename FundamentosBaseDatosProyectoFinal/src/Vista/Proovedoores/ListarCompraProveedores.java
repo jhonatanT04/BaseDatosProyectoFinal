@@ -4,17 +4,32 @@
  */
 package Vista.Proovedoores;
 
+import Controlador.ControladorCompraPoveedor;
+import Controlador.ControladorPorveedor;
+import Modelo.Proveedor.CompraProveedor;
+import Modelo.Proveedor.Proveedor;
+import java.sql.Timestamp;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class ListarCompraProveedores extends javax.swing.JInternalFrame {
-
+    
+    private ControladorCompraPoveedor controladorCompraPoveedor;
+    private ControladorPorveedor controladorPorveedor;
     /**
      * Creates new form ListarCompraProveedores
      */
-    public ListarCompraProveedores() {
+    public ListarCompraProveedores(ControladorCompraPoveedor controladorCompraPoveedor, ControladorPorveedor controladorPorveedor) {
         initComponents();
+        this.controladorCompraPoveedor = controladorCompraPoveedor;
+        this.controladorPorveedor = controladorPorveedor;
     }
 
     /**
@@ -103,6 +118,34 @@ public class ListarCompraProveedores extends javax.swing.JInternalFrame {
         //actualizarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    private void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0); // Limpiar el modelo de la tabla
+
+        // Obtener la lista de proveedores desde el DAO
+        List<CompraProveedor> listaProveedores = controladorCompraPoveedor.listar();
+
+        // Recorrer la lista de proveedores y añadir sus datos al modelo de la tabla
+        for (CompraProveedor proveedor : listaProveedores) {
+            try {
+                int codigo = proveedor.getCodigo();
+                String nombre = controladorPorveedor.buscarProveedorPorCodigo(proveedor.getCodigoProveedor()).getNombre();
+                Timestamp telefono = proveedor.getFecha();
+                double direccion = proveedor.getValorTotal();
+                int correo = proveedor.getCodigoProducto();
+                //String ruc = proveedor.getRuc();
+                
+                Object[] rowData = {codigo, nombre, telefono, direccion, correo};
+                modelo.addRow(rowData);
+            } catch (SQLException ex) {
+                Logger.getLogger(ListarCompraProveedores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        // Asignar el modelo actualizado a la tabla
+        jTable1.setModel(modelo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
