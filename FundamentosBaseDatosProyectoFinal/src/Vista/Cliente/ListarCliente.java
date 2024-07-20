@@ -241,7 +241,7 @@ public class ListarCliente extends javax.swing.JInternalFrame {
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         jTableClientes.setModel(tableModel);
         for (Cliente cliente : clientes) {
-            if (cliente.getVisualizacion()=='a') {
+            if (cliente.getVisualizacion()=='A') {
                 Object[] rowData = {
                     cliente.getCedula(),
                     cliente.getNombre(),

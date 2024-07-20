@@ -178,7 +178,7 @@ public class IngresaNombreCliente extends javax.swing.JInternalFrame {
         jTableClientes.setModel(tableModel);
         boolean var = false;
         for (Cliente cliente : clientes) {
-            if (cliente.getVisualizacion()=='a') {
+            if (cliente.getVisualizacion()=='A') {
                 Object[] rowData = {
                     cliente.getCedula(),
                     cliente.getNombre(),

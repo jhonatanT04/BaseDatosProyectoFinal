@@ -205,7 +205,7 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
                     if (per!=null) {
                         Cliente cli = controladorCliente.buscarCliente(per);
                         if (cli!=null) {
-                            if (cli.getVisualizacion()=='a') {
+                            if (cli.getVisualizacion()=='A') {
                                 txtApellido.setText(cli.getApellido());
                                 txtNombre.setText(cli.getNombre());
                                 txtCorreo.setText(cli.getCorreo());
@@ -223,7 +223,7 @@ public class ActualizarDatosClientes extends javax.swing.JInternalFrame {
                                 if (opc==0) {
                                     int v =JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro de activar al cliente con numero de cedula "+cli.getCedula()+" y con nombre de "+cli.getNombre()+" "+cli.getApellido());
                                     if (v==0) {
-                                        cli.setVisualizacion('a');
+                                        cli.setVisualizacion('A');
                                         controladorCliente.actualizarCliente(cli);
                                         System.out.println("Se actualiza cliente");
                                         JOptionPane.showInternalMessageDialog(rootPane, "La persona se actualizado el estado.·");

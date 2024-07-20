@@ -26,7 +26,7 @@ public class DAOCliente {
     public boolean insertarCliente(Cliente cliente) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (seq_super_clientes.NEXTVAL, ?, ?)";
+        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (SEQ_CLI_CODIGO.NEXTVAL, ?, ?)";
         
         if (daoPersona.buscarPersonaCliente(cliente.getCedula()) == null) {
             try (PreparedStatement psCliente = conn.prepareStatement(insertClienteSQL)) {
@@ -39,6 +39,7 @@ public class DAOCliente {
                 return true;
             } finally {
                 if (conn != null) {
+                    conexion.desconectar();
                     conn.close();
                 }
             }

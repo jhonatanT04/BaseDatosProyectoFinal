@@ -25,7 +25,7 @@ public class DAOPersona {
         //SEQ_SUPER_PERSONAS
         
         String sql = "INSERT INTO super_personas (per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico) " +
-                     "VALUES (super_personas_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+                     "VALUES (seq_per_codigo.nextval, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, new String[]{"per_codigo"})) {
             stmt.setString(1, per.getCedula());
             stmt.setString(2, per.getNombre());
@@ -61,6 +61,7 @@ public class DAOPersona {
             stmt.setString(6, per.getCorreo());
             stmt.setInt(7, per.getCodigo());
             int rowsUpdated = stmt.executeUpdate();
+            conn.close();
             //return rowsUpdated > 0;
         } finally {
             if (conn != null) {

@@ -25,7 +25,7 @@ public class DAOEmpleado {
     public boolean insertarEmpleado(Empleado empleado) throws SQLException{
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        String insertClienteSQL = "INSERT INTO super_empleados (emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso) VALUES (seq_super_empleados.nextval, ?, ?,?,?)";
+        String insertClienteSQL = "INSERT INTO super_empleados (emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso) VALUES (SEQ_EMP_CODIGO.nextval, ?, ?,?,?)";
         
         if (daoPersona.buscarPersonaEmpleado(empleado.getCedula()) == null) {
             try (PreparedStatement psEmpleado = conn.prepareStatement(insertClienteSQL)) {
@@ -40,6 +40,7 @@ public class DAOEmpleado {
                 return true;
             } finally {
                 if (conn != null) {
+                    conexion.desconectar();
                     conn.close();
                 }
             }
