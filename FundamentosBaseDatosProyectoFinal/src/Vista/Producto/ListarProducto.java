@@ -7,6 +7,7 @@ package Vista.Producto;
 import Controlador.ControladorCategoria;
 import Controlador.ControladorProducto;
 import Modelo.Producto.Producto;
+import java.awt.Desktop;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,17 +17,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListarProducto extends javax.swing.JInternalFrame {
 
+    private BuscarProductoNombre buscarProductoNombre;
+    private BuscarProductoCategoria buscarProductoCategoria;
     private ControladorProducto controladorProducto;
+    private javax.swing.JDesktopPane desktopPane;
     private ControladorCategoria controladorCategoria;
     private Producto producto;
 
     /**
      * Creates new form ListarProducto
      */
-    public ListarProducto(ControladorProducto controladorProducto, ControladorCategoria controladorCategoria) {
+    public ListarProducto(ControladorProducto controladorProducto, ControladorCategoria controladorCategoria,javax.swing.JDesktopPane desktop) {
         initComponents();
         this.controladorProducto = controladorProducto;
         this.controladorCategoria = controladorCategoria;
+        desktopPane = desktop;
     }
 
     /**
@@ -82,6 +87,11 @@ public class ListarProducto extends javax.swing.JInternalFrame {
         radioCategoria.setText("Categoria");
 
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,6 +139,30 @@ public class ListarProducto extends javax.swing.JInternalFrame {
         actualizarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        if (radioNombre.isSelected()) {
+            desplegarNombre();
+        }else if (radioCategoria.isSelected()) {
+            desplegarCategoria();
+        }
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void desplegarNombre() {
+        if (buscarProductoNombre == null) {
+            buscarProductoNombre = new BuscarProductoNombre(jTable1, this); 
+            desktopPane.add(buscarProductoNombre);
+        }
+        buscarProductoNombre.setVisible(true); 
+    }
+
+    private void desplegarCategoria() {
+        if (buscarProductoCategoria == null) {
+            buscarProductoCategoria = new BuscarProductoCategoria();
+            desktopPane.add(buscarProductoCategoria);
+        }
+        buscarProductoCategoria.setVisible(true); 
+    }
+    
     private void actualizarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) this.jTable1.getModel();
         modelo.setRowCount(0); // Limpiar filas existentes
@@ -150,7 +184,6 @@ public class ListarProducto extends javax.swing.JInternalFrame {
 
         this.jTable1.setModel(modelo); // Aplicar el modelo actualizado a la tabla
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;

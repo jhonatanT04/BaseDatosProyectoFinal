@@ -508,7 +508,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         if(listarProducto == null){
-            listarProducto = new ListarProducto(controladorProducto,controladorCategoria);
+            listarProducto = new ListarProducto(controladorProducto,controladorCategoria,desktopPane);
             desktopPane.add(listarProducto);
         }
         
