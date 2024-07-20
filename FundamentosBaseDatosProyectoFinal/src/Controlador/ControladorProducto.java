@@ -32,12 +32,20 @@ public class ControladorProducto {
         return daoProducto.buscarProductoPorCodigo(codigo);
     }
     
+    public List<Producto> buscarProductoCategoria(String nombreC) throws SQLException {
+        return daoProducto.buscarProductosPorCategoria(nombreC);
+    }
+    
     public boolean actualizarProducto(Producto producto) {
         return daoProducto.actualizarProducto(producto);
     }
 
     public boolean eliminarProducto(String nombre) {
         return daoProducto.eliminarProducto(nombre);
+    }
+    
+    public boolean eliminarProducto2(String nombre) {
+        return daoProducto.eliminarProducto2(nombre);
     }
     
     public List<Producto> listarProductos(){

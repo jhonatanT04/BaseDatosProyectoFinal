@@ -28,7 +28,7 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
     public EliminarProducto(ControladorProducto controladorProducto, ControladorCategoria controladorCategoria) {
         initComponents();
         this.controladorProducto = controladorProducto;
-        this.controladorCategoria = this.controladorCategoria;
+        this.controladorCategoria = controladorCategoria;
     }
 
     /**
@@ -44,11 +44,9 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         txtIva = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,13 +68,9 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
 
         jButton2.setText("Cancelar");
 
-        txtCodigo.setEnabled(false);
-
         txtPrecio.setEnabled(false);
 
         txtStock.setEnabled(false);
-
-        jLabel1.setText("Codigo:");
 
         txtIva.setEnabled(false);
 
@@ -111,14 +105,13 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(btnEliminar)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton2)
@@ -130,9 +123,7 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
                                         .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(128, 128, 128))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnBuscar)
                                 .addGap(18, 18, 18))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -145,10 +136,7 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                .addComponent(btnBuscar)
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -199,19 +187,22 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
 
         if (nombreProducto.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese el nombre del producto a eliminar.");
-            return; 
+            return;
         }
-
         int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el producto '" + nombreProducto + "'?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (opcion == JOptionPane.YES_OPTION) {
-            boolean eliminado = controladorProducto.eliminarProducto(nombreProducto);
+            try {
+                boolean eliminado = controladorProducto.eliminarProducto2(nombreProducto);
 
-            if (eliminado) {
-                JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
-                txtNombre.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto.");
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
+                    txtNombre.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto. Puede estar relacionado con facturas o compras.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar eliminar el producto: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -223,7 +214,6 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
             Logger.getLogger(ActualizarProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (producto != null) {
-            txtCodigo.setText(String.valueOf(producto.getCodigo()));
             txtNombre.setText(producto.getNombre());
             txtPrecio.setText(String.valueOf(producto.getPrecio()));
             txtStock.setText(String.valueOf(producto.getStock()));
@@ -231,7 +221,6 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
             txtCategoria.setText(String.valueOf(producto.getCategoria()));
             txtEstado.setText(String.valueOf(producto.getVisualizacion()));
 
-            txtCodigo.setEnabled(false);
             txtNombre.setEnabled(true);
             txtPrecio.setEnabled(true);
             txtStock.setEnabled(true);
@@ -250,7 +239,6 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -259,7 +247,6 @@ public class EliminarProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCategoria;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtIva;
     private javax.swing.JTextField txtNombre;

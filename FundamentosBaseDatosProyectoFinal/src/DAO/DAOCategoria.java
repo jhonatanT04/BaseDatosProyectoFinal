@@ -42,8 +42,8 @@ public class DAOCategoria {
         }
     }
 
-    public void buscarCategoria(String nombre) {
-        List<Categoria> categorias = new ArrayList<>();
+    public Categoria buscarCategoriaPorNombre(String nombre) {
+        Categoria categoria = null;
 
         if (nombre != null) {
             Conexion conexion = new Conexion();
@@ -57,14 +57,12 @@ public class DAOCategoria {
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
-                    System.out.println("Categoria encontrado:");
+                    categoria = new Categoria(rs.getInt("cat_codigo"), rs.getString("cat_nombre"));
+                    System.out.println("Categoría encontrada:");
                     System.out.println("Código: " + rs.getInt("cat_codigo"));
                     System.out.println("Nombre: " + rs.getString("cat_nombre"));
-                    //Cliente cli = new Cliente(12, 's', 23, "0102", "Ania", "Perez", "La casa", "0999999999", "venotacu@gmail.com");
-
-                    //Cliente cli = new Cliente(rs.getInt("cli_codigo"),rs.getString("cli_visualizar"));
                 } else {
-                    System.out.println("No se encontró ningún cliente con la cédula " + nombre);
+                    System.out.println("No se encontró ninguna categoría con el nombre " + nombre);
                 }
 
                 rs.close();
@@ -75,9 +73,43 @@ public class DAOCategoria {
                 conexion.desconectar();
             }
         } else {
-
+            System.out.println("El nombre de la categoría no puede ser nulo.");
         }
 
+        return categoria;
+    }
+
+    public Categoria buscarCategoriaPorCodigo(int codigo) {
+        Categoria categoria = null;
+
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        String sql = "SELECT * FROM super_categorias WHERE cat_codigo = ?";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                categoria = new Categoria(rs.getInt("cat_codigo"), rs.getString("cat_nombre"));
+                System.out.println("Categoría encontrada:");
+                System.out.println("Código: " + rs.getInt("cat_codigo"));
+                System.out.println("Nombre: " + rs.getString("cat_nombre"));
+            } else {
+                System.out.println("No se encontró ninguna categoría con el código " + codigo);
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+
+        return categoria;
     }
 
     public boolean actualizarCategoria(Categoria categoria) {
