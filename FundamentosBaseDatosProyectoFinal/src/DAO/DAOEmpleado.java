@@ -122,5 +122,12 @@ public class DAOEmpleado {
             }
         }
     }
-
+    
+    public Empleado validarEmpleadoPorCorreo(String correo) throws SQLException {
+        String empleadoSQL = "SELECT emp_codigo, emp_visualizar, emp_contrasenia, emp_permiso,per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico FROM super_empleados e , super_personas where e.super_personas_per_codigo = p.per_codigo AND p.per_correo_electronico = ?;";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        return null;
+    }
+    
 }

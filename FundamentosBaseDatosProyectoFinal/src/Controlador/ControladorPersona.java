@@ -38,4 +38,7 @@ public class ControladorPersona {
    public List<Persona> listarPersonasClientes() throws SQLException{
        return daopersona.listarClientes();
    }
+   
+   
+   
 }
