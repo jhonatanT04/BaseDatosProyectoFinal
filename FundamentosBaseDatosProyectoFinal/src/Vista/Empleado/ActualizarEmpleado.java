@@ -295,7 +295,7 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
                             }
                         }else{
                             habilitarCampos(false);
-                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente no existe en la base de datos.");
+                            JOptionPane.showInternalMessageDialog(rootPane, "El empleado no existe en la base de datos.");
                             
                         }
                     }else{
@@ -326,7 +326,7 @@ public class ActualizarEmpleado extends javax.swing.JInternalFrame {
             try {
                 Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
                 if (per==null||txtCedula.getText().trim().equals(primeraCedula)) {
-                    int opc = JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro que quiere modificar el cliente.");
+                    int opc = JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro que quiere modificar el empleado.");
                     if (opc==0) {
                         empleado.setCedula(txtCedula.getText().trim());
                         empleado.setNombre(txtNombre.getText().trim());

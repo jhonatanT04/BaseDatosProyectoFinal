@@ -37,4 +37,7 @@ public class ControladorEmpleado {
     public Empleado buscarEmpleadoCorreo(String correo) throws SQLException {
         return daoEmpleado.validarEmpleadoPorCorreo(correo);
     }
+    public boolean eliminarEmpleado(int codigoEmp) throws SQLException{
+        return daoEmpleado.eliminarEmpleado(codigoEmp);
+    }
 }

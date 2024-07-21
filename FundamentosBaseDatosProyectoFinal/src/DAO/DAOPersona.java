@@ -173,6 +173,27 @@ public class DAOPersona {
 
         return personas;
     }
+    public boolean eliminarPersona(int codigo) throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
     
+        String sql = "DELETE FROM super_personas WHERE per_codigo = ?";
+    
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, codigo);
+            int filasAfectadas = stmt.executeUpdate();
+            
+            if (filasAfectadas > 0) {
+                return true; // Devuelve el número de filas eliminadas
+            } else {
+                return false;
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
 }
 

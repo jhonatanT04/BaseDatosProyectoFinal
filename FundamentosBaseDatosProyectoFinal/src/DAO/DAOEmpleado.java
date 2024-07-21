@@ -25,7 +25,7 @@ public class DAOEmpleado {
     public boolean insertarEmpleado(Empleado empleado) throws SQLException{
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        String insertClienteSQL = "INSERT INTO super_empleados (emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso) VALUES (SEQ_EMP_CODIGO.nextval, ?, ?,?,?)";
+        String insertClienteSQL = "INSERT INTO super_empleados (emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso) VALUES (SEQ_SUPER_EMPLEADOS.nextval, ?, ?,?,?)";
         
         if (daoPersona.buscarPersonaEmpleado(empleado.getCedula()) == null) {
             try (PreparedStatement psEmpleado = conn.prepareStatement(insertClienteSQL)) {
@@ -124,38 +124,53 @@ public class DAOEmpleado {
         }
     }
     public Empleado validarEmpleadoPorCorreo(String correo) throws SQLException {
-        System.out.println("AAAAAAA");
-    String empleadoSQL = "SELECT e.emp_codigo, e.emp_visualizar, e.emp_contrasenia, e.emp_permiso, p.per_codigo, p.per_cedula, p.per_nombre, p.per_apellido, p.per_direccion, p.per_telefono, p.per_correo_electronico "
-            + "FROM super_empleados e, super_personas p "
+        
+        String empleadoSQL = "SELECT e.emp_codigo, e.emp_visualizar, e.emp_contrasenia, e.emp_permiso, p.per_codigo, p.per_cedula, p.per_nombre, p.per_apellido, p.per_direccion, p.per_telefono, p.per_correo_electronico "
+                + "FROM super_empleados e, super_personas p "
             + "WHERE e.super_personas_per_codigo = p.per_codigo AND p.per_correo_electronico = ?";
     
-    // Log para verificar que el método correcto está siendo llamado
-    System.out.println("Ejecutando consulta: " + empleadoSQL);
-    
-    Conexion conexion = new Conexion();
-    Connection conn = conexion.conectar();
-    try (PreparedStatement psCliente = conn.prepareStatement(empleadoSQL)) {
-        psCliente.setString(1, correo);
-        ResultSet rsCliente = psCliente.executeQuery();
-        if (rsCliente.next()) {
-            int empCodigo = rsCliente.getInt("emp_codigo");
-            String visualizar = rsCliente.getString("emp_visualizar");
-            String empContra = rsCliente.getString("emp_contrasenia");
-            String empPermiso = rsCliente.getString("emp_permiso");
-            int codigoPer = rsCliente.getInt("per_codigo");
-            String cedula = rsCliente.getString("per_cedula");
-            String nombre = rsCliente.getString("per_nombre");
-            String apellido = rsCliente.getString("per_apellido");
-            String direccion = rsCliente.getString("per_direccion");
-            String telefono = rsCliente.getString("per_telefono");
-            String cor = rsCliente.getString("per_correo_electronico");
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        try (PreparedStatement psCliente = conn.prepareStatement(empleadoSQL)) {
+            psCliente.setString(1, correo);
+            ResultSet rsCliente = psCliente.executeQuery();
+            if (rsCliente.next()) {
+                int empCodigo = rsCliente.getInt("emp_codigo");
+                String visualizar = rsCliente.getString("emp_visualizar");
+                String empContra = rsCliente.getString("emp_contrasenia");
+                String empPermiso = rsCliente.getString("emp_permiso");
+                int codigoPer = rsCliente.getInt("per_codigo");
+                String cedula = rsCliente.getString("per_cedula");
+                String nombre = rsCliente.getString("per_nombre");
+                String apellido = rsCliente.getString("per_apellido");
+                String direccion = rsCliente.getString("per_direccion");
+                String telefono = rsCliente.getString("per_telefono");
+                String cor = rsCliente.getString("per_correo_electronico");
 
-            return new Empleado(empCodigo, visualizar.charAt(0), empContra, empPermiso.charAt(0), codigoPer, cedula, nombre, apellido, direccion, telefono, cor);
-        } else {
+                return new Empleado(empCodigo, visualizar.charAt(0), empContra, empPermiso.charAt(0), codigoPer, cedula, nombre, apellido, direccion, telefono, cor);
+            } else {
             return null;
+            }
         }
     }
-}
+    public boolean eliminarEmpleado(int codigoEmpleado) throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+    
+        String sql = "DELETE FROM super_empleados WHERE emp_codigo = ?";
+    
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, codigoEmpleado);
+            int filasAfectadas = stmt.executeUpdate();
+            
+            return filasAfectadas > 0; // Devuelve true si se eliminó al menos una fila, false si no se eliminó ninguna
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
 
 
 

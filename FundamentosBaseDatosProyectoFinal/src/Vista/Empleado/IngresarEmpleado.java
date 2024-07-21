@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class IngresarEmpleado extends javax.swing.JInternalFrame {
     private ControladorPersona controladorPersona ;
     private ControladorEmpleado controladorEmpleado;
-    private char visu = 'i';
+    private char visu = 'A';
     
     /**
      * Creates new form IngresarEmpleado
@@ -258,7 +258,7 @@ public class IngresarEmpleado extends javax.swing.JInternalFrame {
                         permiso = 'G';
                     }
                     //Cliente cli = new Cliente(0,visu, 0, txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
-                    Empleado emp = new Empleado(0,visu,txtContrasenia.getText(),'s',0 , txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
+                    Empleado emp = new Empleado(0,visu,txtContrasenia.getText(),permiso,0 , txtCedula.getText().trim(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), txtTelefono.getText(), txtCorreo.getText());
                     boolean v = controladorEmpleado.crearCliente(emp);
                     
                     if (v) {

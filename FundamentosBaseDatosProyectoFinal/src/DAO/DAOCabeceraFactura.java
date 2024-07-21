@@ -151,5 +151,44 @@ public class DAOCabeceraFactura {
         }
         return llave;
     }
+    public boolean buscarEmpleado(int codigoCliente ){
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
 
+        String sql = "SELECT fac_codigo, fac_fecha, fac_subtotal, fac_total_iva, fac_valor_total, fac_estado, super_clientes_cli_codigo,super_empleados_emp_codigo "
+                + "FROM super_cabecera_facturas "
+                + "where super_empleados_emp_codigo = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, codigoCliente);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                System.out.println("Factura encontrada:");
+                System.out.println("Código: " + rs.getInt("fac_codigo"));
+                System.out.println("Fecha: " + rs.getTimestamp("fac_fecha"));
+                System.out.println("Subtotal: " + rs.getDouble("fac_subtotal"));
+                System.out.println("Total IVA: " + rs.getDouble("fac_total_iva"));
+                System.out.println("Valor Total: " + rs.getDouble("fac_valor_total"));
+                System.out.println("Estado: " + rs.getString("fac_estado"));
+                System.out.println("Código Empleado: " + rs.getInt("super_empleados_emp_codigo"));
+                System.out.println("Código Cliente: " + rs.getInt("super_clientes_cli_codigo"));
+                System.out.println("Código Cliente V1: " + rs.getInt("super_clientesv1_cli_codigo"));
+                System.out.println("Código Empleado V1: " + rs.getInt("super_empleadosv1_emp_codigo"));
+                rs.close();
+                pstmt.close();
+                return true;
+            } else {
+                System.out.println("No se encontró ninguna factura con el código " + codigoCliente);
+                rs.close();
+                pstmt.close();
+                return false;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+        return false;
+    }
 }

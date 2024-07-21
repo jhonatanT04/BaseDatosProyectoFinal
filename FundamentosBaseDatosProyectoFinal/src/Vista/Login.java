@@ -9,6 +9,7 @@ import Controlador.ControladorEmpleado;
 import Controlador.ControladorPersona;
 import Modelo.Personas.Persona.Empleado;
 import Vista.Empleado.Administrador;
+import ec.edu.ups.Vista.Empleado.EmpleadoGeneral;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,18 +22,18 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     private ControladorEmpleado controladorEmpleado;
-    private ControladorPersona controladorPersona;
+    
     private Administrador admin;
-    private Empleado gen;
-    private javax.swing.JDesktopPane desktopPane;
+    private EmpleadoGeneral gen;
+    
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        this.controladorPersona = new ControladorPersona();
+        
         this.controladorEmpleado = new ControladorEmpleado();
-        desktopPane = new JDesktopPane();
+        //desktopPane = new JDesktopPane();
         
     }
 
@@ -127,11 +128,15 @@ public class Login extends javax.swing.JFrame {
         if (validarCampos()) {
             try {
                 Empleado emp = controladorEmpleado.buscarEmpleadoCorreo(jtxtCorreo.getText().trim());
-                if (emp!=null) {
+                System.out.println(emp.getContrasenia());
+                System.out.println(jPasswordField1.getText());
+                if (emp!=null&&emp.getContrasenia().equals(jPasswordField1.getText())) {
                     if (emp.getPermiso()=='A') {
-                        this.setVisible(false);
+                        this.dispose();
                         desplegarAdministrador();
-                        
+                    }else{
+                        this.dispose();
+                        desplegarGeneral();
                     }
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "El correo/contraseña es incorrecto.");
@@ -140,7 +145,7 @@ public class Login extends javax.swing.JFrame {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            this.limpiarCampos();
+            
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -186,9 +191,16 @@ public class Login extends javax.swing.JFrame {
     private void desplegarAdministrador(){
         if(admin == null){
             admin = new Administrador();
-            desktopPane.add(admin);
+            //desktopPane.add(admin);
         }
         admin.setVisible(true); 
+    }
+    private void desplegarGeneral(){
+        if(gen == null){
+            gen = new EmpleadoGeneral();
+            //desktopPane.add(admin);
+        }
+        gen.setVisible(true); 
     }
     
     /**
