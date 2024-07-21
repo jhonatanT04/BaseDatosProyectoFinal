@@ -12,6 +12,7 @@ import Vista.Empleado.Administrador;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,6 +32,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.controladorPersona = new ControladorPersona();
         this.controladorEmpleado = new ControladorEmpleado();
+        desktopPane = new JDesktopPane();
         
     }
 
@@ -127,8 +129,9 @@ public class Login extends javax.swing.JFrame {
                 Empleado emp = controladorEmpleado.buscarEmpleadoCorreo(jtxtCorreo.getText().trim());
                 if (emp!=null) {
                     if (emp.getPermiso()=='A') {
-                        desplegarAdministrador();
                         this.setVisible(false);
+                        desplegarAdministrador();
+                        
                     }
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "El correo/contraseña es incorrecto.");
