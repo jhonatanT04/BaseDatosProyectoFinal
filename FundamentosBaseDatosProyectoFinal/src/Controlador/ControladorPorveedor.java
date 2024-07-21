@@ -20,7 +20,7 @@ public class ControladorPorveedor {
         this.daoProveedores = new DAOProveedores();
     }
 
-    public boolean agregarProveedor(Proveedor proveedor){
+    public boolean agregarProveedor(Proveedor proveedor) throws SQLException{
         return daoProveedores.insertarProveedor(proveedor);
     }
 

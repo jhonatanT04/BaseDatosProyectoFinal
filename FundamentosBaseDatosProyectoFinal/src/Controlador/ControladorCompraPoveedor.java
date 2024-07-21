@@ -7,6 +7,7 @@ package Controlador;
 import DAO.DAOCompraProveedor;
 import Modelo.Proveedor.CompraProveedor;
 import java.security.Timestamp;
+import java.util.List;
 
 /**
  *
@@ -34,5 +35,9 @@ public class ControladorCompraPoveedor {
 
     public boolean eliminarCompraProveedor(int codigo) {
         return daoCompraProveedor.eliminarCompraProveedor(codigo);
+    }
+    
+    public List<CompraProveedor> listar(){
+        return daoCompraProveedor.listarCompras();
     }
 }

@@ -4,17 +4,42 @@
  */
 package Vista.Proovedoores;
 
+import Controlador.ControladorCompraPoveedor;
+import Controlador.ControladorPorveedor;
+import Modelo.Proveedor.CompraProveedor;
+import Modelo.Proveedor.Proveedor;
+import java.awt.event.MouseEvent;
+import java.sql.Timestamp;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class ListarCompraProveedores extends javax.swing.JInternalFrame {
 
+    private ControladorCompraPoveedor controladorCompraPoveedor;
+    private ControladorPorveedor controladorPorveedor;
+    private MostrarProductosProveedores mostrarProductosProveedores;
+    private javax.swing.JDesktopPane desktopPane;
+
     /**
      * Creates new form ListarCompraProveedores
      */
-    public ListarCompraProveedores() {
+    public ListarCompraProveedores(ControladorCompraPoveedor controladorCompraPoveedor, ControladorPorveedor controladorPorveedor, javax.swing.JDesktopPane desktopPane) {
         initComponents();
+        this.controladorCompraPoveedor = controladorCompraPoveedor;
+        this.controladorPorveedor = controladorPorveedor;
+        this.desktopPane = desktopPane;
+
+        jTable1.setRowSelectionAllowed(true);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
@@ -31,6 +56,24 @@ public class ListarCompraProveedores extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -53,6 +96,11 @@ public class ListarCompraProveedores extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Mostrar Productos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,6 +151,83 @@ public class ListarCompraProveedores extends javax.swing.JInternalFrame {
         //actualizarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int codigoProductoSeleccionado = obtenerCodigoProductoSeleccionado();
+
+        if (mostrarProductosProveedores == null) {
+            mostrarProductosProveedores = new MostrarProductosProveedores(codigoProductoSeleccionado);
+            desktopPane.add(mostrarProductosProveedores);
+        } else {
+            // Actualizar la ventana existente si ya está abierta
+            //mostrarProductosProveedores.cargarDetallesProducto(codigoProductoSeleccionado);
+        }
+
+        mostrarProductosProveedores.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        actualizarTabla();
+    }//GEN-LAST:event_formInternalFrameActivated
+
+    private int obtenerCodigoProductoSeleccionado() {
+        int filaSeleccionada = jTable1.getSelectedRow(); // Obtener la fila seleccionada en la tabla
+
+        if (filaSeleccionada != -1) { // Verifica si hay una fila seleccionada
+            // Obtener el código del producto de la columna correspondiente
+            // Supongamos que el código del producto está en la columna 4 (índice 4)
+            Object valor = jTable1.getValueAt(filaSeleccionada, 4);
+            if (valor instanceof Number) {
+                return ((Number) valor).intValue();
+            } else {
+                JOptionPane.showMessageDialog(this, "El código del producto no es válido.");
+                return -1; // Retorna un valor especial para indicar que el valor no es válido
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto de la tabla.");
+            return -1; // Retorna un valor especial para indicar que no se seleccionó ningún producto
+        }
+    }
+
+    private void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0); // Limpiar el modelo de la tabla
+
+        // Obtener la lista de proveedores desde el DAO
+        List<CompraProveedor> listaProveedores = controladorCompraPoveedor.listar();
+
+        // Recorrer la lista de proveedores y añadir sus datos al modelo de la tabla
+        for (CompraProveedor proveedor : listaProveedores) {
+            try {
+                int codigo = proveedor.getCodigo();
+                String nombre = controladorPorveedor.buscarProveedorPorCodigo(proveedor.getCodigoProveedor()).getNombre();
+                Timestamp telefono = proveedor.getFecha();
+                double direccion = proveedor.getValorTotal();
+                int correo = proveedor.getCodigoProducto();
+                //String ruc = proveedor.getRuc();
+
+                Object[] rowData = {codigo, nombre, telefono, direccion, correo};
+                modelo.addRow(rowData);
+            } catch (SQLException ex) {
+                Logger.getLogger(ListarCompraProveedores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        // Asignar el modelo actualizado a la tabla
+        jTable1.setModel(modelo);
+    }
+
+    //Override
+    public void mouseClicked(MouseEvent e) {
+        int filaSeleccionada = jTable1.rowAtPoint(e.getPoint());
+        if (filaSeleccionada >= 0) {
+            // Obtener el código del producto
+            int codigoProducto = (int) jTable1.getValueAt(filaSeleccionada, 4); // Ajusta el índice si es necesario
+
+            if (mostrarProductosProveedores != null) {
+                //mostrarProductosProveedores.mostrarCodigoProducto(codigoProducto);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

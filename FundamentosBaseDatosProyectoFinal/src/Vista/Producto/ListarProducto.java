@@ -50,6 +50,25 @@ public class ListarProducto extends javax.swing.JInternalFrame {
         radioNombre = new javax.swing.JRadioButton();
         radioCategoria = new javax.swing.JRadioButton();
         btnSeleccionar = new javax.swing.JButton();
+        radioListartodo = new javax.swing.JRadioButton();
+
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,6 +112,8 @@ public class ListarProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        radioListartodo.setText("Listar Todo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,13 +126,15 @@ public class ListarProducto extends javax.swing.JInternalFrame {
                         .addGap(215, 215, 215))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(radioNombre)
-                                .addGap(122, 122, 122)
+                                .addGap(66, 66, 66)
                                 .addComponent(radioCategoria)
-                                .addGap(82, 82, 82)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(radioListartodo)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnSeleccionar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,7 +147,8 @@ public class ListarProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioNombre)
                     .addComponent(radioCategoria)
-                    .addComponent(btnSeleccionar))
+                    .addComponent(btnSeleccionar)
+                    .addComponent(radioListartodo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -144,8 +168,14 @@ public class ListarProducto extends javax.swing.JInternalFrame {
             desplegarNombre();
         }else if (radioCategoria.isSelected()) {
             desplegarCategoria();
+        }else if (radioListartodo.isSelected()) {
+            actualizarTabla();
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        this.actualizarTabla();
+    }//GEN-LAST:event_formInternalFrameActivated
 
     private void desplegarNombre() {
         if (buscarProductoNombre == null) {
@@ -157,7 +187,7 @@ public class ListarProducto extends javax.swing.JInternalFrame {
 
     private void desplegarCategoria() {
         if (buscarProductoCategoria == null) {
-            buscarProductoCategoria = new BuscarProductoCategoria();
+            buscarProductoCategoria = new BuscarProductoCategoria(jTable1);
             desktopPane.add(buscarProductoCategoria);
         }
         buscarProductoCategoria.setVisible(true); 
@@ -192,6 +222,7 @@ public class ListarProducto extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton radioCategoria;
+    private javax.swing.JRadioButton radioListartodo;
     private javax.swing.JRadioButton radioNombre;
     // End of variables declaration//GEN-END:variables
 }

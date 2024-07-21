@@ -5,11 +5,14 @@
 package DAO;
 
 import Modelo.Proveedor.CompraProveedor;
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -148,6 +151,47 @@ public class DAOCompraProveedor {
             System.out.println(ex);
         }
         return llave;
+    }
+
+    public List<CompraProveedor> listarCompras() {
+        List<CompraProveedor> listaCompras = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        String sql = "SELECT com_codigo, com_fecha, com_valor_total, com_cantidad, super_productos_pro_codigo, super_proveedores_prov_codigo FROM super_compra_proveedores";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int comCodigo = rs.getInt("com_codigo");
+                Timestamp comFecha = rs.getTimestamp("com_fecha");
+                double comValorTotal = rs.getDouble("com_valor_total");
+                int comCantidad = rs.getInt("com_cantidad");
+                int codigoProducto = rs.getInt("super_productos_pro_codigo");
+                int codigoProveedor = rs.getInt("super_proveedores_prov_codigo");
+
+                CompraProveedor compraProveedor = new CompraProveedor(
+                        codigoProveedor,
+                        codigoProducto,
+                        comCodigo,
+                        comFecha,
+                        comValorTotal,
+                        comCantidad
+                );
+                listaCompras.add(compraProveedor);
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        } finally {
+            conexion.desconectar();
+        }
+
+        return listaCompras;
     }
 
 }

@@ -95,22 +95,17 @@ public class BuscarProductoNombre extends javax.swing.JInternalFrame {
 
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese el nombre del producto a buscar.");
-            return; // Salir del método si el nombre está vacío
+            return; 
         }
-
-        // Limpiar la tabla antes de agregar el producto encontrado
         DefaultTableModel modelo = (DefaultTableModel) this.jTable.getModel();
         modelo.setRowCount(0);
 
         try {
-            // Llamada al método de búsqueda por nombre
             producto = controladorProducto.buscarProducto(nombre);
 
             if (producto != null) {
-                // Obtener la categoría del producto
-                String categoria = "Sin categoría"; // Asignar "Sin categoría" por defecto
+                //String categoria = "Sin categoría"; // Asignar "Sin categoría" por defecto
 
-                // Crear un objeto con los datos del producto y añadirlo a la tabla
                 Object[] rowData = {
                     producto.getCodigo(),
                     producto.getNombre(),
@@ -118,7 +113,7 @@ public class BuscarProductoNombre extends javax.swing.JInternalFrame {
                     producto.getStock(),
                     producto.getIva(),
                     producto.getVisualizacion(),
-                    categoria // Utilizar la categoría por defecto
+                    controladorCategoria.buscarCategoriaPorCodigo(producto.getCategoria()).getNombre()
                 };
                 modelo.addRow(rowData);
 

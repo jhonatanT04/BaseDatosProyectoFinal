@@ -4,17 +4,33 @@
  */
 package Vista.Proovedoores;
 
+import Controlador.ControladorProducto;
+import Modelo.Producto.Producto;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Usuario
  */
 public class MostrarProductosProveedores extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel defaultTableModel;
+    private ControladorProducto controladorProducto;
+    private Producto producto;
+
     /**
      * Creates new form MostrarProductosProveedores
      */
-    public MostrarProductosProveedores() {
+    public MostrarProductosProveedores(int Codigo) {
         initComponents();
+        this.controladorProducto = new ControladorProducto();
+        //cargarDetallesProducto(Codigo);
+        this.defaultTableModel = new DefaultTableModel();
     }
 
     /**
@@ -46,6 +62,11 @@ public class MostrarProductosProveedores extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,6 +106,32 @@ public class MostrarProductosProveedores extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //cargarDetallesProducto(codigo); 
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cargarDetallesProducto(int codigoProducto) {
+        try {
+            // Obtener el modelo de la tabla de jTable1
+            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+
+            // Limpiar la tabla antes de cargar nuevos datos
+            tableModel.setRowCount(0);
+
+            // Obtener los detalles del producto usando el DAO
+            producto = controladorProducto.buscarProductoCodigo(codigoProducto);
+
+            if (producto != null) {
+                // Agregar la información del producto a la tabla
+                Object[] rowData = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getIva()};
+                tableModel.addRow(rowData);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el producto con código " + codigoProducto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MostrarProductosProveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
