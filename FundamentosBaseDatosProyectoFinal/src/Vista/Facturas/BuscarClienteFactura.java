@@ -4,17 +4,30 @@
  */
 package Vista.Facturas;
 
+import Controlador.ControladorCliente;
+import Controlador.ControladorPersona;
+import Modelo.Personas.Persona.Cliente;
+import Modelo.Personas.Persona.Persona;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author venot
  */
 public class BuscarClienteFactura extends javax.swing.JInternalFrame {
-
+    private Cliente cliente;
+    private ControladorPersona controladorPersona;
+    private ControladorCliente controladorCliente;
     /**
      * Creates new form BuscarCliente
      */
-    public BuscarClienteFactura() {
+    public BuscarClienteFactura(Cliente cliente) {
         initComponents();
+        this.cliente= cliente;
+        controladorPersona = new ControladorPersona();
     }
 
     /**
@@ -27,46 +40,62 @@ public class BuscarClienteFactura extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        txtCedula = new javax.swing.JTextField();
+        jBntCancelar = new javax.swing.JButton();
+        jBntBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
 
-        jLabel1.setText("Ingrese cedula del Cliente :");
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Agregar");
+        jBntCancelar.setText("Cancelar");
+        jBntCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBntCancelarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salir");
+        jBntBuscar.setText("Buscar");
+        jBntBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBntBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Cedula del Empleado:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(48, 48, 48)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(57, 57, 57))
+                .addContainerGap(401, Short.MAX_VALUE)
+                .addComponent(jBntBuscar)
+                .addGap(23, 23, 23)
+                .addComponent(jBntCancelar)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(jBntBuscar)
+                    .addComponent(jBntCancelar))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,12 +118,70 @@ public class BuscarClienteFactura extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void jBntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        this.txtCedula.setText("");
+    }//GEN-LAST:event_jBntCancelarActionPerformed
+    
+    private void jBntBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBntBuscarActionPerformed
+        // TODO add your handling code here:
+
+        if (txtCedula.getText().trim().isEmpty()==false) {
+            if(txtCedula.getText().trim().length()>10||txtCedula.getText().trim().length()<10){
+                JOptionPane.showInternalMessageDialog(rootPane, "El campo cedula lleva 10 digitos");
+            }else{
+                
+                try {
+                    Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
+                    if (per!=null) {
+                        Cliente cli = controladorCliente.buscarCliente(per);
+                        System.out.println(cli+" sdadasdasadasssssss");
+                        char visu = cli.getVisualizacion();
+                        if (cli!=null) {
+                            if (visu=='A') {
+
+                                cliente = cli;
+                                
+                                this.setVisible(false);
+                                this.txtCedula.setText("");
+
+                            }else{
+                                cliente = null;
+                                JOptionPane.showInternalMessageDialog(rootPane, "El cliente esta desactivado.");
+                            }
+                        }else{
+
+                            JOptionPane.showInternalMessageDialog(rootPane, "El cliente no existe en la base de datos.");
+
+                        }
+                    }else{
+                        JOptionPane.showInternalMessageDialog(rootPane, "La persona no existe en la base de datos");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(BuscarClienteFactura.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        }else{
+            JOptionPane.showInternalMessageDialog(rootPane, "Se debe llenar el campo cedula");
+        }
+    }//GEN-LAST:event_jBntBuscarActionPerformed
+    
+    
+    public Cliente getCliente(){
+        return cliente;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBntBuscar;
+    private javax.swing.JButton jBntCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCedula;
     // End of variables declaration//GEN-END:variables
 }

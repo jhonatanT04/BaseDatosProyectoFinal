@@ -467,7 +467,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         if(crearFactura == null){
-            crearFactura = new CrearFactura(controladorProducto);
+            crearFactura = new CrearFactura(controladorProducto,desktopPane);
             desktopPane.add(crearFactura);
         }
         
