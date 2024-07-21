@@ -34,5 +34,7 @@ public class ControladorEmpleado {
     public List<Empleado> ListarEmpleados(List<Persona> persns) throws SQLException{
         return daoEmpleado.ListarEmpleados(persns);
     }
-    
+    public Empleado buscarEmpleadoCorreo(String correo) throws SQLException {
+        return daoEmpleado.validarEmpleadoPorCorreo(correo);
+    }
 }

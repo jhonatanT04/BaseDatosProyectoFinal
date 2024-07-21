@@ -7,6 +7,11 @@ package Vista;
 import Controlador.ControladorCliente;
 import Controlador.ControladorEmpleado;
 import Controlador.ControladorPersona;
+import Modelo.Personas.Persona.Empleado;
+import Vista.Empleado.Administrador;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +21,9 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
     private ControladorEmpleado controladorEmpleado;
     private ControladorPersona controladorPersona;
+    private Administrador admin;
+    private Empleado gen;
+    private javax.swing.JDesktopPane desktopPane;
     /**
      * Creates new form Login
      */
@@ -115,9 +123,20 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if (validarCampos()) {
-            if (true) {
-                
+            try {
+                Empleado emp = controladorEmpleado.buscarEmpleadoCorreo(jtxtCorreo.getText().trim());
+                if (emp!=null) {
+                    if (emp.getPermiso()=='A') {
+                        desplegarAdministrador();
+                        this.setVisible(false);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "El correo/contraseña es incorrecto.");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             this.limpiarCampos();
         }
         
@@ -160,6 +179,15 @@ public class Login extends javax.swing.JFrame {
             return true;
         }
     }
+    
+    private void desplegarAdministrador(){
+        if(admin == null){
+            admin = new Administrador();
+            desktopPane.add(admin);
+        }
+        admin.setVisible(true); 
+    }
+    
     /**
      * @param args the command line arguments
      */

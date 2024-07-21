@@ -48,31 +48,7 @@ public class DAOEmpleado {
             return false;
         }
     }
-    public Empleado buscarEmpleadoPorCedula(Persona per) throws SQLException {
-        String empleadoSQL = "SELECT emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso FROM super_empleados WHERE super_personas_per_codigo = ?";
-        Conexion conexion = new Conexion();
-        Connection conn = conexion.conectar();
-        try (PreparedStatement psCliente = conn.prepareStatement(empleadoSQL)) {
-            psCliente.setInt(1, per.getCodigo());
-            ResultSet rsCliente = psCliente.executeQuery();
-            if (rsCliente.next()) {
-                int empCodigo = rsCliente.getInt("emp_codigo");
-                //String codigoVisu = rsCliente.getString("emp_visualizar");
-                String visualizar = rsCliente.getString("emp_visualizar");
-                String empContra = rsCliente.getString("emp_contrasenia");
-                String empPermiso = rsCliente.getString("emp_permiso");
-               
-                
-                return new Empleado(empCodigo, visualizar.charAt(0),  empContra, empPermiso.charAt(0),  per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
-                //return new Cliente(cliCodigo, visualizar.charAt(0), per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
-                //return new Cliente(cliCodigo,visualizar.charAt(0) , per.getCodigo(), per.getCedula(),per.getNombre(),per.getApellido() ,per.getDireccion(),per.getTelefono(), per.getCorreo());
-            }else {
-                    //System.out.println("Cliente no encontrado para la cédula: " + cedula);
-                   
-                return null;
-            }
-        }
-    }
+    
     public List<Empleado> ListarEmpleados(List<Persona> personas) throws SQLException {        
          
         String clienteSQL = "SELECT emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso FROM super_empleados WHERE super_personas_per_codigo = ? order by 1 desc";
@@ -122,12 +98,60 @@ public class DAOEmpleado {
             }
         }
     }
-    
-    public Empleado validarEmpleadoPorCorreo(String correo) throws SQLException {
-        String empleadoSQL = "SELECT emp_codigo, emp_visualizar, emp_contrasenia, emp_permiso,per_codigo, per_cedula, per_nombre, per_apellido, per_direccion, per_telefono, per_correo_electronico FROM super_empleados e , super_personas where e.super_personas_per_codigo = p.per_codigo AND p.per_correo_electronico = ?;";
+    public Empleado buscarEmpleadoPorCedula(Persona per) throws SQLException {
+        String empleadoSQL = "SELECT emp_codigo, emp_visualizar, super_personas_per_codigo, emp_contrasenia, emp_permiso FROM super_empleados WHERE super_personas_per_codigo = ?";
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        return null;
+        try (PreparedStatement psCliente = conn.prepareStatement(empleadoSQL)) {
+            psCliente.setInt(1, per.getCodigo());
+            ResultSet rsCliente = psCliente.executeQuery();
+            if (rsCliente.next()) {
+                int empCodigo = rsCliente.getInt("emp_codigo");
+                //String codigoVisu = rsCliente.getString("emp_visualizar");
+                String visualizar = rsCliente.getString("emp_visualizar");
+                String empContra = rsCliente.getString("emp_contrasenia");
+                String empPermiso = rsCliente.getString("emp_permiso");
+               
+                
+                return new Empleado(empCodigo, visualizar.charAt(0),  empContra, empPermiso.charAt(0),  per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
+                //return new Cliente(cliCodigo, visualizar.charAt(0), per.getCodigo(), per.getCedula(), per.getNombre(), per.getApellido(), per.getDireccion(), per.getTelefono(), per.getCorreo());
+                //return new Cliente(cliCodigo,visualizar.charAt(0) , per.getCodigo(), per.getCedula(),per.getNombre(),per.getApellido() ,per.getDireccion(),per.getTelefono(), per.getCorreo());
+            }else {
+                    //System.out.println("Cliente no encontrado para la cédula: " + cedula);
+                   
+                return null;
+            }
+        }
     }
+    public Empleado validarEmpleadoPorCorreo(String correo) throws SQLException {
+    String empleadoSQL = "SELECT e.emp_codigo, e.emp_visualizar, e.emp_contrasenia, e.emp_permiso, p.per_codigo, p.per_cedula, p.per_nombre, p.per_apellido, p.per_direccion, p.per_telefono, p.per_correo_electronico "
+            + "FROM super_empleados e, super_personas p "
+            + "WHERE e.super_personas_per_codigo = p.per_codigo AND p.per_correo_electronico = ? ;";
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        try (PreparedStatement psCliente = conn.prepareStatement(empleadoSQL)) {
+            psCliente.setString(1, correo);
+            ResultSet rsCliente = psCliente.executeQuery();
+            if (rsCliente.next()) {
+                int empCodigo = rsCliente.getInt("emp_codigo");
+                String visualizar = rsCliente.getString("emp_visualizar");
+                String empContra = rsCliente.getString("emp_contrasenia");
+                String empPermiso = rsCliente.getString("emp_permiso");
+                int codigoPer = rsCliente.getInt("per_codigo");
+                String cedula = rsCliente.getString("per_cedula");
+                String nombre = rsCliente.getString("per_nombre");
+                String apellido = rsCliente.getString("per_apellido");
+                String direccion = rsCliente.getString("per_direccion");
+                String telefono = rsCliente.getString("per_telefono");
+                String cor = rsCliente.getString("per_correo_electronico");
+                
+                return new Empleado(empCodigo, visualizar.charAt(0), empContra, empPermiso.charAt(0), codigoPer, cedula, nombre, apellido, direccion, telefono, cor);
+            } else {
+                return null;
+            }
+        }
+    }
+
+
     
 }
