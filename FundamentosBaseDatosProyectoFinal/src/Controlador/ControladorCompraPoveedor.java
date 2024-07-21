@@ -38,6 +38,6 @@ public class ControladorCompraPoveedor {
     }
     
     public List<CompraProveedor> listar(){
-        return daoCompraProveedor.listaCompraProveedor();
+        return daoCompraProveedor.listarCompras();
     }
 }

@@ -561,7 +561,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         if(listarCompraProveedores == null){
-            listarCompraProveedores = new ListarCompraProveedores(controladorCompraPoveedor, controladorProveedor);
+            listarCompraProveedores = new ListarCompraProveedores(controladorCompraPoveedor, controladorProveedor,desktopPane);
             desktopPane.add(listarCompraProveedores);
         }
         
