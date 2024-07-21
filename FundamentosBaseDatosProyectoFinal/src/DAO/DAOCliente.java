@@ -26,7 +26,7 @@ public class DAOCliente {
     public boolean insertarCliente(Cliente cliente) throws SQLException {
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
-        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (SEQ_CLI_CODIGO.NEXTVAL, ?, ?)";
+        String insertClienteSQL = "INSERT INTO super_clientes (cli_codigo, cli_visualizar, super_personas_per_codigo) VALUES (SEQ_SUPER_CLIENTES.NEXTVAL, ?, ?)";
         
         if (daoPersona.buscarPersonaCliente(cliente.getCedula()) == null) {
             try (PreparedStatement psCliente = conn.prepareStatement(insertClienteSQL)) {
@@ -122,6 +122,24 @@ public class DAOCliente {
         }
         return listaClientes;
         
+    }
+     
+    public boolean eliminarCliente(int codigoCliente) throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+    
+        String sql = "DELETE FROM super_clientes WHERE cli_codigo = ?";
+    
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, codigoCliente);
+            int filasAfectadas = stmt.executeUpdate();
+            
+            return filasAfectadas > 0; // Devuelve true si se eliminó al menos una fila, false si no se eliminó ninguna
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
     
     

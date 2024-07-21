@@ -37,4 +37,7 @@ public class ControladorCliente {
     public List<Cliente> buscarPorNombreCliente(List<Persona> persns) throws SQLException{
         return daoCliente.buscarPersonaPorNombre(persns);
     }
+    public void eliminarCliente(int codigoCli) throws SQLException{
+        daoCliente.eliminarCliente(codigoCli);
+    }
 }

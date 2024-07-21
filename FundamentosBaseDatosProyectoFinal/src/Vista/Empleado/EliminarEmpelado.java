@@ -10,6 +10,8 @@ import DAO.DAOCabeceraFactura;
 import Modelo.Personas.Persona.Empleado;
 import Modelo.Personas.Persona.Persona;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +32,8 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
         daoCabeceraFactura = new DAOCabeceraFactura();
         buttonGroupSeleccion.add(jRadioButtonAdministrador);
         buttonGroupSeleccion.add(jRadioButtonGeneral);
+        jRadioButtonAdministrador.setEnabled(false);
+        jRadioButtonGeneral.setEnabled(false);
     }
 
     /**
@@ -131,15 +135,8 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(69, 69, 69)
-                                .addComponent(jRadioButtonAdministrador)
-                                .addGap(30, 30, 30)
-                                .addComponent(jRadioButtonGeneral)))
-                        .addGap(207, 303, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(420, 516, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -168,16 +165,26 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
                                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jLabel12))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar)
-                                .addGap(13, 13, 13))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnEliminar)
                                 .addGap(30, 30, 30)
                                 .addComponent(jButton2)
-                                .addGap(12, 12, 12))))))
+                                .addGap(12, 12, 12))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBuscar))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(65, 65, 65)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jRadioButtonAdministrador)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButtonGeneral)))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,11 +197,14 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButtonAdministrador)
+                    .addComponent(jRadioButtonGeneral))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -211,18 +221,10 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jRadioButtonAdministrador)
-                            .addComponent(jRadioButtonGeneral)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(btnEliminar))))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btnEliminar))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -313,11 +315,17 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         if (validarCampos()) {
+            
             try {
                 Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
-                boolean val= daoCabeceraFactura.buscarEmpleado(per.getCodigo());
+                
                 Empleado emp = controladorEmpleado.buscarEmpleado(per);
-                if (val) {
+                
+                boolean val= daoCabeceraFactura.buscarEmpleado(emp.getEmpleadoCodigo());
+                
+                
+                if (!val) {
+                    
                     int opc = JOptionPane.showInternalConfirmDialog(rootPane, "Esta seguro que quiere eliminar el empleado.");
                     if (opc==0) {
                         controladorEmpleado.eliminarEmpleado(emp.getEmpleadoCodigo());
@@ -337,11 +345,11 @@ public class EliminarEmpelado extends javax.swing.JInternalFrame {
                     }
                     
                 }
-
             } catch (SQLException ex) {
-                //Logger.getLogger(actualizarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showInternalMessageDialog(rootPane, "ERROR " + ex);
+                Logger.getLogger(EliminarEmpelado.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private boolean validarCampos() {

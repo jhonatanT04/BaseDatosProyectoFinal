@@ -135,13 +135,11 @@ public class IngresaCedulaCliente extends javax.swing.JInternalFrame {
                     Persona per =controladorPersona.buscarPersonaCliente(txtCedula.getText().trim());
                     if (per!=null) {
                         Cliente cli = controladorCliente.buscarCliente(per);
+                        System.out.println(cli+" sdadasdasadasssssss");
+                        char visu = cli.getVisualizacion();
                         if (cli!=null) {
-                            if (cli.getVisualizacion()=='A') {
-                                /*txtApellido.setText(cli.getApellido());
-                                txtNombre.setText(cli.getNombre());
-                                txtCorreo.setText(cli.getCorreo());
-                                txtDireccion.setText(cli.getDireccion());
-                                txtTelefono.setText(cli.getTelefono());*/
+                            if (visu=='A') {
+                                
                                 cliente = cli;
                                 addClienteToTable(cliente);
                                 this.setVisible(false);
