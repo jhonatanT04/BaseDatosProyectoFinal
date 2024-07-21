@@ -52,6 +52,7 @@ public class CrearFactura extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupCorreo = new javax.swing.ButtonGroup();
         txtNombre = new javax.swing.JTextField();
         btnAgregarProductos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -153,6 +154,11 @@ public class CrearFactura extends javax.swing.JInternalFrame {
         txtDireccion.setEditable(false);
 
         jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         txtApellido.setEditable(false);
 
@@ -244,15 +250,18 @@ public class CrearFactura extends javax.swing.JInternalFrame {
                                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jButton2)
                                         .addComponent(btnAgregarProductos, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton2)))))
-                        .addContainerGap(104, Short.MAX_VALUE))
+                                        .addGap(28, 28, 28)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jRadioButton1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                                                .addComponent(jRadioButton2))
+                                            .addComponent(jLabel1))))))
+                        .addGap(70, 70, 70))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(jLabel5)
@@ -330,7 +339,7 @@ public class CrearFactura extends javax.swing.JInternalFrame {
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1)
                             .addComponent(jButton5))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -415,6 +424,12 @@ public class CrearFactura extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAgregarProductosActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     private void agregarProductoATabla(Producto producto) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String cantidadStr = JOptionPane.showInputDialog(this, "Ingrese la cantidad:", "Cantidad", JOptionPane.PLAIN_MESSAGE);
@@ -452,6 +467,7 @@ public class CrearFactura extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProductos;
+    private javax.swing.ButtonGroup buttonGroupCorreo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
